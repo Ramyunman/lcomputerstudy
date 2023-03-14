@@ -1,11 +1,46 @@
 spring:
+  profiles:
+    active:
+    - local
+
+---
+
+spring:
+  profiles:
+  - local
+  
+  mvc:
+    view:
+      prefix: "/WEB-INF/views"
+      suffix: ".jsp"
+      
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://127.0.0.1:3306/lockwoodmk2?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mariadb.jdbc.Driver
     
   session:
     jdbc:
       initialize-schema: always
+      
 
+server:
+  port: 8080
+  tomcat:
+     file-encoding: UTF-8
+    
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+    jsp:
+      init-parameters:
+        development: true
+    session:
+      timeout: 7200
+  error:
+      whitelabel:
+        enabled: false

@@ -4,7 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
-group = 'com.example'
+group = 'com.lcomputerstudy'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -19,11 +19,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
 	implementation 'org.springframework.session:spring-session-jdbc'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
+	
+	implementation('org.apache.tomcat.embed:tomcat-embed-jasper')
+	implementation('javax.servlet:jstl:1.2')
+	
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('org.springframework.security:spring-security-test')
+	
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
 }
+
