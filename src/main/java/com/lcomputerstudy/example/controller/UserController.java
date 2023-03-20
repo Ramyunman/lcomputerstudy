@@ -20,7 +20,7 @@ import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.UserService;
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class UserController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userservice;
@@ -92,6 +92,13 @@ public class Controller {
 	@RequestMapping(value="/denied")
 	public String denied(Model model) {
 		return "/denied";
+	}
+	
+	@RequestMapping("/user/list")		//user list 추가
+	public String userList(Model model) {
+		List<User> userList = userservice.selectUserList();
+		model.addAttribute("userList", userList);
+		return "/user_list";
 	}
 
 

@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
 		List<GrantedAuthority> authorities = userMapper.readAuthorities(username);
 		return authorities;
 	}
+
+	@Override
+	public List<User> selectUserList() {
+		return userMapper.selectUserList();
+	}
 	
 	
 }

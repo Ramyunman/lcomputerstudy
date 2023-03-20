@@ -43,13 +43,13 @@
 			#{isCredentialsNonExpired},
 			#{isEnabled}
 		)
-		ON DUPLICATE KEY UPDATE
+  <!-- 		ON DUPLICATE KEY UPDATE
 			u_password = #{password},
 			u_name = #{uName},
 			u_isAccountNonExpired = #{isAccountNonExpired},
 			u_isAccountNonLocked = #{isAccountNonLocked},
 			u_isCredentialNonExpired = #{isCredentialsNonExpired},
-			u_isEnabled = #{isEnabled}			
+			u_isEnabled = #{isEnabled}	  -->		
 	</insert>
 	
 	<!-- 유저 권한 추가 -->
