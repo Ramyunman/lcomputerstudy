@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 		return authorities;
 	}
 
-	@Override
+	@Override		// 유저 리스트 불러오기
 	public List<User> selectUserList() {
 		return userMapper.selectUserList();
 	}

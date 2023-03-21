@@ -9,6 +9,7 @@ public class User implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 	
+	private int uIdx;			//u_idx
 	private String username;	//u_id
 	private String password;	//u_password
 	private String uName;		//u_name
@@ -22,6 +23,12 @@ public class User implements UserDetails {
 	private boolean isCredentialsNonExpired;
 	private boolean isEnabled;
 		
+	public int getuIdx() {
+		return uIdx;
+	}
+	public void setuIdx(int uIdx) {
+		this.uIdx = uIdx;
+	}
 	public String getuName() {
 		return uName;
 	}
