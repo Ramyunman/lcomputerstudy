@@ -47,7 +47,7 @@
 			#{isCredentialsNonExpired},
 			#{isEnabled}
 		)
-
+	
 	</insert>
 	
 	<!-- 유저 권한 추가 -->
@@ -65,7 +65,7 @@
 	</insert>
 	
 	<!-- 유저 리스트 불러오기 -->
-	<select id="selectUserList" resultType="User">
+	<select id="selectUserList">
 		SELECT		u_idx						as	uIdx,
 					u_id						as	username,
 					u_name						as	uName	 

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.User;
@@ -44,9 +45,13 @@ public class UserController {
 	}
 	
 	@RequestMapping("/signup")
-	public String signup(User user) {
+	public String signup(User user, @RequestParam("tel1") String tel1, @RequestParam("tel2") String tel2, @RequestParam("tel3") String tel3) {
 		//비밀번호 암호화
 		String encodedPassword = encoder.encode(user.getPassword());
+		
+		//전화번호 세팅
+		String tel = tel1 + "-" + tel2 + "-" + tel3;
+		user.setuTel(tel);
 		
 		//유저 데이터 세팅
 		user.setPassword(encodedPassword);
@@ -55,13 +60,6 @@ public class UserController {
 		user.setAccountNonLocked(true);
 		user.setCredentialsNonExpired(true);
 		user.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
-		
-		/*GrantedAuthority role1 = new SimpleGrantedAuthority("ROLE_USER");
-		GrantedAuthority role2 = new SimpleGrantedAuthority("ROLE_ADMIN");
-		List<GrantedAuthority> roleList = new ArrayList<>();
-		roleList.add(role1);
-		roleList.add(role2);
-		user.setAuthorities(roleList);*/
 		
 		//유저 생성
 		userservice.createUser(user);
