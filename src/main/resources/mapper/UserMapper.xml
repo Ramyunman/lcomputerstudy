@@ -30,6 +30,8 @@
 			u_id,
 			u_password,
 			u_name,
+			u_tel,
+			u_age,
 			u_isAccountNonExpired,
 			u_isAccountNonLocked,
 			u_isCredentialNonExpired,
@@ -38,6 +40,8 @@
 			#{username},
 			#{password},
 			#{uName},
+			#{uTel},
+			#{uAge},
 			#{isAccountNonExpired},
 			#{isAccountNonLocked},
 			#{isCredentialsNonExpired},
@@ -65,10 +69,6 @@
 		SELECT		u_idx						as	uIdx,
 					u_id						as	username,
 					u_name						as	uName	 
-					u_isAccountNonExpired		as 	isAccountNonExpired,
-					u_isAccountNonLocked		as 	isAccountNonLocked,
-					u_isCredentialNonExpired	as 	isCredentialsNonExpired,
-					u_isEnabled					as 	isEnabled
 						
 		FROM 		lc_user
 	</select>

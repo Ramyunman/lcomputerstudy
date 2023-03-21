@@ -1,5 +1,6 @@
 package com.lcomputerstudy.example.domain;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +15,9 @@ public class User implements UserDetails {
 	private String password;	//u_password
 	private String uName;		//u_name
 	private String uDateTime;	//u_datetime
+	private String uTel;		//u_tel
+	private String[] uTelArr;	// 전화번호 배열
+	private int uAge;			//u_age
 	
 	//security 관련
 	private Collection<? extends GrantedAuthority> authorities;
@@ -46,6 +50,24 @@ public class User implements UserDetails {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getuTel() {
+		return uTel;
+	}
+	public void setuTel(String uTel) {
+		this.uTel = uTel;
+	}
+	public String[] getuTelArr() {
+		return uTelArr;
+	}
+	public void setuTelArr(String[] uTelArr) {
+		this.uTelArr = uTelArr;
+	}
+	public int getuAge() {
+		return uAge;
+	}
+	public void setuAge(int uAge) {
+		this.uAge = uAge;
 	}
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
@@ -99,16 +121,13 @@ public class User implements UserDetails {
 	}
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", uName=" + uName + ", uDateTime=" + uDateTime
-				+ ", authorities=" + authorities + ", isAccountNonExpired=" + isAccountNonExpired
+		return "User [uIdx=" + uIdx + ", username=" + username + ", password=" + password + ", uName=" + uName
+				+ ", uDateTime=" + uDateTime + ", uTel=" + uTel + ", uTelArr=" + Arrays.toString(uTelArr) + ", uAge="
+				+ uAge + ", authorities=" + authorities + ", isAccountNonExpired=" + isAccountNonExpired
 				+ ", isAccountNonLocked=" + isAccountNonLocked + ", isCredentialsNonExpired=" + isCredentialsNonExpired
-				+ ", isEnabled=" + isEnabled + ", getuName()=" + getuName() + ", getuDateTime()=" + getuDateTime()
-				+ ", getAuthorities()=" + getAuthorities() + ", getPassword()=" + getPassword() + ", getUsername()="
-				+ getUsername() + ", isAccountNonExpired()=" + isAccountNonExpired() + ", isAccountNonLocked()="
-				+ isAccountNonLocked() + ", isCredentialsNonExpired()=" + isCredentialsNonExpired() + ", isEnabled()="
-				+ isEnabled() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ ", isEnabled=" + isEnabled + "]";
 	}
+	
 	
 	
 	

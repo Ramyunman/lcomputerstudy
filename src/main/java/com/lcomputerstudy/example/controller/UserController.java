@@ -30,7 +30,7 @@ public class UserController {
 	@RequestMapping("/")
 	public String home(Model model) {
 		
-//		List<User> list = boardservice.selectBoardList();
+//		List<Board> list = boardservice.selectBoardList();
 //		model.addAttribute("list",list);
 		logger.debug("debug");
 		logger.info("info");
