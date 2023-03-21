@@ -62,11 +62,14 @@
 	
 	<!-- 유저 리스트 불러오기 -->
 	<select id="selectUserList" resultType="User">
-		SELECT			u_idx	as	uIdx,
-						u_id	as	username,
-						u_name	as	uName	 
+		SELECT		u_idx						as	uIdx,
+					u_id						as	username,
+					u_name						as	uName	 
+					u_isAccountNonExpired		as 	isAccountNonExpired,
+					u_isAccountNonLocked		as 	isAccountNonLocked,
+					u_isCredentialNonExpired	as 	isCredentialsNonExpired,
+					u_isEnabled					as 	isEnabled
 						
-		FROM 			lc_user
-		WHERE 			1=1;
+		FROM 		lc_user
 	</select>
 </mapper>
