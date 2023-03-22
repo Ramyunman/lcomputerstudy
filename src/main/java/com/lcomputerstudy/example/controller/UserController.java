@@ -112,8 +112,9 @@ public class UserController {
 		return "/user/delete";
 	}
 	
-	@RequestMapping("/before-user-update")	// user update 전
-	public String beforeUserUpdate() {
+	@RequestMapping("/before-user-update/{uIdx}")	// user update 전
+	public String beforeUserUpdate(@PathVariable("uIdx") int uIdx, Model model) {
+		userservice.beforeUserUpdate(uIdx);
 		return "/user/update";
 	}
 	

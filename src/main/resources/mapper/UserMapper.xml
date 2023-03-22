@@ -93,6 +93,21 @@
 		WHERE		u_idx = #{uIdx}
 	</delete>
 	
+	<!-- 유저 수정전 보여주기 -->
+	<select id="beforeUserUpdate" parameterType="int" resultType="User">
+		SELECT 		u_id		as 	username,
+					u_password	as 	password,
+					u_name		as 	uName,
+			<!--  	SUBSTRING(u_tel,1,3)	as 	uTelArr0,
+					SUBSTRING(u_tel,6,4)	as 	uTelArr1,
+					SUBSTRING(u_tel,11,4)	as 	uTelArr2,	-->
+					u_tel		as	uTel,
+					u_age		as 	uAge
+					
+		FROM 		lc_user
+		WHERE 		u_idx = #{uIdx}
+	</select>
+	
 	<!-- 유저 수정 -->
 	<update id="updateUser" parameterType="User">
 		UPDATE		lc_user

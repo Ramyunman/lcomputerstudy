@@ -63,11 +63,18 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(int uIdx) {
 		userMapper.deleteUser(uIdx);	
 	}
-
+	
+	@Override		//유저 업데이트 전
+	public User beforeUserUpdate(int uIdx) {
+		return userMapper.beforeUserUpdate(uIdx);
+	}
+	
 	@Override		// 유저 업데이트
 	public void updateUser(User user) {
 		userMapper.updateUser(user);
 		
 	}
+
+	
 	
 }

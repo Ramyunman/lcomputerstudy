@@ -12,7 +12,6 @@
 	<form action="/user-update" method="post">
 	<!-- csrf -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-			<input type = "hidden" name = "u_idx" value = "${user.uIdx }">
 			<p> ID : <input type="text" name="id" value = "${user.username }"></p>
 			<p> 비밀번호 : <input type="text" name="password" value = ${user.password }></p>
 			<p> 이름 : <input type="text" name="name" value = ${user.uName }></p>
