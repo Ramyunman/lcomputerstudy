@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.UserMapper">
 	<!-- 권한 읽기 -->
-		<select id="readAuthorities" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
-			SELECT		u_auth
-			FROM		lc_auth
-			WHERE		1=1
-			AND			u_id = #{username}
-		</select>
+	<select id="readAuthorities" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+		SELECT		u_auth
+		FROM		lc_auth
+		WHERE		1=1
+		AND			u_id = #{username}
+	</select>
 		
 	<!-- 회원 불러오기 -->
 	<select id="readUser" parameterType="String" resultType="User">
@@ -85,4 +85,23 @@
 		FROM 		lc_user
 		WHERE 		u_idx = #{uIdx}
 	</select>
+			
+	<!-- 유저 삭제 -->
+	<delete id="deleteUser" parameterType="int">
+		DELETE
+		FROM		lc_user
+		WHERE		u_idx = #{uIdx}
+	</delete>
+	
+	<!-- 유저 수정 -->
+	<update id="updateUser" parameterType="User">
+		UPDATE		lc_user
+		SET			u_id = #{username},
+					u_password = #{password},
+					u_name = #{uName},
+					u_tel = #{uTel},
+					u_age = #{uAge}
+	
+		WHERE 		u_idx = #{uIdx}
+	</update>
 </mapper>

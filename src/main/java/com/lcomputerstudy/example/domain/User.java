@@ -16,7 +16,7 @@ public class User implements UserDetails {
 	private String uName;		//u_name
 	private String uDateTime;	//u_datetime
 	private String uTel;		//u_tel
-//	private String[] uTelArr;	// 전화번호 배열
+	private String[] uTelArr;	// 전화번호 배열
 	private int uAge;			//u_age
 	
 	//security 관련
@@ -57,12 +57,12 @@ public class User implements UserDetails {
 	public void setuTel(String uTel) {
 		this.uTel = uTel;
 	}
-//	public String[] getuTelArr() {
-//		return uTelArr;
-//	}
-//	public void setuTelArr(String[] uTelArr) {
-//		this.uTelArr = uTelArr;
-//	}
+	public String[] getuTelArr() {
+		return uTelArr;
+	}
+	public void setuTelArr(String[] uTelArr) {
+		this.uTelArr = uTelArr;
+	}
 	public int getuAge() {
 		return uAge;
 	}

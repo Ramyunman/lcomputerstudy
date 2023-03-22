@@ -26,4 +26,7 @@ public interface UserMapper {
 	
 	//유저 상세정보 보기
 	public User showUserDetail(int uIdx);
+	
+	//유저 삭제
+	public void deleteUser(int uIdx);
 }

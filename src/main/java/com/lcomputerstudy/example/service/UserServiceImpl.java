@@ -54,10 +54,15 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectUserList();
 	}
 	
-	@Override
+	@Override		// 유저 상세정보 보기
 	public User showUserDetail(int uIdx) {
 		return userMapper.showUserDetail(uIdx);
 		
+	}
+
+	@Override		// 유저 삭제
+	public void deleteUser(int uIdx) {
+		userMapper.deleteUser(uIdx);	
 	}
 	
 }

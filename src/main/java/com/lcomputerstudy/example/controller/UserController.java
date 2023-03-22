@@ -37,12 +37,12 @@ public class UserController {
 		logger.debug("debug");
 		logger.info("info");
 		logger.info("error");
-		return "/index";
+		return "/user/index";
 	}
 	
 	@RequestMapping("/beforeSignUp")
 	public String beforeSignup() {
-		return "/signup";
+		return "/user/signup";
 	}
 	
 	@RequestMapping("/signup")
@@ -67,44 +67,56 @@ public class UserController {
 		//유저 권한 생성
 		userservice.createAuthorities(user);
 		
-		return "/login";
+		return "/user/login";
 	}
 	
 	@RequestMapping(value="/login")
 	public String beforeLogin(Model model) {
-		return "/login";
+		return "/user/login";
 	}
 	
 	@Secured({"ROLE_ADMIN"})
 	@RequestMapping(value="/admin")
 	public String admin(Model model) {
-		return "/admin";
+		return "/user/admin";
 	}
 		
 	@Secured({"ROLE_USER"})
 	@RequestMapping(value="/user/info")
 	public String userInfo(Model model) {
-			
-		return "/user_info";
+		return "/user/user_info";
 	}
 		
 	@RequestMapping(value="/denied")
 	public String denied(Model model) {
-		return "/denied";
+		return "/user/denied";
 	}
 	
 	@RequestMapping("/user-list")		//user list 추가
 	public String userList(Model model) {
 		List<User> userList = userservice.selectUserList();
 		model.addAttribute("userList", userList);
-		return "/user_list";
+		return "/user/user_list";
 	}
 	
 	@RequestMapping("/user-detail/{uIdx}")		//user read 추가
 	public String userDetail(@PathVariable("uIdx") int uIdx, Model model) {
 		User user = userservice.showUserDetail(uIdx);
 		model.addAttribute("user", user);
-		return "/user_detail";
+		return "/user/user_detail";
+	}
+	
+	@RequestMapping("/user-delete/{uIdx}")		//user delete 추가
+	public String userDelete(@PathVariable("uIdx") int uIdx, Model model) {
+		userservice.deleteUser(uIdx);
+		return "/user/user_delete";
+	}
+	
+	@RequestMapping("/user-update/{uIdx}")		//user update 추가
+	public String userUpdate(@PathVariable("uIdx") int uIdx, Model model) {
+		User user = userservice.(uIdx);
+		model.addAttribute("user", user);
+		return "/user/user_detail";
 	}
 
 }
