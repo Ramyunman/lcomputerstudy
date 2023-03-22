@@ -65,11 +65,24 @@
 	</insert>
 	
 	<!-- 유저 리스트 불러오기 -->
-	<select id="selectUserList">
+	<select id="selectUserList" resultType="User">
 		SELECT		u_idx						as	uIdx,
 					u_id						as	username,
 					u_name						as	uName	 
 						
 		FROM 		lc_user
+	</select>
+	
+	<!-- 유저 상세 정보 보기  -->
+	<select id="showUserDetail" parameterType="int" resultType="User">
+		SELECT 		u_idx		as 	uIdx,
+					u_id		as 	username,
+					u_name		as 	uName,
+					u_datetime	as 	uDateTime,
+					u_tel 		as 	uTel,
+					u_age		as 	uAge
+					
+		FROM 		lc_user
+		WHERE 		u_idx = #{uIdx}
 	</select>
 </mapper>

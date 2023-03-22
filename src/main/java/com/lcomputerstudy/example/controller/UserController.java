@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -92,12 +93,18 @@ public class UserController {
 		return "/denied";
 	}
 	
-	@RequestMapping("/user/list")		//user list 추가
+	@RequestMapping("/user-list")		//user list 추가
 	public String userList(Model model) {
 		List<User> userList = userservice.selectUserList();
 		model.addAttribute("userList", userList);
 		return "/user_list";
 	}
-
+	
+	@RequestMapping("/user-detail/{uIdx}")		//user read 추가
+	public String userDetail(@PathVariable("uIdx") int uIdx, Model model) {
+		User user = userservice.showUserDetail(uIdx);
+		model.addAttribute("user", user);
+		return "/user_detail";
+	}
 
 }

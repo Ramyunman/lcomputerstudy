@@ -23,5 +23,7 @@ public interface UserService extends UserDetailsService {
 	
 	//유저 리스트 불러오기
 	public List<User> selectUserList();
-
+	
+	//유저 상세정보 보기
+	public User showUserDetail(int uIdx);
 }

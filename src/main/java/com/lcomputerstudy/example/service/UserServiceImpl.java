@@ -26,12 +26,12 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	@Override
+	@Override		// 유저 읽기
 	public User readUser(String username) {
 		return userMapper.readUser(username);
 	}
 
-	@Override
+	@Override		// 유저 가입
 	public void createUser(User user) {
 		userMapper.createUser(user);
 		
@@ -54,5 +54,10 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectUserList();
 	}
 	
+	@Override
+	public User showUserDetail(int uIdx) {
+		return userMapper.showUserDetail(uIdx);
+		
+	}
 	
 }
