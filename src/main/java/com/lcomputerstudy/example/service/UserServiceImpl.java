@@ -72,9 +72,7 @@ public class UserServiceImpl implements UserService {
 	@Override		// 유저 업데이트
 	public void updateUser(User user) {
 		userMapper.updateUser(user);
-		
 	}
 
-	
 	
 }

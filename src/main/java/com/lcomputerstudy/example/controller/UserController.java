@@ -46,7 +46,8 @@ public class UserController {
 	}
 	
 	@RequestMapping("/signup")
-	public String signup(User user, @RequestParam("tel1") String tel1, @RequestParam("tel2") String tel2, @RequestParam("tel3") String tel3) {
+	public String signup(User user,
+			@RequestParam("tel1") String tel1, @RequestParam("tel2") String tel2, @RequestParam("tel3") String tel3) {
 		//비밀번호 암호화
 		String encodedPassword = encoder.encode(user.getPassword());
 		
@@ -114,12 +115,20 @@ public class UserController {
 	
 	@RequestMapping("/before-user-update/{uIdx}")	// user update 전
 	public String beforeUserUpdate(@PathVariable("uIdx") int uIdx, Model model) {
-		userservice.beforeUserUpdate(uIdx);
+		User beforeUser = userservice.beforeUserUpdate(uIdx);
+		beforeUser.setuTelArr(beforeUser.getuTel().split("-"));	// uTel을 "-"로 쪼개어 uTelArr에 할당
+		model.addAttribute("user", beforeUser);
 		return "/user/update";
 	}
 	
 	@RequestMapping("/user-update")		//user update 추가
-	public String userUpdate(@PathVariable("uIdx") int uIdx, User user, Model model) {
+	public String userUpdate(@PathVariable("uIdx") int uIdx, User user, Model model, 
+			@RequestParam("tel1") String tel1, @RequestParam("tel2") String tel2, @RequestParam("tel3") String tel3) {
+		
+		//전화번호 세팅
+		String tel = tel1 + "-" + tel2 + "-" + tel3;
+		user.setuTel(tel);
+		
 		userservice.updateUser(user);
 		return "/user/update_result";
 	}

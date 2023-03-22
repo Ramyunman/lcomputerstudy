@@ -95,7 +95,8 @@
 	
 	<!-- 유저 수정전 보여주기 -->
 	<select id="beforeUserUpdate" parameterType="int" resultType="User">
-		SELECT 		u_id		as 	username,
+		SELECT 		u_idx		as  uIdx,
+					u_id		as 	username,
 					u_password	as 	password,
 					u_name		as 	uName,
 			<!--  	SUBSTRING(u_tel,1,3)	as 	uTelArr0,

@@ -122,11 +122,10 @@ public class User implements UserDetails {
 	@Override
 	public String toString() {
 		return "User [uIdx=" + uIdx + ", username=" + username + ", password=" + password + ", uName=" + uName
-				+ ", uDateTime=" + uDateTime + ", uTel=" + uTel + ", uAge="
-				+ uAge + ", authorities=" + authorities + ", isAccountNonExpired=" + isAccountNonExpired
-				+ ", isAccountNonLocked=" + isAccountNonLocked + ", isCredentialsNonExpired=" + isCredentialsNonExpired
-				+ ", isEnabled=" + isEnabled + "]";
+				+ ", uDateTime=" + uDateTime + ", uTel=" + uTel + ", uTelArr=" + Arrays.toString(uTelArr) + ", uAge="
+				+ uAge + ", authorities=" + authorities + "]";
 	}
+	
 	
 	
 	
