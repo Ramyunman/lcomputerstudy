@@ -29,4 +29,7 @@ public interface UserService extends UserDetailsService {
 	
 	//유저 삭제
 	public void deleteUser(int uIdx);
+	
+	//유저 업데이트
+	public void updateUser(User user);
 }

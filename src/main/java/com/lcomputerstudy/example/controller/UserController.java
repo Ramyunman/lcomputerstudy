@@ -84,7 +84,7 @@ public class UserController {
 	@Secured({"ROLE_USER"})
 	@RequestMapping(value="/user/info")
 	public String userInfo(Model model) {
-		return "/user/user_info";
+		return "/user/info";
 	}
 		
 	@RequestMapping(value="/denied")
@@ -96,27 +96,31 @@ public class UserController {
 	public String userList(Model model) {
 		List<User> userList = userservice.selectUserList();
 		model.addAttribute("userList", userList);
-		return "/user/user_list";
+		return "/user/list";
 	}
 	
 	@RequestMapping("/user-detail/{uIdx}")		//user read 추가
 	public String userDetail(@PathVariable("uIdx") int uIdx, Model model) {
 		User user = userservice.showUserDetail(uIdx);
 		model.addAttribute("user", user);
-		return "/user/user_detail";
+		return "/user/detail";
 	}
 	
 	@RequestMapping("/user-delete/{uIdx}")		//user delete 추가
 	public String userDelete(@PathVariable("uIdx") int uIdx, Model model) {
 		userservice.deleteUser(uIdx);
-		return "/user/user_delete";
+		return "/user/delete";
 	}
 	
-	@RequestMapping("/user-update/{uIdx}")		//user update 추가
-	public String userUpdate(@PathVariable("uIdx") int uIdx, Model model) {
-		User user = userservice.(uIdx);
-		model.addAttribute("user", user);
-		return "/user/user_detail";
+	@RequestMapping("/before-user-update")	// user update 전
+	public String beforeUserUpdate() {
+		return "/user/update";
+	}
+	
+	@RequestMapping("/user-update")		//user update 추가
+	public String userUpdate(@PathVariable("uIdx") int uIdx, User user, Model model) {
+		userservice.updateUser(user);
+		return "/user/update_result";
 	}
 
 }
