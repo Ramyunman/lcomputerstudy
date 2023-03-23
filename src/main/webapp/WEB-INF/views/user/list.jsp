@@ -77,6 +77,7 @@
 				<c:when test="${ pagination.prevPage <= pagination.endPage }">
 					<li>					
 						<a href="user-list.do?page=${pagination.prevPage}">
+				<!--  <a href="${pageContext.request.contextPath}/user-list"> 목록으로 </a>	-->
 							◀
 						</a>
 					</li>

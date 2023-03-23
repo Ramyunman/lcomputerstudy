@@ -65,12 +65,13 @@
 	</insert>
 	
 	<!-- 유저 리스트 불러오기 -->
-	<select id="selectUserList" resultType="User">
+	<select id="selectUserList" parameterType="Pagination" resultType="User">
 		SELECT		u_idx						as	uIdx,
 					u_id						as	username,
 					u_name						as	uName	 
 						
 		FROM 		lc_user
+		LIMIT		#{pagination.pageNum}, #{Pagination.perPage}
 	</select>
 	
 	<!-- 유저 상세 정보 보기  -->
@@ -117,4 +118,10 @@
 	
 		WHERE 		u_idx = #{uIdx}
 	</update>
+	
+	<!-- 유저수 카운트  -->
+	<select id="countUser" resultType="int">
+		SELECT 		COUNT(*) 
+		FROM 		lc_user
+	</select>
 </mapper>

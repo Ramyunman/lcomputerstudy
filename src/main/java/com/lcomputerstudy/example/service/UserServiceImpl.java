@@ -75,5 +75,10 @@ public class UserServiceImpl implements UserService {
 		userMapper.updateUser(user);
 	}
 
+	@Override		// 유저수 카운트
+	public int countUser() {
+		return userMapper.countUser();
+	}
+
 	
 }

@@ -36,4 +36,7 @@ public interface UserService extends UserDetailsService {
 	
 	//유저 업데이트
 	public void updateUser(User user);
+	
+	//유저수 카운트
+	public int countUser();
 }
