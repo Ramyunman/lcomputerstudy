@@ -122,7 +122,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user-update")		//user update 추가
-	public String userUpdate(@PathVariable("uIdx") int uIdx, User user, Model model, 
+	public String userUpdate(User user, Model model, 
 			@RequestParam("tel1") String tel1, @RequestParam("tel2") String tel2, @RequestParam("tel3") String tel3) {
 		
 		//전화번호 세팅

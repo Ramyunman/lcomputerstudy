@@ -60,5 +60,6 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<a href="${pageContext.request.contextPath}/"> 홈으로 </a>
 </body>
 </html>

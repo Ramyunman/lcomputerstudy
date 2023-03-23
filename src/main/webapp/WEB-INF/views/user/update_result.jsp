@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1> User 정보 수정이 완료 되었습니다.</h1>
-	<a href="${pageContext.request.contextPath}/user-detail/{uIdx}"> 돌아가기 </a>
+	<a href="${pageContext.request.contextPath}/user-detail/${user.uIdx}"> 돌아가기 </a>
 <!--  	<a href="${pageContext.request.contextPath}/user-list}"> 돌아가기 </a>		-->
 </body>
 </html>

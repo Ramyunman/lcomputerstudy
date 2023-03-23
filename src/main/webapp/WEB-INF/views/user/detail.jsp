@@ -61,7 +61,9 @@
 				<a href="${pageContext.request.contextPath}/user-delete/${user.uIdx}" style="width:70%;font-weight:700;background-color:red;color:#fff;">삭제</a>
 			</td>
 		</tr>
+		
 	</table>
+	<a href="${pageContext.request.contextPath}/user-list"> 목록으로 </a>
 	
 </body>
 </html>

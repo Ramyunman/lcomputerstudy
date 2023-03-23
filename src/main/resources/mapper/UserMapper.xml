@@ -99,9 +99,6 @@
 					u_id		as 	username,
 					u_password	as 	password,
 					u_name		as 	uName,
-			<!--  	SUBSTRING(u_tel,1,3)	as 	uTelArr0,
-					SUBSTRING(u_tel,6,4)	as 	uTelArr1,
-					SUBSTRING(u_tel,11,4)	as 	uTelArr2,	-->
 					u_tel		as	uTel,
 					u_age		as 	uAge
 					
