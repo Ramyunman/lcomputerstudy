@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.lcomputerstudy.example.domain.Pagination;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.mapper.UserMapper;
 
@@ -50,8 +51,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override		// 유저 리스트 불러오기
-	public List<User> selectUserList() {
-		return userMapper.selectUserList();
+	public List<User> selectUserList(Pagination pagination) {
+		return userMapper.selectUserList(pagination);
 	}
 	
 	@Override		// 유저 상세정보 보기

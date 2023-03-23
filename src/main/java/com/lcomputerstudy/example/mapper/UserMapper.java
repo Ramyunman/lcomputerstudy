@@ -3,8 +3,10 @@ package com.lcomputerstudy.example.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.GrantedAuthority;
 
+import com.lcomputerstudy.example.domain.Pagination;
 import com.lcomputerstudy.example.domain.User;
 
 @Mapper
@@ -22,7 +24,7 @@ public interface UserMapper {
 	public void createAuthority(User user);
 	
 	//유저 리스트 불러오기
-	public List<User> selectUserList();
+	public List<User> selectUserList(@Param("pagination") Pagination pagination);
 	
 	//유저 상세정보 보기
 	public User showUserDetail(int uIdx);

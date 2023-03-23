@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lcomputerstudy.example.domain.Board;
+import com.lcomputerstudy.example.domain.Pagination;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.UserService;
@@ -94,9 +95,11 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user-list")		//user list 추가
-	public String userList(Model model) {
-		List<User> userList = userservice.selectUserList();
+	public String userList(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+		Pagination pagination = new Pagination();
+		List<User> userList = userservice.selectUserList(pagination);
 		model.addAttribute("userList", userList);
+		model.addAttribute("pagination", pagination);
 		return "/user/list";
 	}
 	

@@ -27,8 +27,9 @@
 			<sec:authorize access="isAuthenticated()">
 				<a href="/user/info">내 정보</a>
 				<a href="/admin">관리자</a>
+				<a href="${pageContext.request.contextPath}/user-list"> 목록으로 </a>
 			</sec:authorize>
-			<a href="${pageContext.request.contextPath}/user-list"> 목록으로 </a>
 		</div>
+		
 </body>
 </html>
