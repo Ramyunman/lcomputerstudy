@@ -71,7 +71,7 @@
 					u_name						as	uName	 
 						
 		FROM 		lc_user
-		LIMIT		#{pagination.pageNum}, #{Pagination.perPage}
+		LIMIT		#{pageNum}, #{perPage}
 	</select>
 	
 	<!-- 유저 상세 정보 보기  -->

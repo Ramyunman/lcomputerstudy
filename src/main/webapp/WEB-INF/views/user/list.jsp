@@ -76,8 +76,7 @@
 				</c:when>
 				<c:when test="${ pagination.prevPage <= pagination.endPage }">
 					<li>					
-						<a href="user-list.do?page=${pagination.prevPage}">
-				<!--  <a href="${pageContext.request.contextPath}/user-list"> 목록으로 </a>	-->
+						<a href="${pageContext.request.contextPath}/user-list?page=${pagination.prevPage}">
 							◀
 						</a>
 					</li>
@@ -95,7 +94,7 @@
 					</c:when>
 					<c:when test="${ pagination.page != i }">		<%-- 현재페이지가 i와 다르다면 링크를 걸게 한다. --%>
 						<li>
-							<a href="user-list.do?page=${i}">${i}</a>
+							<a href="${pageContext.request.contextPath}/user-list?page=${i}">${i}</a>
 						</li>
 					</c:when>
 				</c:choose>
@@ -103,7 +102,7 @@
 			<c:choose>
 				<c:when test="${ pagination.nextPage <= pagination.lastPage }">
 					<li style="">	
-						<a href="user-list.do?page=${pagination.nextPage}">▶</a>
+						<a href="${pageContext.request.contextPath}/user-list?page=${pagination.nextPage}">▶</a>
 					</li>
 				</c:when>
 			</c:choose>
