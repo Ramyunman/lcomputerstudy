@@ -66,12 +66,14 @@
 	
 	<!-- 유저 리스트 불러오기 -->
 	<select id="selectUserList" parameterType="Pagination" resultType="User">
-		SELECT		u_idx						as	uIdx,
-					u_id						as	username,
-					u_name						as	uName	 
+		SELECT		u_idx					as	uIdx,
+					u_id					as	username,
+					u_name					as	uName	 
 						
 		FROM 		lc_user
+		ORDER BY	u_idx	DESC
 		LIMIT		#{pageNum}, #{perPage}
+		
 	</select>
 	
 	<!-- 유저 상세 정보 보기  -->

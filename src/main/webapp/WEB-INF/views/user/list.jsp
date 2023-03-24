@@ -57,7 +57,8 @@
 		</tr>
 		<c:forEach items="${userList}" var="user" varStatus="status">
 			<tr>
-				<td><a href="${pageContext.request.contextPath}/user-detail/${user.uIdx}">${user.uIdx}</a></td>
+			 	
+				<td><a href="${pageContext.request.contextPath}/user-detail/${user.uIdx}">${(user.currentPage - 1) * user.pageSize + status.index + 1}</a></td>
 				<td>${user.username}</td>
 				<td>${user.uName}</td>
 			</tr>

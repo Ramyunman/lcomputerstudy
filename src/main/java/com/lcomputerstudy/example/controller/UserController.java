@@ -9,6 +9,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
@@ -105,6 +106,12 @@ public class UserController {
 		
 		List<User> userList = userservice.selectUserList(pagination);
 		
+		// User 객체에 Pagination 정보 설정
+	    for (User user : userList) {
+	        user.setCurrentPage(pagination.getPage());
+	        user.setPageSize(Pagination.perPage);
+	    }
+
 		model.addAttribute("userList", userList);
 		model.addAttribute("pagination", pagination);
 		return "/user/list";

@@ -18,7 +18,9 @@ public class User implements UserDetails {
 	private String uTel;		//u_tel
 	private String[] uTelArr;	// 전화번호 배열
 	private int uAge;			//u_age
-	
+	private int pageSize = Pagination.perPage;		//한 페이지에 나타내는 데이터 개수
+	private int currentPage = 1;					//현재 페이지
+		
 	//security 관련
 	private Collection<? extends GrantedAuthority> authorities;
 	
@@ -83,6 +85,18 @@ public class User implements UserDetails {
 	}
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
