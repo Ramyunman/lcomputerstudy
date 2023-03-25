@@ -28,14 +28,11 @@ public class UserController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userservice;
-//	@Autowired BoardService boardservice;
 	@Autowired PasswordEncoder encoder;
 	
 	@RequestMapping("/")
 	public String home(Model model) {
 		
-//		List<Board> list = boardservice.selectBoardList();
-//		model.addAttribute("list",list);
 		logger.debug("debug");
 		logger.info("info");
 		logger.info("error");
