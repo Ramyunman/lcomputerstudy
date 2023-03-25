@@ -1,16 +1,18 @@
 package com.lcomputerstudy.example.domain;
 
 public class Board {
-	private int bId;
+	private int bIdx;
 	private String bTitle;
 	private String bContent;
+	private int bViews;
 	private String bWriter;
 	private String bDateTime;
-	public int getbId() {
-		return bId;
+	
+	public int getbIdx() {
+		return bIdx;
 	}
-	public void setbId(int bId) {
-		this.bId = bId;
+	public void setbIdx(int bIdx) {
+		this.bIdx = bIdx;
 	}
 	public String getbTitle() {
 		return bTitle;
@@ -23,6 +25,12 @@ public class Board {
 	}
 	public void setbContent(String bContent) {
 		this.bContent = bContent;
+	}
+	public int getbViews() {
+		return bViews;
+	}
+	public void setbViews(int bViews) {
+		this.bViews = bViews;
 	}
 	public String getbWriter() {
 		return bWriter;
