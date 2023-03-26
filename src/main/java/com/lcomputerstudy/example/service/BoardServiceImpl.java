@@ -17,48 +17,37 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired 
 	BoardMapper boardMapper;
 
-	@Override
+	@Override		// 보드 생성
 	public void createBoard(Board board) {
 		boardMapper.createBoard(board);
 	}
 
-	@Override
-	public void createAuthorities(Board board) {
-		boardMapper.createAuthority(board);
-	}
-
-	@Override
-	public Collection<GrantedAuthority> getAuthorities(String username) {
-		List<GrantedAuthority> authorities = boardMapper.readAuthorities(username);
-		return authorities;
-	}
-
-	@Override
+	@Override		// 보드 리스트
 	public List<Board> selectBoardList(Pagination pagination) {
 		return boardMapper.selectBoardList(pagination);
 	}
 
-	@Override
+	@Override		// 보드 디테일
 	public Board showBoardDetail(int bIdx) {
 		return boardMapper.showBoardDetail(bIdx);
 	}
 
-	@Override
+	@Override		// 보드 삭제
 	public void deleteBoard(int bIdx) {
 		boardMapper.deleteBoard(bIdx);
 	}
 
-	@Override
+	@Override		//보드 수정전
 	public Board beforeBoardUpdate(int bIdx) {
 		return boardMapper.beforeBoardUpdate(bIdx);
 	}
 
-	@Override
+	@Override		// 보드 수정
 	public void updateBoard(Board board) {
 		boardMapper.updateBoard(board);
 	}
 
-	@Override
+	@Override		//보드 카운트
 	public int countBoard() {
 		return boardMapper.countBoard();
 	}

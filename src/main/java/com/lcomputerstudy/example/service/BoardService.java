@@ -13,12 +13,6 @@ public interface BoardService {
 	//유저 생성
 	public void createBoard(Board board);
 		
-	//권한 생성
-	public void createAuthorities(Board board);
-			
-	//시큐리티 권한 얻기
-	Collection<GrantedAuthority> getAuthorities(String username);
-		
 	//보드 리스트 불러오기
 	public List<Board> selectBoardList(Pagination pagination);
 		

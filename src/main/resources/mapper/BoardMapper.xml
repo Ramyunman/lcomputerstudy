@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lcomputerstudy.example.mapper.boardMapper">
-
-	<!-- 권한 읽기 -->
-	<select id="readAuthorities" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
-		SELECT		u_auth
-		FROM		lc_auth
-		WHERE		1=1
-		AND			u_id = #{username}
-	</select>
+<mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
 	
 	<!-- 게시글 등록 -->
 	<insert id="createBoard" parameterType="Board">
@@ -22,23 +14,8 @@
 			#{bTitle},
 			#{bContent}
 		)
+	</insert>
 		
-	</insert>
-	
-	<!-- 보드 권한 추가 -->
-	<insert id="createAuthority" parameterType="org.springframework.security.core.GrantedAuthority">
-		INSERT INTO lc_auth (
-			u_id,
-			u_auth
-		) VALUES
-		  <foreach item="authority" index="index" collection="authorities" separator=",">
-		  	(#{username}, #{authority.role})
-		  </foreach>
-		  ON DUPLICATE KEY
-		  UPDATE
-		  	u_id = #{username}
-	</insert>
-	
 	<!-- 보드 리스트 불러오기 -->
 	<select id="selectBoardList" parameterType="Pagination" resultType="Board">
 		SELECT		b_idx					as	bIdx,

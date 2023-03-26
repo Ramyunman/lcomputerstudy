@@ -10,13 +10,7 @@ import com.lcomputerstudy.example.domain.User;
 
 @Mapper
 public interface BoardMapper {
-			
-	//권한 읽기
-	public List<GrantedAuthority> readAuthorities(String username);
-		
-	//권한 생성
-	public void createAuthority(Board board);
-	
+
 	//유저 생성
 	public void createBoard(Board board);
 		
