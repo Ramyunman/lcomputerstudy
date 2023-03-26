@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>Board 정보 수정</h1>
-	<form action="/user-update" method="post">
+	<form action="/board-update" method="post">
 	<!-- csrf -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	   		<input type="hidden" name="bIdx" value="${board.bIdx}">    

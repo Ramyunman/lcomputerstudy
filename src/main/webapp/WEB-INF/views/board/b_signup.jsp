@@ -10,7 +10,7 @@
 	<h1>Board 등록</h1>
 		<hr>
 		
-		<form action="/b_signup" method="post">
+		<form action="/board-signup" method="post">
 		<!-- csrf -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<p> 제목 : <input type = "text" name="bTitle" placeholder="제목 입력"> </p>
