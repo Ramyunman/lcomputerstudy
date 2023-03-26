@@ -18,7 +18,7 @@
 			<textarea name="bContent" rows="10" cols="50" placeholder="내용 입력"></textarea>  
 	<!--	<p> 파일 : <input type = "file" name="b_fileName" placeholder=" 파일이름 입력"> </p>	-->
 		  
-			  <button type="submit">가입하기</button>
+			<p> <button type="submit">등록하기</button> </p>
 		</form>
 </body>
 </html>

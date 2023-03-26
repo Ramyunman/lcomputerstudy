@@ -29,6 +29,7 @@ public class BoardController {
 	
 	@RequestMapping("/board-signup")
 	public String signup(Board board) {
+	
 	//보드 생성
 	boardservice.createBoard(board);
 		
@@ -56,34 +57,34 @@ public class BoardController {
 
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagination", pagination);
-		return "/board/list";
+		return "/board/b_list";
 	}
 	
 	@RequestMapping("/board-detail/{bIdx}")		//board read 추가
 	public String boardDetail(@PathVariable("bIdx") int bIdx, Model model) {
 		Board board = boardservice.showBoardDetail(bIdx);
 		model.addAttribute("board", board);
-		return "/board/detail";
+		return "/board/b_detail";
 	}
 	
 	@RequestMapping("/board-delete/{bIdx}")		//board delete 추가
 	public String boardDelete(@PathVariable("bIdx") int bIdx, Model model) {
 		boardservice.deleteBoard(bIdx);
-		return "/board/delete";
+		return "/board/b_delete";
 	}
 	
 	@RequestMapping("/before-board-update/{bIdx}")	// board update 전
 	public String beforeboardUpdate(@PathVariable("bIdx") int bIdx, Model model) {
 		Board beforeBoard = boardservice.beforeBoardUpdate(bIdx);
 		model.addAttribute("board", beforeBoard);
-		return "/board/update";
+		return "/board/b_update";
 	}
 	
 	@RequestMapping("/board-update")		//board update 추가
 	public String boardUpdate(Board board, Model model) {
 		
 		boardservice.updateBoard(board);
-		return "/board/update_result";
+		return "/board/b_update_result";
 	}
 
 
