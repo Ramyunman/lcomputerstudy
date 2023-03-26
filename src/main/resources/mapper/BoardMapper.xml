@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.boardMapper">
+
 	<!-- 권한 읽기 -->
 	<select id="readAuthorities" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
 		SELECT		u_auth
@@ -10,96 +11,86 @@
 	</select>
 	
 	<!-- 게시글 등록 -->
-	<insert id="createboard" parameterType="board">
+	<insert id="createBoard" parameterType="Board">
 		INSERT INTO lc_board (
 			b_idx,
 			b_title,
 			b_content
 			
 		) VALUES (
-			#{boardname},
-			#{password},
-			#{uName},
-			#{uTel},
-			#{uAge},
-		
+			#{bIdx},
+			#{bTitle},
+			#{bContent}
 		)
-	
+		
 	</insert>
 	
-	<!-- 유저 권한 추가 -->
+	<!-- 보드 권한 추가 -->
 	<insert id="createAuthority" parameterType="org.springframework.security.core.GrantedAuthority">
 		INSERT INTO lc_auth (
 			u_id,
 			u_auth
 		) VALUES
 		  <foreach item="authority" index="index" collection="authorities" separator=",">
-		  	(#{boardname}, #{authority.role})
+		  	(#{username}, #{authority.role})
 		  </foreach>
 		  ON DUPLICATE KEY
 		  UPDATE
-		  	u_id = #{boardname}
+		  	u_id = #{username}
 	</insert>
 	
-	<!-- 유저 리스트 불러오기 -->
-	<select id="selectboardList" parameterType="Pagination" resultType="board">
-		SELECT		u_idx					as	uIdx,
-					u_id					as	boardname,
-					u_name					as	uName	 
+	<!-- 보드 리스트 불러오기 -->
+	<select id="selectBoardList" parameterType="Pagination" resultType="Board">
+		SELECT		b_idx					as	bIdx,
+					b_title					as	bTitle,
+					b_content				as	bContent	 
 						
 		FROM 		lc_board
-		ORDER BY	u_idx	DESC
+		ORDER BY	b_idx	DESC
 		LIMIT		#{pageNum}, #{perPage}
 		
 	</select>
 	
-	<!-- 유저 상세 정보 보기  -->
-	<select id="showboardDetail" parameterType="int" resultType="board">
-		SELECT 		u_idx		as 	uIdx,
-					u_id		as 	boardname,
-					u_name		as 	uName,
-					u_datetime	as 	uDateTime,
-					u_tel 		as 	uTel,
-					u_age		as 	uAge
+	<!-- 보드 상세 정보 보기  -->
+	<select id="showBoardDetail" parameterType="int" resultType="Board">
+		SELECT 		b_idx			as 	bIdx,
+					b_title			as 	bTitle,
+					b_content		as 	bContent,
+					b_views			as 	bViews,
+					b_datetime 		as 	bDateTime,
+					u_idx			as  u_idx
 					
 		FROM 		lc_board
-		WHERE 		u_idx = #{uIdx}
+		WHERE 		b_idx = #{bIdx}
 	</select>
 			
-	<!-- 유저 삭제 -->
-	<delete id="deleteboard" parameterType="int">
+	<!-- 보드 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
 		DELETE
 		FROM		lc_board
-		WHERE		u_idx = #{uIdx}
+		WHERE		b_idx = #{bIdx}
 	</delete>
 	
-	<!-- 유저 수정전 보여주기 -->
-	<select id="beforeboardUpdate" parameterType="int" resultType="board">
-		SELECT 		u_idx		as  uIdx,
-					u_id		as 	boardname,
-					u_password	as 	password,
-					u_name		as 	uName,
-					u_tel		as	uTel,
-					u_age		as 	uAge
+	<!-- 보드 수정전 보여주기 -->
+	<select id="beforeBoardUpdate" parameterType="int" resultType="Board">
+		SELECT 		b_title		as  bTitle,
+					b_content	as 	bContent
 					
 		FROM 		lc_board
-		WHERE 		u_idx = #{uIdx}
+		WHERE 		b_idx = #{bIdx}
 	</select>
 	
-	<!-- 유저 수정 -->
-	<update id="updateboard" parameterType="board">
+	<!-- 보드 수정 -->
+	<update id="updateBoard" parameterType="Board">
 		UPDATE		lc_board
-		SET			u_id = #{boardname},
-					u_password = #{password},
-					u_name = #{uName},
-					u_tel = #{uTel},
-					u_age = #{uAge}
-	
-		WHERE 		u_idx = #{uIdx}
+		SET			b_title = #{bTitle},
+					b_content = #{bContent}
+						
+		WHERE 		b_idx = #{bIdx}
 	</update>
 	
-	<!-- 유저수 카운트  -->
-	<select id="countboard" resultType="int">
+	<!-- 보드수 카운트  -->
+	<select id="countBoard" resultType="int">
 		SELECT 		COUNT(*) 
 		FROM 		lc_board
 	</select>

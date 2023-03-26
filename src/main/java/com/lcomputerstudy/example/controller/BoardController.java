@@ -1,5 +1,5 @@
 package com.lcomputerstudy.example.controller;
-
+/*
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -36,37 +36,14 @@ public class BoardController {
 						
 		//보드 권한 세팅
 		board.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_board", "ROLE_ADMIN"));
-		
-		//유저 생성
+		//보드 생성
 		boardservice.createboard(board);
-		//유저 권한 생성
+		//보드 권한 생성
 		boardservice.createAuthorities(board);
 		
 		return "/board/b_signup_result";
 	}
-	
-	@RequestMapping(value="/login")
-	public String beforeLogin(Model model) {
-		return "/board/login";
-	}
-	
-	@Secured({"ROLE_ADMIN"})
-	@RequestMapping(value="/admin")
-	public String admin(Model model) {
-		return "/board/admin";
-	}
-		
-	@Secured({"ROLE_board"})
-	@RequestMapping(value="/board/info")
-	public String boardInfo(Model model) {
-		return "/board/info";
-	}
-		
-	@RequestMapping(value="/denied")
-	public String denied(Model model) {
-		return "/board/denied";
-	}
-	
+			
 	@RequestMapping("/board-list")		//board list 추가
 	public String boardList(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
 		logger.debug("debug");
@@ -80,10 +57,10 @@ public class BoardController {
 		pagination.setAmount(totalboardCount);
 		pagination.init();
 		
-		List<board> boardList = boardservice.selectboardList(pagination);
+		List<Board> boardList = boardservice.selectboardList(pagination);
 		
 		// board 객체에 Pagination 정보 설정
-	    for (board board : boardList) {
+	    for (Board board : boardList) {
 	        board.setCurrentPage(pagination.getPage());
 	        board.setPageSize(Pagination.perPage);
 	    }
@@ -93,23 +70,21 @@ public class BoardController {
 		return "/board/list";
 	}
 	
-	@RequestMapping("/board-detail/{uIdx}")		//board read 추가
-	public String boardDetail(@PathVariable("uIdx") int uIdx, Model model) {
-		board board = boardservice.showboardDetail(uIdx);
+	@RequestMapping("/board-detail/{bIdx}")		//board read 추가
+	public String boardDetail(@PathVariable("bIdx") int bIdx, Model model) {
+		Board board = boardservice.showboardDetail(bIdx);
 		model.addAttribute("board", board);
 		return "/board/detail";
 	}
 	
-	@RequestMapping("/board-delete/{uIdx}")		//board delete 추가
-	public String boardDelete(@PathVariable("uIdx") int uIdx, Model model) {
-		boardservice.deleteboard(uIdx);
+	@RequestMapping("/board-delete/{bIdx}")		//board delete 추가
+	public String boardDelete(@PathVariable("bIdx") int bIdx, Model model) {
+		boardservice.deleteboard(bIdx);
 		return "/board/delete";
 	}
 	
-	@RequestMapping("/before-board-update/{uIdx}")	// board update 전
-	public String beforeboardUpdate(@PathVariable("uIdx") int uIdx, Model model) {
-		board beforeboard = boardservice.beforeboardUpdate(uIdx);
-		beforeboard.setuTelArr(beforeboard.getuTel().split("-"));	// uTel을 "-"로 쪼개어 uTelArr에 할당
+	@RequestMapping("/before-board-update/{bIdx}")	// board update 전
+	public String beforeboardUpdate(@PathVariable("bIdx") int bIdx, Model model) {
 		model.addAttribute("board", beforeboard);
 		return "/board/update";
 	}
@@ -123,3 +98,4 @@ public class BoardController {
 
 
 }
+*/

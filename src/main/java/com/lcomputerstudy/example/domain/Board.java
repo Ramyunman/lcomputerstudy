@@ -6,12 +6,16 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 
 public class Board {
-	private int bIdx;				//b_idx
-	private String bTitle;			//b_title
-	private String bContent;		//b_content
-	private int bViews;				//b_views
-	private String bDateTime;		//b_datetime
-	private User user;				//User 추가
+	private int bIdx;				// b_idx
+	private String bTitle;			// b_title
+	private String bContent;		// b_content
+	private int bViews;				// b_views
+	private String bDateTime;		// b_datetime
+	private int uIdx;				// u_idx
+	private User user;				// User 추가
+		
+	private int pageSize = Pagination.perPage;		//한 페이지에 나타내는 데이터 개수
+	private int currentPage = 1;
 	
 	private Collection<? extends GrantedAuthority> authorities;
 	
@@ -45,6 +49,12 @@ public class Board {
 	public void setbDateTime(String bDateTime) {
 		this.bDateTime = bDateTime;
 	}
+	public int getuIdx() {
+		return uIdx;
+	}
+	public void setuIdx(int uIdx) {
+		this.uIdx = uIdx;
+	}
 	public User getUser() {
 		return user;
 	}
@@ -56,6 +66,18 @@ public class Board {
 	}
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
 	}
 	
 	

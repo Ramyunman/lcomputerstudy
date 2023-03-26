@@ -50,8 +50,12 @@
 			<td>${board.bViews }</td>
 		</tr>
 		<tr>
+			<td>ID</td>
+			<td>${board.user.username }</td>
+		</tr>
+		<tr>
 			<td>작성자</td>
-			<td>${board.bWriter }</td>
+			<td>${board.user.uName }</td>
 		</tr>
 		<tr>
 			<td>작성 날짜</td>
