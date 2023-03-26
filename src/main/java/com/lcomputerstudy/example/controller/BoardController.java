@@ -25,31 +25,16 @@ public class BoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired BoardService boardservice;
 	@Autowired PasswordEncoder encoder;
-	
-/*	
-	@RequestMapping("/")
-	public String home(Model model) {
-		
-		logger.debug("debug");
-		logger.info("info");
-		logger.info("error");
-		return "/board/index";
-	}	
-*/	
+
 	@RequestMapping("/board-beforeSignUp")
 	public String beforeSignup() {
-		return "/board/signup";
+		return "/board/b_signup";
 	}
 	
 	@RequestMapping("/board-signup")
 	public String signup(Board board) {
 						
-		//유저 데이터 세팅
-		board.setPassword(encodedPassword);
-		board.setAccountNonExpired(true);
-		board.setEnabled(true);
-		board.setAccountNonLocked(true);
-		board.setCredentialsNonExpired(true);
+		//보드 권한 세팅
 		board.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_board", "ROLE_ADMIN"));
 		
 		//유저 생성
@@ -57,7 +42,7 @@ public class BoardController {
 		//유저 권한 생성
 		boardservice.createAuthorities(board);
 		
-		return "/board/login";
+		return "/board/b_signup_result";
 	}
 	
 	@RequestMapping(value="/login")
@@ -84,6 +69,10 @@ public class BoardController {
 	
 	@RequestMapping("/board-list")		//board list 추가
 	public String boardList(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+		logger.debug("debug");
+		logger.info("info");
+		logger.info("error");
+		
 		int totalboardCount = boardservice.countboard();
 		
 		Pagination pagination = new Pagination();
@@ -126,12 +115,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board-update")		//board update 추가
-	public String boardUpdate(Board board, Model model, 
-			@RequestParam("tel1") String tel1, @RequestParam("tel2") String tel2, @RequestParam("tel3") String tel3) {
-		
-		//전화번호 세팅
-		String tel = tel1 + "-" + tel2 + "-" + tel3;
-		board.setuTel(tel);
+	public String boardUpdate(Board board, Model model) {
 		
 		boardservice.updateboard(board);
 		return "/board/update_result";

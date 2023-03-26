@@ -1,11 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
-	<select id="selectBoardList" resultType="Board">
-		SELECT		b_id as bId,
-							b_title as bTitle,
-							b_content as bContent,
-							b_writer as bWriter
+<mapper namespace="com.lcomputerstudy.example.mapper.boardMapper">
+	<!-- 권한 읽기 -->
+	<select id="readAuthorities" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+		SELECT		u_auth
+		FROM		lc_auth
+		WHERE		1=1
+		AND			u_id = #{username}
+	</select>
+	
+	<!-- 게시글 등록 -->
+	<insert id="createboard" parameterType="board">
+		INSERT INTO lc_board (
+			b_idx,
+			b_title,
+			b_content
+			
+		) VALUES (
+			#{boardname},
+			#{password},
+			#{uName},
+			#{uTel},
+			#{uAge},
+		
+		)
+	
+	</insert>
+	
+	<!-- 유저 권한 추가 -->
+	<insert id="createAuthority" parameterType="org.springframework.security.core.GrantedAuthority">
+		INSERT INTO lc_auth (
+			u_id,
+			u_auth
+		) VALUES
+		  <foreach item="authority" index="index" collection="authorities" separator=",">
+		  	(#{boardname}, #{authority.role})
+		  </foreach>
+		  ON DUPLICATE KEY
+		  UPDATE
+		  	u_id = #{boardname}
+	</insert>
+	
+	<!-- 유저 리스트 불러오기 -->
+	<select id="selectboardList" parameterType="Pagination" resultType="board">
+		SELECT		u_idx					as	uIdx,
+					u_id					as	boardname,
+					u_name					as	uName	 
+						
+		FROM 		lc_board
+		ORDER BY	u_idx	DESC
+		LIMIT		#{pageNum}, #{perPage}
+		
+	</select>
+	
+	<!-- 유저 상세 정보 보기  -->
+	<select id="showboardDetail" parameterType="int" resultType="board">
+		SELECT 		u_idx		as 	uIdx,
+					u_id		as 	boardname,
+					u_name		as 	uName,
+					u_datetime	as 	uDateTime,
+					u_tel 		as 	uTel,
+					u_age		as 	uAge
+					
+		FROM 		lc_board
+		WHERE 		u_idx = #{uIdx}
+	</select>
+			
+	<!-- 유저 삭제 -->
+	<delete id="deleteboard" parameterType="int">
+		DELETE
 		FROM		lc_board
+		WHERE		u_idx = #{uIdx}
+	</delete>
+	
+	<!-- 유저 수정전 보여주기 -->
+	<select id="beforeboardUpdate" parameterType="int" resultType="board">
+		SELECT 		u_idx		as  uIdx,
+					u_id		as 	boardname,
+					u_password	as 	password,
+					u_name		as 	uName,
+					u_tel		as	uTel,
+					u_age		as 	uAge
+					
+		FROM 		lc_board
+		WHERE 		u_idx = #{uIdx}
+	</select>
+	
+	<!-- 유저 수정 -->
+	<update id="updateboard" parameterType="board">
+		UPDATE		lc_board
+		SET			u_id = #{boardname},
+					u_password = #{password},
+					u_name = #{uName},
+					u_tel = #{uTel},
+					u_age = #{uAge}
+	
+		WHERE 		u_idx = #{uIdx}
+	</update>
+	
+	<!-- 유저수 카운트  -->
+	<select id="countboard" resultType="int">
+		SELECT 		COUNT(*) 
+		FROM 		lc_board
 	</select>
 </mapper>

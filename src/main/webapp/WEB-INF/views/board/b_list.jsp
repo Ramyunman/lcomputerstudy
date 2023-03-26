@@ -65,6 +65,7 @@
 		</c:forEach>
 	</table>
 	<a href="${pageContext.request.contextPath}/"> 홈으로 </a>
+	<a href="${pageContext.request.contextPath}//board-beforeSignUp"> 게시글 등록하기 </a>
 	
 <!-- 아래부터 pagination -->
 	<div>
