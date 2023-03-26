@@ -25,9 +25,9 @@
 		</div>
 		<div>
 			<sec:authorize access="isAuthenticated()">
-				<a href="/user/info">내 정보</a>
-				<a href="/admin">관리자</a>
-				<a href="${pageContext.request.contextPath}/user-list"> User 목록 </a>
+				<a href="/user/info">내 정보</a>&nbsp;
+				<a href="/admin">관리자</a>&nbsp;
+				<a href="${pageContext.request.contextPath}/user-list"> User 목록 </a>&nbsp;
 				<a href="${pageContext.request.contextPath}/board-list"> Board 목록 </a>
 			</sec:authorize>
 		</div>
