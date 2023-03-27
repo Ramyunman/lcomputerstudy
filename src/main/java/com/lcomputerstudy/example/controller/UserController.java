@@ -85,16 +85,13 @@ public class UserController {
 		
 	@RequestMapping(value="/login")
 	public String login(@ModelAttribute User user, HttpServletRequest request, Model model) {
-		// 세션 얻어오기
-		HttpSession session = request.getSession();
-		
 		// 입력받은 id와 password로 인증 후, 해당 유저 정보를 가져온다.
 		User loginUser = userservice.authenticate(user);
 		
 		// 유효한 사용자라면
 		if(loginUser != null) {
 			// session에 로그인한 사용자 정보를 저장한다.
-			session.setAttribute("user", loginUser);
+			request.getSession().setAttribute("user", loginUser);
 			//홈 화면으로 이동한다.
 			return "redirect:/";
 		}
