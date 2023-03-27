@@ -46,6 +46,7 @@
 </style>
 <body>
 <h1> Board 목록 </h1>
+${sessionScope.user.uIdx}
 
 	<table>
 		<tr>
@@ -63,7 +64,7 @@
 				<td><a href="${pageContext.request.contextPath}/board-detail/${board.bIdx}">${(board.currentPage - 1) * board.pageSize + status.index + 1}</a></td>
 				<td>${board.bTitle}</td>
 				<td>${board.bContent}</td>
-				<td>${board.uIdx }</td>
+				<td>${board.user.uIdx }</td>
 			</tr>
 		</c:forEach>
 	</table>

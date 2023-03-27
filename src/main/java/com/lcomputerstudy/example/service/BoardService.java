@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.Pagination;
+import com.lcomputerstudy.example.domain.User;
 
 public interface BoardService {
 		

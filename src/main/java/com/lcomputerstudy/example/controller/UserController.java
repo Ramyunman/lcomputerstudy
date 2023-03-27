@@ -3,6 +3,7 @@ package com.lcomputerstudy.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,8 +35,12 @@ import com.lcomputerstudy.example.service.UserService;
 public class UserController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired UserService userservice;
-	@Autowired PasswordEncoder encoder;
+	
+	@Autowired
+	UserService userservice;
+	
+	@Autowired
+	PasswordEncoder encoder;
 	
 		
 	@RequestMapping("/")
@@ -46,12 +52,12 @@ public class UserController {
 		return "/user/index";
 	}
 	
-	@RequestMapping("/beforeSignUp")
+	@RequestMapping("/beforeSignUp")		// 회원가입 등록창
 	public String beforeSignup() {
 		return "/user/signup";
 	}
 	
-	@RequestMapping("/signup")
+	@RequestMapping("/signup")		// 회원가입
 	public String signup(User user,
 			@RequestParam("tel1") String tel1, @RequestParam("tel2") String tel2, @RequestParam("tel3") String tel3) {
 		//비밀번호 암호화
@@ -76,14 +82,11 @@ public class UserController {
 		
 		return "/user/login";
 	}
-	
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String beforeLogin(Model model) {
-		return "/user/login";
-	}
-	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(User user, HttpSession session) {
+		
+	@RequestMapping(value="/login")
+	public String login(@ModelAttribute User user, HttpServletRequest request, Model model) {
+		// 세션 얻어오기
+		HttpSession session = request.getSession();
 		
 		// 입력받은 id와 password로 인증 후, 해당 유저 정보를 가져온다.
 		User loginUser = userservice.authenticate(user);
@@ -91,12 +94,13 @@ public class UserController {
 		// 유효한 사용자라면
 		if(loginUser != null) {
 			// session에 로그인한 사용자 정보를 저장한다.
-			session.setAttribute("loginUser", loginUser);
-			//게시글 작성 화면으로 이동한다.
-			return "/board/b_signup";
+			session.setAttribute("user", loginUser);
+			//홈 화면으로 이동한다.
+			return "redirect:/";
 		}
 		// 유효하지 않은 사용자라면
 		else {
+			model.addAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "/user/login";
 		}
 	}

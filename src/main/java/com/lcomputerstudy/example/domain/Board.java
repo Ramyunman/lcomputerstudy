@@ -11,13 +11,13 @@ public class Board {
 	private String bContent;		// b_content
 	private int bViews;				// b_views
 	private String bDateTime;		// b_datetime
-	private int uIdx;				// u_idx
+	private int uIdx;				// u_idx 추가
 	private User user;				// User 추가
 		
 	private int pageSize = Pagination.perPage;		//한 페이지에 나타내는 데이터 개수
 	private int currentPage = 1;
 	
-	private Collection<? extends GrantedAuthority> authorities;
+//	private Collection<? extends GrantedAuthority> authorities;
 	
 	public int getbIdx() {
 		return bIdx;
@@ -61,12 +61,12 @@ public class Board {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities;
-	}
-	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-		this.authorities = authorities;
-	}
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//		return authorities;
+//	}
+//	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+//		this.authorities = authorities;
+//	}
 	public int getPageSize() {
 		return pageSize;
 	}

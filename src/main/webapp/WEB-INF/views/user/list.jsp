@@ -46,6 +46,7 @@
 </style>
 <body>
 <h1> User 목록 </h1>
+${session.user}
 	<table>
 		<tr>
 			<td colspan="3">전체 회원 수: ${pagination.amount}</td>
