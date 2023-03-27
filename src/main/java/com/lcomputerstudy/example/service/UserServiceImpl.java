@@ -80,5 +80,18 @@ public class UserServiceImpl implements UserService {
 		return userMapper.countUser();
 	}
 
+	@Override		//session
+	public User authenticate(User user) {
+		// 입력받은 id와 password로 인증 후, 해당 유저 정보를 가져온다.
+		User loginUser = userMapper.readUser(user.getUsername());
+		
+		// 인증 실패시 null을 반환한다.
+		if (loginUser == null || !loginUser.getPassword().equals(user.getPassword())) {
+			return null;
+		}
+		
+		return loginUser;
+	}
+
 	
 }

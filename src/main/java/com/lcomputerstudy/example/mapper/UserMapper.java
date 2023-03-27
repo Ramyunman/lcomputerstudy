@@ -40,4 +40,9 @@ public interface UserMapper {
 	
 	//유저수 카운트
 	public int countUser();
+	
+	//session 
+	public User authenticate(User user);
+	
+
 }

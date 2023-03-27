@@ -2,6 +2,8 @@ package com.lcomputerstudy.example.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,26 +11,40 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.Pagination;
+import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.service.BoardService;
+import com.lcomputerstudy.example.service.UserService;
 
 @org.springframework.stereotype.Controller
 public class BoardController {
 	
 	@Autowired BoardService boardservice;
-
+	@Autowired UserService userservice;
+	
+		
 	@RequestMapping("/board-beforeSignUp")
 	public String beforeSignup() {
 		return "/board/b_signup";
 	}
 	
 	@RequestMapping("/board-signup")
-	public String signup(Board board) {
+	public String signup(Board board, HttpSession session) {
+		// 세션에서 유저 정보 가져오기
+		User user = (User) session.getAttribute("user");
+		
+		// 보드에 유저 정보 설정
+		board.setUser(user);
+
+//	user = (User)request.getSession().getAttribute("user");
+//	board.setUser(user);
 	
 	//보드 생성
 	boardservice.createBoard(board);

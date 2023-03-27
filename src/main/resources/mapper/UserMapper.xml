@@ -47,7 +47,6 @@
 			#{isCredentialsNonExpired},
 			#{isEnabled}
 		)
-	
 	</insert>
 	
 	<!-- 유저 권한 추가 -->

@@ -3,12 +3,15 @@ package com.lcomputerstudy.example.service;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.Pagination;
+import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.mapper.BoardMapper;
 
 @Service("BoardServiceImpl")
@@ -50,6 +53,15 @@ public class BoardServiceImpl implements BoardService {
 	@Override		//보드 카운트
 	public int countBoard() {
 		return boardMapper.countBoard();
+	}
+
+	@Override
+	public Board authenticate(Board board, HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		if (user == null) {
+			return null;
+		}
+		return board;
 	}
 	
 

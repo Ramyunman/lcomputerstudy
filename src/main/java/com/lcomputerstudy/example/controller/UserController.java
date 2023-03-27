@@ -2,6 +2,9 @@ package com.lcomputerstudy.example.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +16,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.Pagination;
@@ -30,6 +36,7 @@ public class UserController {
 	@Autowired UserService userservice;
 	@Autowired PasswordEncoder encoder;
 	
+		
 	@RequestMapping("/")
 	public String home(Model model) {
 		
@@ -70,9 +77,28 @@ public class UserController {
 		return "/user/login";
 	}
 	
-	@RequestMapping(value="/login")
+	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String beforeLogin(Model model) {
 		return "/user/login";
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login(User user, HttpSession session) {
+		
+		// 입력받은 id와 password로 인증 후, 해당 유저 정보를 가져온다.
+		User loginUser = userservice.authenticate(user);
+		
+		// 유효한 사용자라면
+		if(loginUser != null) {
+			// session에 로그인한 사용자 정보를 저장한다.
+			session.setAttribute("loginUser", loginUser);
+			//게시글 작성 화면으로 이동한다.
+			return "/board/b_signup";
+		}
+		// 유효하지 않은 사용자라면
+		else {
+			return "/user/login";
+		}
 	}
 	
 	@Secured({"ROLE_ADMIN"})
@@ -147,4 +173,5 @@ public class UserController {
 		return "/user/update_result";
 	}
 
+	
 }

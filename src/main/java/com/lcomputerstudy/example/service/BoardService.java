@@ -3,6 +3,8 @@ package com.lcomputerstudy.example.service;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.core.GrantedAuthority;
 
 import com.lcomputerstudy.example.domain.Board;
@@ -30,4 +32,7 @@ public interface BoardService {
 		
 	//보드수 카운트
 	public int countBoard();
+	
+	// session
+	public Board authenticate(Board board, HttpSession session);
 }

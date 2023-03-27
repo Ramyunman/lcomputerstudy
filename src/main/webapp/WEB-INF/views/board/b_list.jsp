@@ -46,6 +46,7 @@
 </style>
 <body>
 <h1> Board 목록 </h1>
+
 	<table>
 		<tr>
 			<td colspan="3">전체 게시글 수: ${pagination.amount}</td>
@@ -54,6 +55,7 @@
 			<th>No</th>
 			<th>제목</th>
 			<th>내용</th>
+			<th>uIdx</th>
 		</tr>
 		<c:forEach items="${boardList}" var="board" varStatus="status">
 			<tr>
@@ -61,6 +63,7 @@
 				<td><a href="${pageContext.request.contextPath}/board-detail/${board.bIdx}">${(board.currentPage - 1) * board.pageSize + status.index + 1}</a></td>
 				<td>${board.bTitle}</td>
 				<td>${board.bContent}</td>
+				<td>${board.uIdx }</td>
 			</tr>
 		</c:forEach>
 	</table>

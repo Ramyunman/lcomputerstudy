@@ -5,14 +5,14 @@
 	<!-- 게시글 등록 -->
 	<insert id="createBoard" parameterType="Board">
 		INSERT INTO lc_board (
-			b_idx,
 			b_title,
-			b_content
+			b_content,
+			u_idx
 			
 		) VALUES (
-			#{bIdx},
 			#{bTitle},
-			#{bContent}
+			#{bContent},
+			#{uIdx}
 		)
 	</insert>
 		

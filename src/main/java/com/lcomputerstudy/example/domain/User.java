@@ -137,11 +137,11 @@ public class User implements UserDetails {
 	public String toString() {
 		return "User [uIdx=" + uIdx + ", username=" + username + ", password=" + password + ", uName=" + uName
 				+ ", uDateTime=" + uDateTime + ", uTel=" + uTel + ", uTelArr=" + Arrays.toString(uTelArr) + ", uAge="
-				+ uAge + ", authorities=" + authorities + "]";
+				+ uAge + ", pageSize=" + pageSize + ", currentPage=" + currentPage + ", authorities=" + authorities
+				+ ", isAccountNonExpired=" + isAccountNonExpired + ", isAccountNonLocked=" + isAccountNonLocked
+				+ ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", isEnabled=" + isEnabled + "]";
 	}
 	
-	
-	
-	
-	
+
+		
 }
