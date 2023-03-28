@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
 	
+	<resultMap id="boardMap" type="Board">
+    	<id property="bIdx" column="b_idx" />
+    	<result property="bTitle" column="b_title" />
+    	<result property="bContent" column="b_content" />
+    	<result property="bViews" column="b_views" />
+    	<result property="bDateTime" column="b_datetime" />
+    	<association property="user" resultMap="userMap"/>
+	</resultMap>
+
+	<resultMap id="userMap" type="User">
+    	<id property="uIdx" column="u_idx" />
+    	<result property="username" column="u_id" />
+    	<result property="password" column="u_password" />
+    	<result property="uName" column="u_name" />
+    	<result property="uTel" column="u_tel" />
+    	<result property="uAge" column="u_age" />
+	</resultMap>
+	
 	<!-- 게시글 등록 -->
 	<insert id="createBoard" parameterType="Board">
 		INSERT INTO lc_board (
@@ -27,25 +45,7 @@
 		
 	</select>
 	
-	<!-- 보드 상세 정보 보기  -->
-	<resultMap id="boardMap" type="Board">
-    	<id property="bIdx" column="b_idx" />
-    	<result property="bTitle" column="b_title" />
-    	<result property="bContent" column="b_content" />
-    	<result property="bViews" column="b_views" />
-    	<result property="bDateTime" column="b_datetime" />
-    	<association property="user" resultMap="userMap"/>
-	</resultMap>
-
-	<resultMap id="userMap" type="User">
-    	<id property="uIdx" column="u_idx" />
-    	<result property="username" column="u_id" />
-    	<result property="password" column="u_password" />
-    	<result property="uName" column="u_name" />
-    	<result property="uTel" column="u_tel" />
-    	<result property="uAge" column="u_age" />
-	</resultMap>
-	
+	<!-- 보드 상세 정보 보기  -->	
 	<select id="showBoardDetail" parameterType="int" resultMap="boardMap">
 		SELECT 		ta.*,
 					tb.u_name, u_id									
