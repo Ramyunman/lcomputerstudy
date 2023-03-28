@@ -2,6 +2,11 @@ spring:
   profiles:
     active:
     - local
+    devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
 
 ---
 
@@ -51,3 +56,4 @@ mybatis:
   
 logging:
   config: classpath:logback-spring.xml
+  

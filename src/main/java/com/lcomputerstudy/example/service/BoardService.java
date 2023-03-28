@@ -34,6 +34,4 @@ public interface BoardService {
 	//보드수 카운트
 	public int countBoard();
 	
-	// session
-	public Board authenticate(Board board, HttpSession session);
 }

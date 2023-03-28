@@ -10,6 +10,7 @@ import com.lcomputerstudy.example.domain.Pagination;
 import com.lcomputerstudy.example.domain.User;
 
 public interface UserService extends UserDetailsService {
+	
 	//유저 읽기
 	public User readUser(String username);
 	
@@ -39,9 +40,5 @@ public interface UserService extends UserDetailsService {
 	
 	//유저수 카운트
 	public int countUser();
-
-	//session 
-	public User authenticate(User user);
-	
 	
 }

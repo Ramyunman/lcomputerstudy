@@ -11,6 +11,7 @@ import com.lcomputerstudy.example.domain.User;
 
 @Mapper
 public interface UserMapper {
+	
 	//유저 읽기
 	public User readUser(String username);
 	
@@ -40,9 +41,6 @@ public interface UserMapper {
 	
 	//유저수 카운트
 	public int countUser();
-	
-	//session 
-	public User authenticate(User user);
-	
+		
 
 }

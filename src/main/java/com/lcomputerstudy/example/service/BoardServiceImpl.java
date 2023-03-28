@@ -19,6 +19,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired 
 	BoardMapper boardMapper;
+	
+	@Autowired
+	UserService userService;
 
 	@Override		// 보드 생성
 	public void createBoard(Board board) {
@@ -55,14 +58,6 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.countBoard();
 	}
 
-	@Override
-	public Board authenticate(Board board, HttpSession session) {
-		User user = (User)session.getAttribute("user");
-		if (user == null) {
-			return null;
-		}
-		return board;
-	}
 	
 
 }

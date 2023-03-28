@@ -84,22 +84,8 @@ public class UserController {
 	}
 		
 	@RequestMapping(value="/login")
-	public String login(@ModelAttribute User user, HttpServletRequest request, Model model) {
-		// 입력받은 id와 password로 인증 후, 해당 유저 정보를 가져온다.
-		User loginUser = userservice.authenticate(user);
-		
-		// 유효한 사용자라면
-		if(loginUser != null) {
-			// session에 로그인한 사용자 정보를 저장한다.
-			request.getSession().setAttribute("user", loginUser);
-			//홈 화면으로 이동한다.
-			return "redirect:/";
-		}
-		// 유효하지 않은 사용자라면
-		else {
-			model.addAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
-			return "/user/login";
-		}
+	public String login(Model model) {		
+		return "/user/login";
 	}
 	
 	@Secured({"ROLE_ADMIN"})

@@ -28,15 +28,39 @@
 	</select>
 	
 	<!-- 보드 상세 정보 보기  -->
-	<select id="showBoardDetail" parameterType="int" resultType="Board">
-		SELECT 		b_idx			as 	bIdx,
-					b_title			as 	bTitle,
-					b_content		as 	bContent,
-					b_views			as 	bViews,
-					b_datetime 		as 	bDateTime,
-					u_idx			as  u_idx
-					
-		FROM 		lc_board
+	<resultMap id="boradMap" type="Board">
+		<id property="bIdx" column="b_idx"/>
+		<result property="bTitle" column="b_title"/>
+		<result property="bContent" column="b_content"/>
+		<result property="bViews" column="b_views"/>
+		<result property="bDateTime" column="b_datetime"/>
+		<association property="user" resultMap="userMap"/>
+	</resultMap>
+	
+	<resultMap id="userMap" type="User">
+		<id property="uIdx" column="u_idx"/>
+		<result property="username" column="u_id"/>
+		<result property="password" column="u_password"/>
+		<result property="uName" column="u_name"/>
+		<result property="uTel" column="u_tel"/>
+		<result property="uAge" column="u_age"/>
+	</resultMap>
+	
+	<select id="showBoardDetail" parameterType="int" resultType="boardMap">
+		SELECT 		ta.b_idx			as 	bIdx,
+					ta.b_title			as 	bTitle,
+					ta.b_content		as 	bContent,
+					ta.b_views			as 	bViews,
+					ta.b_datetime 		as 	bDateTime,
+					tb.u_idx			as	uIdx,
+					tb.u_id				as 	username,
+					tb.u_password		as	password,
+					tb.u_name			as  uName,
+					tb.u_tel			as 	uTel,
+					tb.u_age			as 	uAge
+															
+		FROM 		lc_board ta
+		LEFT JOIN	lc_user	tb	ON	ta.u_idx = tb.u_idx
 		WHERE 		b_idx = #{bIdx}
 	</select>
 			

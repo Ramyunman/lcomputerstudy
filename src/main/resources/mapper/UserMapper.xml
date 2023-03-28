@@ -125,4 +125,5 @@
 		SELECT 		COUNT(*) 
 		FROM 		lc_user
 	</select>
+		
 </mapper>

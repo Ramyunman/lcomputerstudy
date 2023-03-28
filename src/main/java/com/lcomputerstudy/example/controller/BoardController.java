@@ -38,23 +38,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board-signup")
-	public String createBoard(Board board, HttpSession session) {
-	/*
-		// 세션에서 유저 정보 가져오기
-		User user = (User)session.getAttribute("user");
-		
-		// 세션에 저장된 유저 정보가 없다면 로그인 페이지로 이동
-		if (user == null) {
-			return "redirection:/login";
-		}
-				
-		// 보드에 유저 정보 설정
-		board.setuIdx(user.getuIdx());
-		board.setUser(user);
-	 */
+	public String createBoard(Board board) {
+
 		//보드 생성
 		boardservice.createBoard(board);
-		
 		return "/board/b_signup_result";
 	
 	}
