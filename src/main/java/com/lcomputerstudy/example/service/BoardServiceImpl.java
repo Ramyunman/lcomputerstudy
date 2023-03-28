@@ -19,9 +19,6 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired 
 	BoardMapper boardMapper;
-	
-	@Autowired
-	UserService userService;
 
 	@Override		// 보드 생성
 	public void createBoard(Board board) {
@@ -33,7 +30,7 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.selectBoardList(pagination);
 	}
 
-	@Override		// 보드 디테일
+	@Override		// 보드 상세정보
 	public Board showBoardDetail(int bIdx) {
 		return boardMapper.showBoardDetail(bIdx);
 	}
@@ -43,7 +40,7 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.deleteBoard(bIdx);
 	}
 
-	@Override		//보드 수정전
+	@Override		// 보드 수정전
 	public Board beforeBoardUpdate(int bIdx) {
 		return boardMapper.beforeBoardUpdate(bIdx);
 	}
