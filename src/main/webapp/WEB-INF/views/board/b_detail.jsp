@@ -72,7 +72,7 @@
 		
 	</table>
 	<a href="${pageContext.request.contextPath}/board-list">목록으로</a>
-	<a href="${pageContext.request.contextPath}/board-reply-insert/${board.bGroup}&${board.bOrder}&${board.bDepth}">답글 등록</a>
+	<a href="${pageContext.request.contextPath}/board-replyBeforeSignUp">답글 등록</a>
 	
 </body>
 </html>

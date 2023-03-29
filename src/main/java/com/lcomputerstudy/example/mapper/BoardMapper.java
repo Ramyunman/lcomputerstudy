@@ -33,4 +33,10 @@ public interface BoardMapper {
 	//유저수 카운트
 	public int countBoard();
 	
+	//reply 등록
+	public void insertBoardReply(Board board);
+		
+	//기존 reply의 순서를 증가시킴
+	public Board updateBoardOrder(Board board);
+	
 }

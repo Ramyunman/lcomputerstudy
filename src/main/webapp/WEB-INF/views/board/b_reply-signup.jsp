@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>답글 등록</h1>
-		<form action="/reply-signup" method="post">
+		<form action="/board-replySignup" method="post">
 		<!-- csrf -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<input type="hidden" name="uIdx" value="${sessionScope.user.uIdx }">

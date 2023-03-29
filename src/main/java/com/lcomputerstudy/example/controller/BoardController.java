@@ -105,7 +105,26 @@ public class BoardController {
 		model.addAttribute("afterBoard", board);
 		return "/board/b_update_result";
 	}
+
+	@RequestMapping("/board-replyBeforeSignUp")		//reply 등록전 폼
+	public String replyBeforeSignup() {
+		return "/board/b_reply-signup";
+	}
 	
+	@RequestMapping("/board-replySignup")
+	public String createReply(Board board) {
+		// 현재 로그인한 유저의 정보를 가져와서 board 객체에 추가
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String username = authentication.getName();
+	    // 사용자의 User 객체를 가져옴
+	    User user = userservice.getUserByUsername(username);
+		// Board 객체에 사용자의 User 객체를 설정함
+	    board.setUser(user);
+		// 보드 생성
+		boardservice.insertBoardReply(board);
+		boardservice.updateBoard(board);
+		return "/board/b_signup_result";
+	}
 
 
 }

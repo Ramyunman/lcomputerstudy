@@ -55,6 +55,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.countBoard();
 	}
 
+	@Override		// reply 등록
+	public void insertBoardReply(Board board) {
+		boardMapper.insertBoardReply(board);
+	}
+
+	@Override		// 기존 reply의 순서를 증가시킴
+	public Board updateBoardOrder(Board board) {
+		return boardMapper.updateBoardOrder(board);
+	}
+
 	
 
 }
