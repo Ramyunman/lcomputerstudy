@@ -105,6 +105,7 @@ public class BoardController {
 		model.addAttribute("afterBoard", board);
 		return "/board/b_update_result";
 	}
+	
 
 
 }

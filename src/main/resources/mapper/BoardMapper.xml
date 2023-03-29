@@ -13,7 +13,6 @@
 			#{bTitle},
 			#{bContent},
 			#{user.uIdx}
-			
 		)
 	</insert>
 		
@@ -90,4 +89,40 @@
 		SELECT 		COUNT(*) 
 		FROM 		lc_board
 	</select>
+	
+	<!-- 답글 삽입 -->
+	<insert id="insertBoardReply" parameterType="Board">
+  	<![CDATA[
+    	INSERT INTO	lc_board (
+    		b_title, 
+    		b_content,
+    		b_views,
+    		u_idx,
+    		b_datetime,
+    		b_group,
+    		b_order,
+    		b_depth
+    		
+    	) VALUES (
+    		#{bTitle},
+    		#{bContent},
+    		#{bViews},
+    		#{user.uIdx},
+    		#{bDateTime},
+    		#{bGroup},
+    		#{bOrder} + 1,
+    		#{bDepth} + 1
+    	)
+  	]]>
+	</insert>
+
+	<!-- 기존 답글의 순서를 증가시킴 -->
+	<update id="updateBoardOrder" parameterType="Board">
+  	<![CDATA[
+    	UPDATE		lc_board
+    	SET 		b_order = b_order + 1 
+    	WHERE 		b_group = #{bGroup} AND b_order > #{bOrder}
+  	]]>
+	</update>
+
 </mapper>

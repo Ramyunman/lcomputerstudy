@@ -12,6 +12,9 @@ public class Board {
 	private int bViews;				// b_views
 	private String bDateTime;		// b_datetime
 	private User user;				// User 추가
+	private int bGroup;				// b_group
+	private int bOrder;				// b_order
+	private int bDepth;				// b_depth
 
 	private int pageSize = Pagination.perPage;		//한 페이지에 나타내는 데이터 개수
 	private int currentPage = 1;
@@ -48,12 +51,29 @@ public class Board {
 	public void setbDateTime(String bDateTime) {
 		this.bDateTime = bDateTime;
 	}
-	
 	public User getUser() {
 		return user;
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public int getbGroup() {
+		return bGroup;
+	}
+	public void setbGroup(int bGroup) {
+		this.bGroup = bGroup;
+	}
+	public int getbOrder() {
+		return bOrder;
+	}
+	public void setbOrder(int bOrder) {
+		this.bOrder = bOrder;
+	}
+	public int getbDepth() {
+		return bDepth;
+	}
+	public void setbDepth(int bDepth) {
+		this.bDepth = bDepth;
 	}
 	public int getPageSize() {
 		return pageSize;
