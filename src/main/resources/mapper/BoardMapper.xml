@@ -80,7 +80,7 @@
 		UPDATE		lc_board
 		SET			b_title = #{bTitle},
 					b_content = #{bContent},
-					b_datetime = #{bDateTime}
+					b_datetime = current_timestamp()
 						
 		WHERE 		b_idx = #{bIdx}
 	</update>

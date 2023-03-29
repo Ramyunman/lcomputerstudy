@@ -13,6 +13,7 @@
 	<!-- csrf -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	   		<input type="hidden" name="bIdx" value="${board.bIdx}">    
+	   		<input type="hidden" name="bDateTime" value="${board.bDateTime}">    
 			<p> 제목 : <input type="text" name="bTitle" value = "${board.bTitle }"></p>
 			<p> 내용 : <textarea name="bContent" rows="10" cols="50">${board.bContent}</textarea></p>
 						
