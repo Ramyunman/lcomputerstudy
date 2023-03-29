@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,8 +101,8 @@ public class BoardController {
 	
 	@RequestMapping("/board-update")		//board update 추가
 	public String boardUpdate(Board board, Model model) {
-		
 		boardservice.updateBoard(board);
+		model.addAttribute("afterBoard", board);
 		return "/board/b_update_result";
 	}
 

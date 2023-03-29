@@ -79,8 +79,8 @@ public class UserServiceImpl implements UserService {
 	public int countUser() {
 		return userMapper.countUser();
 	}
-
-	@Override
+	
+	@Override		//세션 ID 가져오기(user 객체 적용 가능)
 	public User getUserByUsername(String username) {
 		return userMapper.getUserByUsername(username);
 	}
