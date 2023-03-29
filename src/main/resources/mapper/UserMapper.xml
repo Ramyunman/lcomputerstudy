@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.UserMapper">
+	
+	<resultMap id="userMap" type="User">
+    	<id property="uIdx" column="u_idx" />
+    	<result property="username" column="u_id" />
+    	<result property="password" column="u_password" />
+    	<result property="uName" column="u_name" />
+    	<result property="uTel" column="u_tel" />
+    	<result property="uAge" column="u_age" />
+	</resultMap>
+	
 	<!-- 권한 읽기 -->
 	<select id="readAuthorities" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
 		SELECT		u_auth
@@ -124,6 +134,13 @@
 	<select id="countUser" resultType="int">
 		SELECT 		COUNT(*) 
 		FROM 		lc_user
+	</select>
+	
+	<!-- getUserByUsername -->
+	<select id="getUserByUsername" parameterType="string" resultMap="userMap">
+		SELECT 		*
+		FROM		lc_user
+		WHERE		u_id = #{username}
 	</select>
 		
 </mapper>

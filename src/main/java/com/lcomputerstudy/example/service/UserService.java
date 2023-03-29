@@ -41,4 +41,6 @@ public interface UserService extends UserDetailsService {
 	//유저수 카운트
 	public int countUser();
 	
+	public User getUserByUsername(String username);
+	
 }

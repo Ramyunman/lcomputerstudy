@@ -11,7 +11,6 @@ public class Board {
 	private String bContent;		// b_content
 	private int bViews;				// b_views
 	private String bDateTime;		// b_datetime
-	private int uIdx;				// u_idx 추가
 	private User user;				// User 추가
 
 	private int pageSize = Pagination.perPage;		//한 페이지에 나타내는 데이터 개수
@@ -49,12 +48,7 @@ public class Board {
 	public void setbDateTime(String bDateTime) {
 		this.bDateTime = bDateTime;
 	}
-	public int getuIdx() {
-		return uIdx;
-	}
-	public void setuIdx(int uIdx) {
-		this.uIdx = uIdx;
-	}
+	
 	public User getUser() {
 		return user;
 	}

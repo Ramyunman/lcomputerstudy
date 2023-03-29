@@ -24,11 +24,13 @@
 	<insert id="createBoard" parameterType="Board">
 		INSERT INTO lc_board (
 			b_title,
-			b_content
+			b_content,
+			u_idx
 				
 		) VALUES (
 			#{bTitle},
-			#{bContent}
+			#{bContent},
+			#{user.uIdx}
 			
 		)
 	</insert>

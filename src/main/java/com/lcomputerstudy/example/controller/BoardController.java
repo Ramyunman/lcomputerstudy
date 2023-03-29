@@ -8,7 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,8 +42,14 @@ public class BoardController {
 	
 	@RequestMapping("/board-signup")
 	public String createBoard(Board board) {
-
-		//보드 생성
+		// 현재 로그인한 유저의 정보를 가져와서 board 객체에 추가
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String username = authentication.getName();
+	    // 사용자의 User 객체를 가져옴
+	    User user = userservice.getUserByUsername(username);
+		// Board 객체에 사용자의 User 객체를 설정함
+	    board.setUser(user);
+		// 보드 생성
 		boardservice.createBoard(board);
 		return "/board/b_signup_result";
 	
