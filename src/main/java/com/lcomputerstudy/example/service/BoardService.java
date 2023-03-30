@@ -40,7 +40,10 @@ public interface BoardService {
 	//reply 등록
 	public void insertBoardReply(Board board);
 	
-	//기존 reply의 순서를 증가시킴
-	public Board updateBoardOrder(Board board);
+	//기존 reply의 Order를 증가시킴
+	public void updateBOrder(int bGroup, int bOrder);
+	
+	//bIdx를 이용해 Board객체 불러오기
+	public Board getBoardByBIdx(int bIdx);
 	
 }

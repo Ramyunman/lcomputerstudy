@@ -53,8 +53,7 @@ public class BoardController {
 		// 보드 생성
 		boardservice.createBoard(board);
 		// 생성된 보드의 bIdx를 가져와서 bGroup을 업데이트 함
-		int bIdx = board.getbIdx();
-		boardservice.updateBGroup(bIdx);
+		boardservice.updateBGroup(board.getbIdx());
 		return "/board/b_signup_result";
 	
 	}
@@ -109,16 +108,15 @@ public class BoardController {
 		return "/board/b_update_result";
 	}
 
-	@RequestMapping("/board-replyBeforeSignUp")		//reply 등록전 폼
-	public String boardReplyBeforeSignup(@RequestParam(name = "bGroup", defaultValue = "0") int bGroup,
-										 @RequestParam(name = "bOrder", defaultValue = "1") int bOrder,
-										 @RequestParam(name = "bDepth", defaultValue = "0") int bDepth,
-										 Model model) {
-		Board board = new Board();
-		board.setbGroup(bGroup);
-		board.setbOrder(bOrder);
-		board.setbDepth(bDepth);
-		model.addAttribute("board", board);
+	@RequestMapping("/board-replyBeforeSignUp/{bIdx}")		//reply 등록전 폼
+	public String boardReplyBeforeSignup(@PathVariable int bIdx, Model model) {
+		Board parentBoard = boardservice.getBoardByBIdx(bIdx);
+		int bGroup = parentBoard.getbGroup();
+		int bOrder = parentBoard.getbOrder() + 1;
+		int bDepth = parentBoard.getbDepth() + 1;
+		model.addAttribute("bGroup", bGroup);
+		model.addAttribute("bGroup", bOrder);
+		model.addAttribute("bGroup", bDepth);		
 		return "/board/b_reply-signup";
 	}
 	
@@ -131,9 +129,18 @@ public class BoardController {
 	    User user = userservice.getUserByUsername(username);
 		// Board 객체에 사용자의 User 객체를 설정함
 	    board.setUser(user);
-	    board.setbGroup(1);
-	    board.setbOrder(1);
-	    board.setbDepth(0);
+	    
+	    // 원본 글의 bGroup, bOrder, bDepth 값을 가져옴
+	    Board originalBoard = boardservice.getBoardByBIdx(board.getbGroup());
+	    int originalBGroup = originalBoard.getbGroup();
+	    int originalBOrder = originalBoard.getbOrder();
+	    int originalBDepth = originalBoard.getbDepth();
+	    
+	    // 새로 작성한 답글의 bGroup, bOrder, bDepth 값을 계산하여 설정함
+	    board.setbGroup(originalBGroup);
+	    board.setbDepth(originalBDepth + 1);
+	    boardservice.updateBOrder(originalBGroup, originalBOrder);
+	    board.setbOrder(originalBOrder + 1);
 	    
 		// 보드 생성
 	    boardservice.updateBoard(board);

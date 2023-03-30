@@ -13,6 +13,7 @@
 		<!-- csrf -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<input type="hidden" name="uIdx" value="${sessionScope.user.uIdx }">
+			<input type="hidden" name="bIdx" value="${board.bIdx}">			
 			<p> 제목 : <input type = "text" name="bTitle" placeholder="제목 입력"> </p>
 			<p> 내용 : </p>
 			<textarea name="bContent" rows="10" cols="50" placeholder="내용 입력"></textarea>  

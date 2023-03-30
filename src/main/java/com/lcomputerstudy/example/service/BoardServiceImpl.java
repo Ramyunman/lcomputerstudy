@@ -65,13 +65,15 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.insertBoardReply(board);
 	}
 
-	@Override		// 기존 reply의 순서를 증가시킴
-	public Board updateBoardOrder(Board board) {
-		return boardMapper.updateBoardOrder(board);
+	@Override		//bIdx를 이용해 Board객체 불러오기
+	public Board getBoardByBIdx(int bIdx) {
+		return boardMapper.getBoardByBIdx(bIdx);
 	}
 
-	
+	@Override		//기존 reply의 Order를 증가시킴
+	public void updateBOrder(int bGroup, int bOrder) {
+		boardMapper.updateBOrder(bGroup, bOrder);
+	}
 
-	
 
 }

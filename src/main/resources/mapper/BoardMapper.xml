@@ -2,29 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
 	
-	<!-- Board 등록 -->
-		<!-- 게시글 등록 -->
-	<insert id="createBoard" parameterType="Board">
+	<!-- 게시글 등록 -->
+	<insert id="createBoard" parameterType="Board" useGeneratedKeys="true" keyProperty="bIdx">
+		<!-- b_group의 값을 last_insert_id()로 설정하며, 자동으로 생성된 b_idx 값을 keyProperty인 bIdx에 설정 -->
+		<selectkey keyProperty="bIdx" resultType="int" order="AFTER">
+			SELECT last_insert_id() AS bIdx
+		</selectkey>
+		
 		INSERT INTO lc_board (
 			b_title,
 			b_content,
-			u_idx
+			u_idx,
+			b_group
 				
 		) VALUES (
 			#{bTitle},
 			#{bContent},
 			#{user.uIdx}
+			last_insert_id()
 		)
 	</insert>
 	
-		<!-- bGroup을 bIdx와 같게 만들기 -->
+	<!-- bGroup을 bIdx와 같게 만들기 -->
 	<update id="updateBGroup" parameterType="int">
 		UPDATE 		lc_board
 		SET			b_group = last_insert_id()
 		WHERE		b_idx = #{bIdx}
 	</update>
-	<!-- Board 등록 -->	
-	
+		
 	<!-- 보드 리스트 불러오기 -->
 	<select id="selectBoardList" parameterType="Pagination" resultType="Board">
 		SELECT		b_idx					as	bIdx,
@@ -108,7 +113,6 @@
     		b_content,
     		b_views,
     		u_idx,
-    		b_datetime,
     		b_group,
     		b_order,
     		b_depth
@@ -118,7 +122,6 @@
     		#{bContent},
     		#{bViews},
     		#{user.uIdx},
-    		#{bDateTime},
     		#{bGroup},
     		#{bOrder} + 1,
     		#{bDepth} + 1
@@ -127,12 +130,21 @@
 	</insert>
 
 		<!-- 기존 답글의 순서를 증가시킴 -->
-	<update id="updateBoardOrder" parameterType="Board">
+	<update id="updateBOrder" parameterType="Board">
   	<![CDATA[
     	UPDATE		lc_board
     	SET 		b_order = b_order + 1 
-    	WHERE 		b_group = #{bGroup} AND b_order > #{bOrder}
+    	WHERE 		b_group = #{b.bGroup} 
+    	AND 		b_order > #{b.bOrder}
   	]]>
 	</update>
 	<!-- Reply -->
+	
+	<!-- getBoardByBIdx -->
+	<select id="getBoardByBIdx" parameterType="int" resultMap="boardMap">
+		SELECT 		*
+		FROM		lc_board
+		WHERE		b_idx = #{bIdx}
+	</select>
+	
 </mapper>
