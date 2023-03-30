@@ -49,11 +49,6 @@ public class BoardServiceImpl implements BoardService {
 	public void updateBoard(Board board) {
 		boardMapper.updateBoard(board);
 	}
-
-	@Override		// bGroup을 bIdx와 같게 만들기
-	public void updateBGroup(int bIdx) {
-		boardMapper.updateBGroup(bIdx);
-	}
 	
 	@Override		//보드 카운트
 	public int countBoard() {

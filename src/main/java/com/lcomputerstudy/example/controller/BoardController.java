@@ -50,10 +50,9 @@ public class BoardController {
 	    User user = userservice.getUserByUsername(username);
 		// Board 객체에 사용자의 User 객체를 설정함
 	    board.setUser(user);
-		// 보드 생성
+	    // 보드 생성
 		boardservice.createBoard(board);
-		// 생성된 보드의 bIdx를 가져와서 bGroup을 업데이트 함
-		boardservice.updateBGroup(board.getbIdx());
+	
 		return "/board/b_signup_result";
 	
 	}

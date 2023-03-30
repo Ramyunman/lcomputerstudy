@@ -34,9 +34,6 @@ public interface BoardService {
 	//보드수 카운트
 	public int countBoard();
 	
-	//bGroup을 bIdx와 같게 만들기
-	public void updateBGroup(int bIdx);
-	
 	//reply 등록
 	public void insertBoardReply(Board board);
 	
