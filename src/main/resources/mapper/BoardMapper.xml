@@ -15,7 +15,7 @@
 			#{bTitle},
 			#{bContent},
 			#{user.uIdx},
-			0,
+			#{bGroup},
 			1,
 			0
 		)
