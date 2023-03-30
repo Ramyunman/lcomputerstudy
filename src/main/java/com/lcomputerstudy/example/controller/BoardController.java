@@ -52,6 +52,9 @@ public class BoardController {
 	    board.setUser(user);
 		// 보드 생성
 		boardservice.createBoard(board);
+		// 생성된 보드의 bIdx를 가져와서 bGroup을 업데이트 함
+		int bIdx = board.getbIdx();
+		boardservice.updateBGroup(bIdx);
 		return "/board/b_signup_result";
 	
 	}
@@ -107,12 +110,20 @@ public class BoardController {
 	}
 
 	@RequestMapping("/board-replyBeforeSignUp")		//reply 등록전 폼
-	public String replyBeforeSignup() {
+	public String boardReplyBeforeSignup(@RequestParam(name = "bGroup", defaultValue = "0") int bGroup,
+										 @RequestParam(name = "bOrder", defaultValue = "1") int bOrder,
+										 @RequestParam(name = "bDepth", defaultValue = "0") int bDepth,
+										 Model model) {
+		Board board = new Board();
+		board.setbGroup(bGroup);
+		board.setbOrder(bOrder);
+		board.setbDepth(bDepth);
+		model.addAttribute("board", board);
 		return "/board/b_reply-signup";
 	}
 	
 	@RequestMapping("/board-replySignup")
-	public String createReply(Board board) {
+	public String boardCreateReply(Board board) {
 		// 현재 로그인한 유저의 정보를 가져와서 board 객체에 추가
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String username = authentication.getName();
@@ -120,10 +131,15 @@ public class BoardController {
 	    User user = userservice.getUserByUsername(username);
 		// Board 객체에 사용자의 User 객체를 설정함
 	    board.setUser(user);
+	    board.setbGroup(1);
+	    board.setbOrder(1);
+	    board.setbDepth(0);
+	    
 		// 보드 생성
+	    boardservice.updateBoard(board);
 		boardservice.insertBoardReply(board);
-		boardservice.updateBoard(board);
-		return "/board/b_signup_result";
+		
+		return "/board/b_reply-signup_result";
 	}
 
 

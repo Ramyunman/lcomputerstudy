@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
 	
-	<!-- 게시글 등록 -->
+	<!-- Board 등록 -->
+		<!-- 게시글 등록 -->
 	<insert id="createBoard" parameterType="Board">
 		INSERT INTO lc_board (
 			b_title,
@@ -15,7 +16,15 @@
 			#{user.uIdx}
 		)
 	</insert>
-		
+	
+		<!-- bGroup을 bIdx와 같게 만들기 -->
+	<update id="updateBGroup" parameterType="int">
+		UPDATE 		lc_board
+		SET			b_group = last_insert_id()
+		WHERE		b_idx = #{bIdx}
+	</update>
+	<!-- Board 등록 -->	
+	
 	<!-- 보드 리스트 불러오기 -->
 	<select id="selectBoardList" parameterType="Pagination" resultType="Board">
 		SELECT		b_idx					as	bIdx,
@@ -90,7 +99,8 @@
 		FROM 		lc_board
 	</select>
 	
-	<!-- reply 등록 -->
+	<!-- Reply -->
+		<!-- 답글 등록 -->
 	<insert id="insertBoardReply" parameterType="Board">
   	<![CDATA[
     	INSERT INTO	lc_board (
@@ -116,7 +126,7 @@
   	]]>
 	</insert>
 
-	<!-- 기존 reply의 순서를 증가시킴 -->
+		<!-- 기존 답글의 순서를 증가시킴 -->
 	<update id="updateBoardOrder" parameterType="Board">
   	<![CDATA[
     	UPDATE		lc_board
@@ -124,5 +134,5 @@
     	WHERE 		b_group = #{bGroup} AND b_order > #{bOrder}
   	]]>
 	</update>
-	
+	<!-- Reply -->
 </mapper>

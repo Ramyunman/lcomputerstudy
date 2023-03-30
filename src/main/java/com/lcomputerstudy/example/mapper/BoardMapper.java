@@ -39,4 +39,7 @@ public interface BoardMapper {
 	//기존 reply의 순서를 증가시킴
 	public Board updateBoardOrder(Board board);
 	
+	//bGroup을 bIdx와 같게 만들기
+	public void updateBGroup(int bIdx);
+	
 }

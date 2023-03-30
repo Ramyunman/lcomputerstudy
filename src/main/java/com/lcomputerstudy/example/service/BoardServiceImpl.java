@@ -50,6 +50,11 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.updateBoard(board);
 	}
 
+	@Override		// bGroup을 bIdx와 같게 만들기
+	public void updateBGroup(int bIdx) {
+		boardMapper.updateBGroup(bIdx);
+	}
+	
 	@Override		//보드 카운트
 	public int countBoard() {
 		return boardMapper.countBoard();
@@ -64,6 +69,8 @@ public class BoardServiceImpl implements BoardService {
 	public Board updateBoardOrder(Board board) {
 		return boardMapper.updateBoardOrder(board);
 	}
+
+	
 
 	
 

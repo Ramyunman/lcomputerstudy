@@ -73,6 +73,7 @@
 	</table>
 	<a href="${pageContext.request.contextPath}/board-list">목록으로</a>
 	<a href="${pageContext.request.contextPath}/board-replyBeforeSignUp">답글 등록</a>
+<!--  	<a href="${pageContext.request.contextPath}/board-replyBeforeSignUp?bGroup=${board.bGroup}&bOrder=${board.bOrder}&bDepth=${board.bDepth}">답글 등록</a>	-->
 	
 </body>
 </html>
