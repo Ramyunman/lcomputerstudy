@@ -20,7 +20,7 @@
 	}
 	table tr td, table tr th {
 		border:1px solid #818181;
-		width:200px;
+		width:300px;
 		text-align:center;
 	}
 	a {
@@ -43,10 +43,14 @@
 		margin:0 5px;
 		border-radius:5px;
 	}
+	form {
+		text-align:center;
+		margin:50px
+	}
+
 </style>
 <body>
 <h1> Board 목록 </h1>
-${principal}
 	<table>
 		<tr>
 			<td colspan="3">전체 게시글 수: ${pagination.amount}</td>
@@ -58,10 +62,24 @@ ${principal}
 		</tr>
 		<c:forEach items="${boardList}" var="board" varStatus="status">
 			<tr>
-			 	
 				<td><a href="${pageContext.request.contextPath}/board-detail/${board.bIdx}">${(board.currentPage - 1) * board.pageSize + status.index + 1}</a></td>
-				<td>${board.bTitle}</td>
+				
+				<c:choose>
+					<c:when test="${board.bDepth > 0 }">
+						<td style="text-align: left;">
+							<c:forEach var="i" begin="1" end="${board.bDepth}" step="1">
+							&nbsp;&nbsp;
+							</c:forEach>
+							ㄴ${board.bTitle}
+						</td>
+					</c:when>
+					<c:when test = "${board.bDepth == 0 }">
+						<td style="text-align: left; padding-left: 10px;">${board.bTitle}</td>
+					</c:when>
+				</c:choose>
+				
 				<td>${board.bContent}</td>
+								
 			</tr>
 		</c:forEach>
 	</table>

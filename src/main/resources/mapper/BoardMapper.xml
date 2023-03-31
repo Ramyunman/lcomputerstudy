@@ -33,12 +33,15 @@
 		
 	<!-- 보드 리스트 불러오기 -->
 	<select id="selectBoardList" parameterType="Pagination" resultType="Board">
-		SELECT		b_idx					as	bIdx,
-					b_title					as	bTitle,
-					b_content				as	bContent	 
+		SELECT		b_idx			as	bIdx,
+					b_title			as	bTitle,
+					b_content		as	bContent,	
+					b_group	 		as  bGroup,
+					b_order			as  bOrder,
+					b_depth			as  bDepth
 						
 		FROM 		lc_board
-		ORDER BY	b_idx	DESC
+		ORDER BY	b_group	DESC, b_order ASC
 		LIMIT		#{pageNum}, #{perPage}
 	</select>
 	
