@@ -52,7 +52,7 @@ public class BoardController {
 	    board.setUser(user);
 	    // 보드 생성
 		boardservice.createBoard(board);
-	
+		
 		return "/board/b_signup_result";
 	
 	}

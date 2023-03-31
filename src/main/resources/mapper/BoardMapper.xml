@@ -3,7 +3,7 @@
 <mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
 	
 	<!-- 게시글 등록 -->
-	<insert id="createBoard" parameterType="Board" useGeneratedKeys="true" keyProperty="bIdx">
+	<insert id="createBoard" parameterType="Board">		
 		INSERT INTO lc_board (
 			b_title,
 			b_content,
@@ -19,11 +19,20 @@
 			1,
 			0
 		)
-		<selectKey keyProperty="bGroup" resultType="int" order="AFTER">
-			SELECT  LAST_INSERT_ID()
+		
+		  
+		<selectKey keyProperty="bGroup" resultType="int" order="BEFORE">
+   			SELECT MAX(b_idx) +1 FROM lc_board
 		</selectKey>
+		
 	</insert>
-			
+	
+	<update id="updateBGroup" parameterType="Board">
+		UPDATE		lc_board
+		SET			b_group = #{bGroup}
+		WHERE		b_idx = LAST_INSERT_ID()
+	</update>
+		
 	<!-- 보드 리스트 불러오기 -->
 	<select id="selectBoardList" parameterType="Pagination" resultType="Board">
 		SELECT		b_idx					as	bIdx,
