@@ -19,12 +19,10 @@
 			1,
 			0
 		)
-		
-		  
 		<selectKey keyProperty="bGroup" resultType="int" order="BEFORE">
-   			SELECT MAX(b_idx) +1 FROM lc_board
+   			SELECT 		MAX(b_idx) +1 
+   			FROM 		lc_board
 		</selectKey>
-		
 	</insert>
 	
 	<update id="updateBGroup" parameterType="Board">
@@ -42,7 +40,6 @@
 		FROM 		lc_board
 		ORDER BY	b_idx	DESC
 		LIMIT		#{pageNum}, #{perPage}
-		
 	</select>
 	
 	<resultMap id="boardMap" type="Board">
