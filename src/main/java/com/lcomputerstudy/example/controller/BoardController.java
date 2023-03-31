@@ -109,13 +109,11 @@ public class BoardController {
 
 	@RequestMapping("/board-replyBeforeSignUp/{bIdx}")		//reply 등록전 폼
 	public String boardReplyBeforeSignup(@PathVariable int bIdx, Model model) {
-		Board parentBoard = boardservice.getBoardByBIdx(bIdx);
-		int bGroup = parentBoard.getbGroup();
-		int bOrder = parentBoard.getbOrder() + 1;
-		int bDepth = parentBoard.getbDepth() + 1;
-		model.addAttribute("bGroup", bGroup);
-		model.addAttribute("bGroup", bOrder);
-		model.addAttribute("bGroup", bDepth);		
+		Board boardInfo	 = boardservice.getBoardByBIdx(bIdx);
+		model.addAttribute("board", boardInfo);
+		model.addAttribute("bGroup", boardInfo.getbGroup());
+		model.addAttribute("bOrder", boardInfo.getbOrder());
+		model.addAttribute("bDepth", boardInfo.getbDepth());
 		return "/board/b_reply-signup";
 	}
 	
@@ -127,22 +125,9 @@ public class BoardController {
 	    // 사용자의 User 객체를 가져옴
 	    User user = userservice.getUserByUsername(username);
 		// Board 객체에 사용자의 User 객체를 설정함
-	    board.setUser(user);
-	    
-	    // 원본 글의 bGroup, bOrder, bDepth 값을 가져옴
-	    Board originalBoard = boardservice.getBoardByBIdx(board.getbGroup());
-	    int originalBGroup = originalBoard.getbGroup();
-	    int originalBOrder = originalBoard.getbOrder();
-	    int originalBDepth = originalBoard.getbDepth();
-	    
-	    // 새로 작성한 답글의 bGroup, bOrder, bDepth 값을 계산하여 설정함
-	    board.setbGroup(originalBGroup);
-	    board.setbDepth(originalBDepth + 1);
-	    boardservice.updateBOrder(originalBGroup, originalBOrder);
-	    board.setbOrder(originalBOrder + 1);
-	    
+	    board.setUser(user);	    
 		// 보드 생성
-	    boardservice.updateBoard(board);
+	    boardservice.updateBOrder(board);
 		boardservice.insertBoardReply(board);
 		
 		return "/board/b_reply-signup_result";

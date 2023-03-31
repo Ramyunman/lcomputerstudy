@@ -61,6 +61,19 @@
 			<td>작성 날짜</td>
 			<td>${board.bDateTime }</td>
 		</tr>
+		<tr>
+			<td>group</td>
+			<td>${board.bGroup }</td>
+		</tr>
+		<tr>
+			<td>order</td>
+			<td>${board.bOrder }</td>
+		</tr>
+		<tr>
+			<td>depth</td>
+			<td>${board.bDepth }</td>
+		</tr>
+		
 		<tr style="height:50px;">
 			<td style="border:none;">
 				<a href="${pageContext.request.contextPath}/before-board-update/${board.bIdx}" style="width:70%;font-weight:700;background-color:#818181;color:#fff;">수정</a>

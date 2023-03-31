@@ -66,9 +66,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override		//기존 reply의 Order를 증가시킴
-	public void updateBOrder(int bGroup, int bOrder) {
-		boardMapper.updateBOrder(bGroup, bOrder);
+	public void updateBOrder(Board board) {
+		boardMapper.updateBOrder(board);
+		
 	}
+
 
 
 }

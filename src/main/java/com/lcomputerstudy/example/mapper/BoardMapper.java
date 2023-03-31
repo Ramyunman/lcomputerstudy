@@ -37,7 +37,7 @@ public interface BoardMapper {
 	public void insertBoardReply(Board board);
 		
 	//기존 reply의 Order를 증가시킴
-	public void updateBOrder(int bGroup, int bOrder);
+	public void updateBOrder(Board board);
 	
 	//bIdx를 이용해 Board객체 불러오기
 	public Board getBoardByBIdx(int bIdx);

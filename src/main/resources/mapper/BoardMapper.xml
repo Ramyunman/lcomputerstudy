@@ -48,6 +48,9 @@
     	<result property="bContent" column="b_content" />
     	<result property="bViews" column="b_views" />
     	<result property="bDateTime" column="b_datetime" />
+    	<result property="bGroup" column="b_group" />
+    	<result property="bOrder" column="b_order" />
+    	<result property="bDepth" column="b_depth" />
     	<association property="user" resultMap="userMap"/>
 	</resultMap>
 
@@ -134,8 +137,8 @@
   	<![CDATA[
     	UPDATE		lc_board
     	SET 		b_order = b_order + 1 
-    	WHERE 		b_group = #{b.bGroup} 
-    	AND 		b_order > #{b.bOrder}
+    	WHERE 		b_group = #{bGroup} 
+    	AND 		b_order > #{bOrder}
   	]]>
 	</update>
 	<!-- Reply -->
