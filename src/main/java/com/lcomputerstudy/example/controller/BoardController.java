@@ -90,7 +90,7 @@ public class BoardController {
 		Board board = boardservice.showBoardDetail(bIdx);
 		List<Comment> commentList = commentservice.selectCommentList(bIdx);
 		model.addAttribute("board", board);
-		model.addAttribute("comment",commentList);
+		model.addAttribute("commentList",commentList);
 		return "/board/b_detail";
 	}
 	
