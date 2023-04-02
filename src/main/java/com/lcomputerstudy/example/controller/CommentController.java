@@ -30,7 +30,7 @@ public class CommentController {
 	CommentService commentservice;
 	
 	@RequestMapping("/comment-signup")
-	public String createComment(Comment comment) {
+	public String createComment(Comment comment, Model model) {
 		// 현재 로그인한 유저의 정보를 가져와서 comment 객체에 추가
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String username = authentication.getName();
@@ -43,10 +43,4 @@ public class CommentController {
 		return "/board/c_list";
 	}
 	
-	@RequestMapping("/comment-list")		// comment list 추가
-	public String commentList(@RequestParam int bIdx, Model model) {
-		List<Comment> commentList = commentservice.selectCommentList(bIdx);
-		model.addAttribute("commentList", commentList);
-		return "/board/c_list";
-	}
 }

@@ -3,10 +3,12 @@ package com.lcomputerstudy.example.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lcomputerstudy.example.domain.Comment;
 import com.lcomputerstudy.example.mapper.CommentMapper;
 
+@Service
 public class CommentServiceImpl implements CommentService{
 
 	@Autowired 

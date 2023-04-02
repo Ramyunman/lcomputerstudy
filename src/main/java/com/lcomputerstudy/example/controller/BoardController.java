@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lcomputerstudy.example.domain.Board;
+import com.lcomputerstudy.example.domain.Comment;
 import com.lcomputerstudy.example.domain.Pagination;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.service.BoardService;
+import com.lcomputerstudy.example.service.CommentService;
 import com.lcomputerstudy.example.service.UserService;
 
 @org.springframework.stereotype.Controller
@@ -35,6 +37,9 @@ public class BoardController {
 	
 	@Autowired 
 	UserService userservice;
+	
+	@Autowired
+	CommentService commentservice;
 		
 	@RequestMapping("/board-beforeSignUp")
 	public String beforeSignup() {
@@ -80,10 +85,12 @@ public class BoardController {
 		return "/board/b_list";
 	}
 	
-	@RequestMapping("/board-detail/{bIdx}")		//board read 추가
+	@RequestMapping("/board-detail/{bIdx}")		
 	public String boardDetail(@PathVariable("bIdx") int bIdx, Model model) {
 		Board board = boardservice.showBoardDetail(bIdx);
+		List<Comment> commentList = commentservice.selectCommentList(bIdx);
 		model.addAttribute("board", board);
+		model.addAttribute("comment",commentList);
 		return "/board/b_detail";
 	}
 	

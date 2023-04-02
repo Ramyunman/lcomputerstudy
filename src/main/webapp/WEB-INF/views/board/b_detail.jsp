@@ -123,13 +123,13 @@ $(document).on('click', '.o_btnComment', function () {				//원댓글 달기 버
 });
 
 $(document).on('click', '.o_btnComment-register', function () {		//원댓글 등록 버튼		
-	let bIdx = '${board.bIdx}';
-	let cContent = $(this).prev('textarea').val();
+	let B_Idx = '${board.bIdx}';
+	let C_Content = $(this).prev('textarea').val();
 	
 	$.ajax({
 		method : 'POST',
 		url : "/comment-signup",
-		data : { b_idx:bIdx, c_content:cContent }
+		data : { bIdx:B_Idx, cContent:C_Content }
 	})
 	.done(function( msg ) {
 		console.log(msg);

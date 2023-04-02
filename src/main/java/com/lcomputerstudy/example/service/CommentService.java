@@ -3,7 +3,6 @@ package com.lcomputerstudy.example.service;
 import java.util.List;
 
 import com.lcomputerstudy.example.domain.Comment;
-import com.lcomputerstudy.example.domain.Pagination;
 
 public interface CommentService {
 
