@@ -11,7 +11,7 @@
 		
 		<c:forEach items="${commentList}" var="comment" varStatus="status">
 			<tr>
-				<td>${comment.c_idx }</td>
+				<td>${comment.cIdx }</td>
 				
 				<c:choose>
 					<c:when test="${comment.cDepth > 0 }">

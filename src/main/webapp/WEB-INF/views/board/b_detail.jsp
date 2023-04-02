@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title> Board 상세 정보 </title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
 	table {
@@ -74,7 +75,13 @@
 	</table>
 	<a href="${pageContext.request.contextPath}/board-list">목록으로</a>
 	<a href="${pageContext.request.contextPath}/board-replyBeforeSignUp/${board.bIdx}">답글 등록</a>
-	<button type="button" class="createCommentBtn"> 댓글 등록 </button>
+	<button type="button" class="o_btnComment"> 댓글 등록 </button>
+	
+		<div style="display: none;">
+			<textarea rows="3" cols="50" ></textarea>	
+			<button type="button" class="o_btnComment-register">등록</button>
+			<button type="button" class="o_btnComment-cancel">취소</button>
+		</div>
 	
 	<h2> Comment 목록 </h2>
 	<table id="commentList">
@@ -87,7 +94,7 @@
 		
 		<c:forEach items="${commentList}" var="comment" varStatus="status">
 			<tr>
-				<td>${comment.c_idx }</td>
+				<td>${comment.cIdx }</td>
 				
 				<c:choose>
 					<c:when test="${comment.cDepth > 0 }">
@@ -108,6 +115,35 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
+<script>
+$(document).on('click', '.o_btnComment', function () {				//원댓글 달기 버튼		
+	console.log('원댓글 달기 버튼')
+	$(this).next().css('display','');
+});
+
+$(document).on('click', '.o_btnComment-register', function () {		//원댓글 등록 버튼		
+	let bIdx = '${board.bIdx}';
+	let cContent = $(this).prev('textarea').val();
+	
+	$.ajax({
+		method : 'POST',
+		url : "/comment-signup",
+		data : { b_idx:bIdx, c_content:cContent }
+	})
+	.done(function( msg ) {
+		console.log(msg);
+	   	$('#commentList').html(msg);
+	});
+	console.log('원댓글 등록 버튼')
+	$(this).parent().css('display','none');
+});
+
+$(document).on('click', '.o_btnComment-cancel', function () {		//원댓글 취소 버튼		
+	console.log('원댓글 취소 버튼')
+	$(this).parent().css('display','none');
+});	
+</script>
 	
 </body>
 </html>

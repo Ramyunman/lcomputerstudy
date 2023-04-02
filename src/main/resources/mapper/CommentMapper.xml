@@ -1,7 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.CommentMapper">
+	<!-- 댓글 등록 -->
+	<insert id="createComment" parameterType="Comment">		
+		INSERT INTO lc_comment (
+			c_content,
+			b_idx,
+			c_group,
+			c_order,
+			c_depth,
+			u_idx
+		) VALUES (
+			#{cContent},
+			#{board.bIdx},
+			#{cGroup},
+			1,
+			0,
+			#{user.uIdx}
+		)
+		<selectKey keyProperty="cGroup" resultType="int" order="BEFORE">
+   			SELECT 		MAX(c_idx) +1 
+   			FROM 		lc_comment
+		</selectKey>
+	</insert>
+	
+	<resultMap id="commentMap" type="Comment">
+    	<id property="cIdx" column="c_idx" />
+    	<result property="cContent" column="c_content" />
+    	<result property="cDateTime" column="c_datetime" />
+    	<result property="bIdx" column="b_idx" />
+    	<result property="cGroup" column="c_group" />
+    	<result property="cOrder" column="c_order" />
+    	<result property="cDepth" column="c_depth" />
+    	<result property="uIdx" column="u_idx" />    	
+    	<association property="user" resultMap="userMap"/>
+	</resultMap>
 
+	<resultMap id="userMap" type="User">
+    	<id property="uIdx" column="u_idx" />
+    	<result property="username" column="u_id" />
+    	<result property="password" column="u_password" />
+    	<result property="uName" column="u_name" />
+    	<result property="uTel" column="u_tel" />
+    	<result property="uAge" column="u_age" />
+	</resultMap>
+	
+	<!-- 댓글 리스트 -->
+	<select id="selectCommentList" parameterType="int" resultMap="commentMap">
+		SELECT		ta.*,
+					tb.u_name, u_id
+		FROM		lc_comment ta	
+		LEFT JOIN	lc_user tb ON ta.u_idx = tb.u_idx
+		WHERE		b_idx = #{bIdx}
+		ORDER BY	c_group	DESC, c_order ASC, c_depth ASC
+	</select>
 
 
 
