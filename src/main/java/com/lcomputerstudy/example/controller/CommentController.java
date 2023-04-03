@@ -48,4 +48,24 @@ public class CommentController {
 		return "/board/c_list";
 	}
 	
+	@RequestMapping("/comment-reply")
+	public String commentCreateReply(Comment comment, Model model) {
+		// 현재 로그인한 유저의 정보를 가져와서 board 객체에 추가
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String username = authentication.getName();
+	    // 사용자의 User 객체를 가져옴
+	    User user = userservice.getUserByUsername(username);
+		// Board 객체에 사용자의 User 객체를 설정함
+	    comment.setUser(user);
+	    // 대댓글 생성
+	    commentservice.updateCOrder(comment);
+	    commentservice.insertCommentReply(comment);
+	    // 댓글 목록 조회 및 모델에 추가
+	 	List<Comment> commentList = commentservice.selectCommentList(comment.getbIdx());
+	 	model.addAttribute("commentList", commentList);
+		
+		return "/board/c_list";
+		
+	}
+	
 }

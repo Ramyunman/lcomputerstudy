@@ -18,4 +18,10 @@ public interface CommentMapper {
 	//cIdx를 cGroup에 적용시킴
 	public void updateCGroup(Comment comment);
 	
+	//댓글 reply 등록
+	public void insertCommentReply(Comment comment);
+	
+	//기존 댓글 reply의 Order 증가시킴
+	public void updateCOrder(Comment comment);
+	
 }

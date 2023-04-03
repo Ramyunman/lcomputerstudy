@@ -30,4 +30,16 @@ public class CommentServiceImpl implements CommentService{
 		commentMapper.updateCGroup(comment);	
 	}
 
+	@Override		//댓글 reply 등록
+	public void insertCommentReply(Comment comment) {
+		commentMapper.insertCommentReply(comment);
+				
+	}
+
+	@Override		//기존 댓글 reply의 Order 증가시킴
+	public void updateCOrder(Comment comment) {
+		commentMapper.updateCOrder(comment);
+		
+	}
+
 }

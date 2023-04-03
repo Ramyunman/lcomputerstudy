@@ -133,7 +133,6 @@ public class BoardController {
 	    User user = userservice.getUserByUsername(username);
 		// Board 객체에 사용자의 User 객체를 설정함
 	    board.setUser(user);	    
-		// 보드 생성
 	    boardservice.updateBOrder(board);
 		boardservice.insertBoardReply(board);
 		

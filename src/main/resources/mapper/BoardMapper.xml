@@ -112,7 +112,7 @@
 		FROM 		lc_board
 	</select>
 	
-	<!-- Reply -->
+<!-- Reply -->
 		<!-- 답글 등록 -->
 	<insert id="insertBoardReply" parameterType="Board">
   	<![CDATA[
@@ -146,7 +146,7 @@
     	AND 		b_order > #{bOrder}
   	]]>
 	</update>
-	<!-- Reply -->
+<!-- Reply -->
 	
 	<!-- getBoardByBIdx -->
 	<select id="getBoardByBIdx" parameterType="int" resultMap="boardMap">

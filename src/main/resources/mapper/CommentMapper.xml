@@ -63,7 +63,40 @@
 		ORDER BY	c_group	DESC, c_order ASC, c_depth ASC
 	</select>
 
+<!-- 대댓글 달기 -->
+	<!-- 답글 등록 -->
+	<insert id="insertCommentReply" parameterType="Comment">
+  	<![CDATA[
+    	INSERT INTO	lc_comment (
+    		c_content,
+    		b_idx,
+    		c_group,
+    		c_order,
+    		c_depth,
+    		u_idx
+    		
+    	) VALUES (
+    		#{cContent},
+    		#{bIdx},
+    		#{cGroup},
+    		#{cOrder} + 1,
+    		#{cDepth} + 1,
+    		#{user.uIdx}
+    	)
+  	]]>
+	</insert>
 
+		<!-- 기존 댓글의 순서를 증가시킴 -->
+	<update id="updateCOrder" parameterType="Comment">
+  	<![CDATA[
+    	UPDATE		lc_comment
+    	SET 		c_order = c_order + 1 
+    	WHERE 		c_group = #{cGroup} 
+    	AND 		c_order > #{cOrder}
+  	]]>
+	</update>
+<!-- 대댓글 달기 -->
+	
 
 
 
