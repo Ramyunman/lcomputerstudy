@@ -125,7 +125,7 @@
 				<td>
 					<div>
 						<textarea rows="3" cols="50" ></textarea>	
-						<button type="button" class="btnComment-register" data-cGroup="${comment.cGroup}", data-cOrder="${comment.cOrder }", data-cDepth="${comment.cDepth }">등록</button>
+						<button type="button" class="btnComment-register" data-cGroup="${comment.cGroup}" data-cOrder="${comment.cOrder }" data-cDepth="${comment.cDepth }">등록</button>
 						<button type="button" class="btnComment-cancel">취소</button>
 					</div>	
 				</td>	
