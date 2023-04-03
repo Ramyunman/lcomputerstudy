@@ -37,6 +37,9 @@ public interface BoardService {
 	//reply 등록
 	public void insertBoardReply(Board board);
 	
+	//bIdx를 bGroup에 적용시킴
+	public void updateBGroup(Board board);
+	
 	//기존 reply의 Order를 증가시킴
 	public void updateBOrder(Board board);
 	

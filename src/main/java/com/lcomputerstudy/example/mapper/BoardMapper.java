@@ -41,5 +41,8 @@ public interface BoardMapper {
 	
 	//bIdx를 이용해 Board객체 불러오기
 	public Board getBoardByBIdx(int bIdx);
+
+	//bIdx를 bGroup에 적용시킴
+	public void updateBGroup(Board board);
 	
 }

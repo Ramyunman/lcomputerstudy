@@ -23,6 +23,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override		// 보드 생성
 	public void createBoard(Board board) {
 		boardMapper.createBoard(board);
+		boardMapper.updateBGroup(board);
 	}
 
 	@Override		// 보드 리스트
@@ -68,6 +69,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override		//기존 reply의 Order를 증가시킴
 	public void updateBOrder(Board board) {
 		boardMapper.updateBOrder(board);
+		
+	}
+
+	@Override		//bIdx를 bGroup에 적용시킴
+	public void updateBGroup(Board board) {
+		boardMapper.updateBGroup(board);
 		
 	}
 

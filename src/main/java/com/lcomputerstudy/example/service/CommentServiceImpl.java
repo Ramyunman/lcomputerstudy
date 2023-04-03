@@ -17,11 +17,17 @@ public class CommentServiceImpl implements CommentService{
 	@Override		//댓글 생성
 	public void createComment(Comment comment) {
 		commentMapper.createComment(comment);
+		commentMapper.updateCGroup(comment);
 	}
 
 	@Override		// 댓글 목록 보기
 	public List<Comment> selectCommentList(int bIdx) {
 		return commentMapper.selectCommentList(bIdx);
+	}
+
+	@Override		//cIdx를 cGroup에 적용시킴
+	public void updateCGroup(Comment comment) {
+		commentMapper.updateCGroup(comment);	
 	}
 
 }

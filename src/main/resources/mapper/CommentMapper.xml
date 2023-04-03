@@ -12,17 +12,25 @@
 			u_idx
 		) VALUES (
 			#{cContent},
-			#{board.bIdx},
+			#{bIdx},
 			#{cGroup},
 			1,
 			0,
 			#{user.uIdx}
 		)
-		<selectKey keyProperty="cGroup" resultType="int" order="BEFORE">
-   			SELECT 		MAX(c_idx) +1 
-   			FROM 		lc_comment
+		<selectKey keyProperty="cIdx" resultType="Integer">
+   			SELECT 		last_insert_id()
 		</selectKey>
 	</insert>
+	
+	<!-- cGroup을 cIdx를 이용해 업데이트 하는 메소드. -->
+	<update id="updateCGroup" parameterType="Comment">
+	<![CDATA[
+		UPDATE		lc_comment
+		SET			c_group = last_insert_id()
+		WHERE		c_idx = last_insert_id()
+	]]>
+	</update>
 	
 	<resultMap id="commentMap" type="Comment">
     	<id property="cIdx" column="c_idx" />
