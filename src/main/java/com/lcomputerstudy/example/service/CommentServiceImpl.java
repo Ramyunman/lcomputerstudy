@@ -42,4 +42,15 @@ public class CommentServiceImpl implements CommentService{
 		
 	}
 
+	@Override		//cIdx로 Comment 객체 가져오기
+	public Comment getCommentInfo(int cIdx) {
+		return commentMapper.getCommentInfo(cIdx);
+	}
+
+	@Override
+	public void deleteComment(int cIdx) {
+		commentMapper.deleteComment(cIdx);
+		
+	}
+
 }

@@ -31,6 +31,8 @@ public class CommentController {
 	@Autowired
 	CommentService commentservice;
 	
+	List<Comment> commentList = null;
+	
 	@RequestMapping("/comment-signup")
 	public String createComment(Comment comment, Model model) {
 		// 현재 로그인한 유저의 정보를 가져와서 comment 객체에 추가
@@ -43,7 +45,7 @@ public class CommentController {
 	    // 댓글 생성
 		commentservice.createComment(comment);
 		// 댓글 목록 조회 및 모델에 추가
-		List<Comment> commentList = commentservice.selectCommentList(comment.getbIdx());
+		commentList = commentservice.selectCommentList(comment.getbIdx());
 		model.addAttribute("commentList", commentList);
 		return "/board/c_list";
 	}
@@ -61,11 +63,18 @@ public class CommentController {
 	    commentservice.updateCOrder(comment);
 	    commentservice.insertCommentReply(comment);
 	    // 댓글 목록 조회 및 모델에 추가
-	 	List<Comment> commentList = commentservice.selectCommentList(comment.getbIdx());
+	 	commentList = commentservice.selectCommentList(comment.getbIdx());
 	 	model.addAttribute("commentList", commentList);
 		
 		return "/board/c_list";
-		
+	}
+	
+	@RequestMapping("/comment-delete")
+	public String commentDelete(@RequestParam("cIdx") int cIdx, Comment comment, Model model) {
+		commentservice.deleteComment(cIdx);		
+		commentList = commentservice.selectCommentList(comment.getbIdx());
+	 	model.addAttribute("commentList", commentList);
+		return "/board/c_list";
 	}
 	
 }

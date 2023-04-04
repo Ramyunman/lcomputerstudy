@@ -89,8 +89,7 @@
 			<th>No</th>
 			<th>내용</th>
 			<th>작성일자</th>
-			<th>ID</th>	
-			<th>cGroup</th>		
+			<th>ID</th>		
 		</tr>
 		
 		<c:forEach items="${commentList}" var="comment" varStatus="status">
@@ -112,12 +111,11 @@
 				</c:choose>
 				
 				<td>${comment.cDateTime}</td>
-				<td>${comment.user.username}</td>
-				<td>${comment.cGroup}</td>
+				<td>${comment.user.username}</td>				
 				<td>
 					<button type="button" class="btnComment">댓글</button>
 					<button type="button" class="btnComment-Update">수정</button>
-					<button type="button" class="btnComment-Delete">삭제</button>	
+					<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>	
 				</td>				
 			</tr>
 					
@@ -125,7 +123,8 @@
 				<td>
 					<div>
 						<textarea rows="3" cols="50" ></textarea>	
-						<button type="button" class="btnComment-register" data-cGroup="${comment.cGroup}" data-cOrder="${comment.cOrder }" data-cDepth="${comment.cDepth }">등록</button>
+						<button type="button" class="btnComment-register" 
+							cGroup="${comment.cGroup}" cOrder="${comment.cOrder }" cDepth="${comment.cDepth }">등록</button>
 						<button type="button" class="btnComment-cancel">취소</button>
 					</div>	
 				</td>	
@@ -166,16 +165,17 @@ $(document).on('click', '.o_btnComment-cancel', function () {		//원댓글 취�
 });
 
 $(document).on('click', '.btnComment', function () {				//대댓글 달기 버튼
-	console.log('대댓글 달기 버튼');
+	var cIdx = $(this).data('cIdx');
+	console.log('대댓글 달기 버튼, cIdx:', cIdx);
 	$(this).parent().parent().next().css('display', '');	
 });
 
 $(document).on('click', '.btnComment-register', function (){		//대댓글 등록 버튼
 	let B_Idx = '${board.bIdx}';
 	let C_Content = $(this).prev('textarea').val();
-	let C_Group = $(this).data('cGroup');
-	let C_Order = $(this).data('cOrder');
-	let C_Depth = $(this).data('cDepth');
+	let C_Group = $(this).attr('cGroup');
+	let C_Order = $(this).attr('cOrder');
+	let C_Depth = $(this).attr('cDepth');
 	
 	$.ajax({
 		  method: "POST",
@@ -193,6 +193,24 @@ $(document).on('click', '.btnComment-cancel', function () {			//대댓글 취소
 	console.log('대댓글 취소 버튼');
 	$(this).parent().parent().parent().css('display', 'none');	
 });
+
+
+$(document).on('click', '.btnComment-Delete', function() {			//댓글 삭제
+	let C_Idx = $(this).attr('cIdx');
+	
+	$.ajax({
+		method: "POST",
+		url: "/comment-delete",
+		data: { cIdx:C_Idx }	
+	})
+	.done(function ( msg ) {
+		console.log(msg);
+		$('#commentList').html(msg);
+	});
+	console.log('댓글 삭제 버튼');
+});	
+
+
 </script>
 	
 </body>

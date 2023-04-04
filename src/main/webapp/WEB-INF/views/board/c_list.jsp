@@ -6,8 +6,7 @@
 			<th>No</th>
 			<th>내용</th>
 			<th>작성일자</th>
-			<th>ID</th>	
-			<th>cGroup</th>		
+			<th>ID</th>		
 		</tr>
 		
 		<c:forEach items="${commentList}" var="comment" varStatus="status">
@@ -30,11 +29,10 @@
 				
 				<td>${comment.cDateTime}</td>
 				<td>${comment.user.username}</td>	
-				<td>${comment.cGroup}</td>
 				<td>
 					<button type="button" class="btnComment">댓글</button>
 					<button type="button" class="btnComment-Update">수정</button>
-					<button type="button" class="btnComment-Delete">삭제</button>	
+					<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>	
 				</td>				
 			</tr>
 			
@@ -42,7 +40,8 @@
 				<td>
 					<div>
 						<textarea rows="3" cols="50" ></textarea>	
-						<button type="button" class="btnComment-register" data-cGroup="${comment.cGroup}" data-cOrder="${comment.cOrder}" data-cDepth="${comment.cDepth}">등록</button>
+						<button type="button" class="btnComment-register" 
+							cGroup="${comment.cGroup}" cOrder="${comment.cOrder}" cDepth="${comment.cDepth}">등록</button>
 						<button type="button" class="btnComment-cancel">취소</button>
 					</div>	
 				</td>	

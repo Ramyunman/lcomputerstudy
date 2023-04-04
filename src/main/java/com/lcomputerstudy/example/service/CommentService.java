@@ -20,4 +20,10 @@ public interface CommentService {
 	
 	//기존 댓글 reply의 Order 증가시킴
 	public void updateCOrder(Comment comment);
+	
+	//cIdx로 Comment 객체 가져오기
+	public Comment getCommentInfo(int cIdx); 
+	
+	//댓글 삭제
+	public void deleteComment(int cIdx);
 }

@@ -63,8 +63,8 @@
 		ORDER BY	c_group	DESC, c_order ASC, c_depth ASC
 	</select>
 
-<!-- 대댓글 달기 -->
-	<!-- 답글 등록 -->
+	<!-- 대댓글 달기 -->
+		<!-- 답글 등록 -->
 	<insert id="insertCommentReply" parameterType="Comment">
   	<![CDATA[
     	INSERT INTO	lc_comment (
@@ -95,11 +95,21 @@
     	AND 		c_order > #{cOrder}
   	]]>
 	</update>
-<!-- 대댓글 달기 -->
+	<!-- 대댓글 달기 -->
 	
+	<!-- cIdx로 Comment 객체 가져오기 -->
+	<select id="getCommentInfo" parameterType="int" resultMap="commentMap">
+		SELECT		*
+		FROM 		lc_comment
+		WHERE		c_idx = #{cIdx}
+	</select>
 
-
-
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="int">
+		DELETE
+		FROM		lc_comment
+		WHERE		c_idx = #{cIdx}
+	</delete>
 
 
 
