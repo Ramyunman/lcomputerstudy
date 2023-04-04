@@ -47,4 +47,13 @@
 				</td>	
 			</tr>
 		
+			<tr style="display: none;">		<!-- 대댓글 수정창 -->
+				<td>
+					<div>
+						<textarea rows="3" cols="50"> ${comment.cContent } </textarea>
+						<button type="button" class="btnComment-Update-register" cIdx="${comment.cIdx}">등록</button>
+						<button type="button" class="btnComment-Update-cancel">취소</button>
+					</div>	
+				</td>
+			</tr>	
 		</c:forEach>

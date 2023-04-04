@@ -26,4 +26,7 @@ public interface CommentService {
 	
 	//댓글 삭제
 	public void deleteComment(int cIdx);
+	
+	//댓글 업데이트
+	public void updateComment(Comment comment); 
 }

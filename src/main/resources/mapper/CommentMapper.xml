@@ -111,6 +111,13 @@
 		WHERE		c_idx = #{cIdx}
 	</delete>
 
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="Comment">
+		UPDATE		lc_comment
+		SET			c_content = #{cContent},
+					c_datetime = current_timestamp()
+		WHERE		c_idx = #{cIdx}			
+	</update>
 
 
 

@@ -47,9 +47,15 @@ public class CommentServiceImpl implements CommentService{
 		return commentMapper.getCommentInfo(cIdx);
 	}
 
-	@Override
+	@Override		//댓글 삭제
 	public void deleteComment(int cIdx) {
 		commentMapper.deleteComment(cIdx);
+		
+	}
+
+	@Override		//댓글 업데이트
+	public void updateComment(Comment comment) {
+		commentMapper.updateComment(comment);
 		
 	}
 

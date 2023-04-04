@@ -65,16 +65,24 @@ public class CommentController {
 	    // 댓글 목록 조회 및 모델에 추가
 	 	commentList = commentservice.selectCommentList(comment.getbIdx());
 	 	model.addAttribute("commentList", commentList);
-		
 		return "/board/c_list";
 	}
 	
 	@RequestMapping("/comment-delete")
-	public String commentDelete(@RequestParam("cIdx") int cIdx, Comment comment, Model model) {
+	public String commentDelete(@RequestParam("cIdx") int cIdx, Model model) {
 		commentservice.deleteComment(cIdx);		
-		commentList = commentservice.selectCommentList(comment.getbIdx());
-	 	model.addAttribute("commentList", commentList);
 		return "/board/c_list";
+	}
+	
+	@RequestMapping("/comment-update")
+	public String commentUpdate(@RequestParam("cIdx") int cIdx, Comment comment, Model model) {
+		commentservice.updateComment(comment);
+		model.addAttribute("afterComment",comment);
+		commentList = commentservice.selectCommentList(comment.getbIdx());
+		// 댓글 목록 조회 및 모델에 추가
+		model.addAttribute("commentList", commentList);
+		return "/board/c_list";
+		
 	}
 	
 }

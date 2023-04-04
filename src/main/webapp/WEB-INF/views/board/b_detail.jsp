@@ -119,7 +119,7 @@
 				</td>				
 			</tr>
 					
-			<tr style="display: none;">			<!-- 대댓글 등록창 -->
+			<tr style="display: none;">		<!-- 대댓글 등록창 -->
 				<td>
 					<div>
 						<textarea rows="3" cols="50" ></textarea>	
@@ -129,7 +129,16 @@
 					</div>	
 				</td>	
 			</tr>		
-						
+					
+			<tr style="display: none;">		<!-- 대댓글 수정창 -->
+				<td>
+					<div>
+						<textarea rows="3" cols="50"> ${comment.cContent } </textarea>
+						<button type="button" class="btnComment-Update-register" cIdx="${comment.cIdx}">등록</button>
+						<button type="button" class="btnComment-Update-cancel">취소</button>
+					</div>	
+				</td>
+			</tr>	
 		</c:forEach>
 				
 	</table>
@@ -189,19 +198,48 @@ $(document).on('click', '.btnComment-register', function (){		//대댓글 등록
 	console.log('대댓글 등록 버튼');
 });
 
-$(document).on('click', '.btnComment-cancel', function () {			//대댓글 취소 버튼
+$(document).on('click', '.btnComment-cancel', function () {				//대댓글 취소 버튼
 	console.log('대댓글 취소 버튼');
 	$(this).parent().parent().parent().css('display', 'none');	
 });
 
+$(document).on('click', '.btnComment-Update', function () {				//대댓글 수정 버튼
+	console.log('대댓글 수정 버튼 ');
+	$(this).parent().parent().next().next().css('display', '');	
+	$(this).parent().parent().css('display', 'none');		
+});
 
-$(document).on('click', '.btnComment-Delete', function() {			//댓글 삭제
+$(document).on('click', '.btnComment-Update-register', function () {	//대댓글 수정 등록 버튼
+	let B_Idx = '${board.bIdx}';
+	let C_Content = $(this).prev('textarea').val();
+	let C_Idx = $(this).attr('cIdx');
+	
+	$.ajax({
+		  method: "POST",
+		  url: "/comment-update",
+		  data: { bIdx:B_Idx, cContent:C_Content, cIdx:C_Idx }
+	})
+	.done(function( msg ) {
+		console.log(msg);
+	   	$('#commentList').html(msg);
+	});
+	console.log('대댓글 수정 등록 버튼');	
+});	
+
+$(document).on('click', '.btnComment-Update-cancel', function () {		//대댓글 수정 취소 버튼
+	console.log('대댓글 수정 취소 버튼');	
+	$(this).parent().parent().parent().prev().prev().css('display','');
+	$(this).parent().parent().parent().css('display', 'none');
+});
+
+$(document).on('click', '.btnComment-Delete', function() {				//댓글 삭제
+	let B_Idx = '${board.bIdx}';
 	let C_Idx = $(this).attr('cIdx');
 	
 	$.ajax({
 		method: "POST",
 		url: "/comment-delete",
-		data: { cIdx:C_Idx }	
+		data: { bIdx:B_Idx, cIdx:C_Idx }	
 	})
 	.done(function ( msg ) {
 		console.log(msg);
