@@ -69,8 +69,11 @@ public class CommentController {
 	}
 	
 	@RequestMapping("/comment-delete")
-	public String commentDelete(@RequestParam("cIdx") int cIdx, Model model) {
-		commentservice.deleteComment(cIdx);		
+	public String commentDelete(@RequestParam("cIdx") int cIdx, Comment comment, Model model) {
+		commentservice.deleteComment(cIdx);	
+		// 댓글 목록 조회 및 모델에 추가
+		commentList = commentservice.selectCommentList(comment.getbIdx());
+		model.addAttribute("commentList", commentList);
 		return "/board/c_list";
 	}
 	
@@ -78,8 +81,8 @@ public class CommentController {
 	public String commentUpdate(@RequestParam("cIdx") int cIdx, Comment comment, Model model) {
 		commentservice.updateComment(comment);
 		model.addAttribute("afterComment",comment);
-		commentList = commentservice.selectCommentList(comment.getbIdx());
 		// 댓글 목록 조회 및 모델에 추가
+		commentList = commentservice.selectCommentList(comment.getbIdx());
 		model.addAttribute("commentList", commentList);
 		return "/board/c_list";
 		
