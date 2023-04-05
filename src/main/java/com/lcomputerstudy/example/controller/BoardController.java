@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.Comment;
 import com.lcomputerstudy.example.domain.Pagination;
+import com.lcomputerstudy.example.domain.Search;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.CommentService;
@@ -63,15 +64,11 @@ public class BoardController {
 	}
 			
 	@RequestMapping("/board-list")		//board list 추가
-	public String boardList(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
-			
+	public String boardList(Pagination pagination, Model model) {	
 		int totalboardCount = boardservice.countBoard();
-		
-		Pagination pagination = new Pagination();
-		pagination.setPage(page);
 		pagination.setAmount(totalboardCount);
 		pagination.init();
-		
+				
 		List<Board> boardList = boardservice.selectBoardList(pagination);
 		
 		// board 객체에 Pagination 정보 설정

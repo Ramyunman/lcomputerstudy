@@ -106,11 +106,9 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user-list")		//user list 추가
-	public String userList(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+	public String userList(Pagination pagination, Model model) {
 		int totalUserCount = userservice.countUser();
 		
-		Pagination pagination = new Pagination();
-		pagination.setPage(page);
 		pagination.setAmount(totalUserCount);
 		pagination.init();
 		
