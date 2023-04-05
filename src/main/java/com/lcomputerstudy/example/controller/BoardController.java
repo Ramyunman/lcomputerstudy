@@ -64,11 +64,21 @@ public class BoardController {
 	}
 			
 	@RequestMapping("/board-list")		//board list 추가
-	public String boardList(Pagination pagination, Model model) {	
+	public String boardList(@RequestParam(name="tcw", required=false) String tcw, 
+			@RequestParam(name="searchbox", required=false) String searchbox, Pagination pagination, Model model) {	
+		
+		// tcw와 searchbox 값을 이용하여 Search 객체 생성
+		Search search = new Search();
+		search.setTcw(tcw);
+		search.setSearchbox(searchbox);
+		
+		// Pagination 객체에 Search 객체 설정
+		pagination.setSearch(search);
+		
 		int totalboardCount = boardservice.countBoard();
 		pagination.setAmount(totalboardCount);
 		pagination.init();
-				
+		
 		List<Board> boardList = boardservice.selectBoardList(pagination);
 		
 		// board 객체에 Pagination 정보 설정
