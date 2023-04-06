@@ -59,29 +59,21 @@
 		SELECT			b.*, u.u_name
 		FROM 			lc_board b
 		INNER JOIN		lc_user u ON b.u_idx = u.u_idx
-		<where>
-			<choose>
-				<when test="search != null">
-					<choose>
-						<when test="search.getTcw() == '1'">
-							b_title like CONCAT('%',#{search.searchbox},'%')
-						</when>
-						<when test="search.getTcw() == '2'">
-							b_title like CONCAT('%',#{search.searchbox()},'%') 
-							OR b_content like CONCAT('%',#{search.searchbox()},'%')
-						</when>
-						<when test="search.getTcw() == '3'">
-							u_name like CONCAT('%',#{search.searchbox()},'%')
-						</when>
-						<otherwise>
-						</otherwise>
-					</choose>
-				</when>
-				<otherwise>
-				1=1
-				</otherwise>
-			</choose>
-		</where>
+		<if test="search != null and search.tcw != null">	
+			<where>
+    			<choose>
+      				<when test="search.tcw == 1">
+        				AND b_title like CONCAT('%',#{search.searchbox},'%')
+      				</when>
+      				<when test="search.tcw == 2">
+        				AND (b_title like CONCAT('%',#{search.searchbox},'%') OR b_content like CONCAT('%',#{search.searchbox},'%'))
+      				</when>
+      				<when test="search.tcw == 3">
+        				AND u_name like CONCAT('%',#{search.searchbox},'%')
+      				</when>  
+    			</choose>
+    		</where>			
+		</if>
 		ORDER BY	b_group	DESC, b_order ASC
 		LIMIT		#{pageNum}, #{perPage}
 	</select>
@@ -128,21 +120,20 @@
 		SELECT        COUNT(*) AS count
 		FROM          lc_board b
 		LEFT JOIN     lc_user u ON b.u_idx = u.u_idx
-		<if test="search != null">
+		<if test="search != null and search.tcw != null">	
 			<where>
-				<choose>
-					<when test="search.getTcw() == '1'">
-						AND b_title like CONCAT('%',#{search.searchbox},'%')
-					</when>
-					<when test="search.getTcw() == '2'">
-						AND (b_title like CONCAT('%',#{search.searchbox},'%') 
-						OR b_content like CONCAT('%',#{search.searchbox},'%'))
-					</when>
-					<when test="search.getTcw() == '3'">
-						AND u_name like CONCAT('%',#{search.searchbox},'%')
-					</when>
-				</choose>
-			</where>
+    			<choose>
+      				<when test="search.tcw == 1">
+        				AND b_title like CONCAT('%',#{search.searchbox},'%')
+      				</when>
+      				<when test="search.tcw == 2">
+        				AND (b_title like CONCAT('%',#{search.searchbox},'%') OR b_content like CONCAT('%',#{search.searchbox},'%'))
+      				</when>
+      				<when test="search.tcw == 3">
+        				AND u_name like CONCAT('%',#{search.searchbox},'%')
+      				</when>  
+    			</choose>
+    		</where>			
 		</if>
 	</select>
 	

@@ -134,7 +134,7 @@
 	
 	<form action="/board-list" name="search" method="get">
 		<select name="tcw">
-			<option value="0"> 선택 </option>
+			<option value="0"> 전체 </option>
 			<option value="1"> 제목 </option>
 			<option value="2"> 제목+내용 </option>
 			<option value="3"> 작성자 </option>
