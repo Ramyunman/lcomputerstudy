@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.Pagination;
+import com.lcomputerstudy.example.domain.Search;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.mapper.BoardMapper;
 
@@ -52,8 +53,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override		//보드 카운트
-	public int countBoard() {
-		return boardMapper.countBoard();
+	public int countBoard(Pagination pagination) {
+		return boardMapper.countBoard(pagination);
 	}
 
 	@Override		// reply 등록

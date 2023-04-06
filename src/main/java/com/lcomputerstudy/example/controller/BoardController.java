@@ -75,7 +75,7 @@ public class BoardController {
 		// Pagination 객체에 Search 객체 설정
 		pagination.setSearch(search);
 		
-		int totalboardCount = boardservice.countBoard();
+		int totalboardCount = boardservice.countBoard(pagination);
 		pagination.setAmount(totalboardCount);
 		pagination.init();
 		

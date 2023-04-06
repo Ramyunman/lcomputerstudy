@@ -61,23 +61,24 @@
 		INNER JOIN		lc_user u ON b.u_idx = u.u_idx
 		<where>
 			<choose>
-				<when test="search != null and search.getTcw() == '1'">
-					<if test="bTitle != null and bTitle != ''">
-						b_title like CONCAT('%',#{search.getSearchbox()},'%')
-					</if>
-				</when>
-				<when test="search != null and search.getTcw() == '2'">
-					<if test="(bTitle != null and bTitle != '') or (bContent != null and bContent != '')">
-						b_title like CONCAT('%',#{search.getSearchbox()},'%') 
-							OR b_content like CONCAT('%',#{search.getSearchbox()},'%')
-					</if>
-				</when>
-				<when test="search != null and search.getTcw() == '3'">
-					<if test="user.uName != null and user.uName != ''">
-						u_name like CONCAT('%',#{search.getSearchbox()},'%')
-					</if>
+				<when test="search != null">
+					<choose>
+						<when test="search.getTcw() == '1'">
+							b_title like CONCAT('%',#{search.searchbox},'%')
+						</when>
+						<when test="search.getTcw() == '2'">
+							b_title like CONCAT('%',#{search.searchbox()},'%') 
+							OR b_content like CONCAT('%',#{search.searchbox()},'%')
+						</when>
+						<when test="search.getTcw() == '3'">
+							u_name like CONCAT('%',#{search.searchbox()},'%')
+						</when>
+						<otherwise>
+						</otherwise>
+					</choose>
 				</when>
 				<otherwise>
+				1=1
 				</otherwise>
 			</choose>
 		</where>
@@ -123,36 +124,26 @@
 	</update>
 	
 	<!-- 보드수 카운트  -->
-	<select id="countBoard" parameterType="Search" resultType="int" resultMap="boardMap">
+	<select id="countBoard" parameterType="Pagination" resultType="Integer">
 		SELECT        COUNT(*) AS count
 		FROM          lc_board b
 		LEFT JOIN     lc_user u ON b.u_idx = u.u_idx
-		
 		<if test="search != null">
-		<where>
-			<choose>
-				<when test="tcw != null and search.getTcw() == 't'">
-					<if test="bTitle != null and bTitle != ''">
+			<where>
+				<choose>
+					<when test="search.getTcw() == '1'">
 						AND b_title like CONCAT('%',#{search.searchbox},'%')
-					</if>
-				</when>
-				<when test="tcw != null and search.getTcw() == 'tc'">
-					<if test="(bTitle != null and bTitle != '') or (bContent != null and bContent != '')">
-						AND b_title like CONCAT('%',#{search.searchbox},'%') 
-							OR b_content like CONCAT('%',#{search.searchbox},'%')
-					</if>
-				</when>
-				<when test="tcw != null and search.getTcw() == 'w'">
-					<if test="user.uName != null and user.uName != ''">
+					</when>
+					<when test="search.getTcw() == '2'">
+						AND (b_title like CONCAT('%',#{search.searchbox},'%') 
+						OR b_content like CONCAT('%',#{search.searchbox},'%'))
+					</when>
+					<when test="search.getTcw() == '3'">
 						AND u_name like CONCAT('%',#{search.searchbox},'%')
-					</if>
-				</when>
-				<otherwise>
-				</otherwise>
-			</choose>
-		</where>
+					</when>
+				</choose>
+			</where>
 		</if>
-		
 	</select>
 	
 <!-- Reply -->

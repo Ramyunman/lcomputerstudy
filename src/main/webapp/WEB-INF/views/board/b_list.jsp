@@ -134,10 +134,10 @@
 	
 	<form action="/board-list" name="search" method="get">
 		<select name="tcw">
-			<option value="select"> 선택 </option>
-			<option value="t"> 제목 </option>
-			<option value="tc"> 제목+내용 </option>
-			<option value="w"> 작성자 </option>
+			<option value="0"> 선택 </option>
+			<option value="1"> 제목 </option>
+			<option value="2"> 제목+내용 </option>
+			<option value="3"> 작성자 </option>
 		</select>
 		<input type="text" name="searchbox" placeholder="입력하세요!">
 		<input type="submit" value="검색하기">

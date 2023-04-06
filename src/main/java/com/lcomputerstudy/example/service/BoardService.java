@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.Pagination;
+import com.lcomputerstudy.example.domain.Search;
 import com.lcomputerstudy.example.domain.User;
 
 public interface BoardService {
@@ -32,7 +33,7 @@ public interface BoardService {
 	public void updateBoard(Board board);
 		
 	//보드수 카운트
-	public int countBoard();
+	public int countBoard(Pagination pagination);
 	
 	//reply 등록
 	public void insertBoardReply(Board board);
