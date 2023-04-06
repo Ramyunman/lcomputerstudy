@@ -107,18 +107,25 @@
 				
 			</c:choose>
 			<c:forEach var ="i" begin="${pagination.startPage}" end="${pagination.endPage}" step="1">
-			
 				<c:choose>
 					<c:when test="${ pagination.page == i }">		<%-- 현재페이지가 i와 같다면 회색으로 나오게 한다. --%>
-					
 						<li style="background-color:#ededed;">
 							<span>${i}</span>
 						</li>
 					</c:when>
 					<c:when test="${ pagination.page != i }">		<%-- 현재페이지가 i와 다르다면 링크를 걸게 한다. --%>
-						<li>
-							<a href="${pageContext.request.contextPath}/board-list?page=${i}">${i}</a>
-						</li>
+						<c:choose>
+							<c:when test="${pagination.search.tcw == null }">
+								<li>
+									<a href="${pageContext.request.contextPath}/board-list?page=${i}">${i}</a>
+								</li>
+							</c:when>
+							<c:when test="${pagination.search.tcw == 1 || pagination.search.tcw == 2 || pagination.search.tcw == 3 }">
+								<li>
+									<a href="${pageContext.request.contextPath}/board-list?tcw=${pagination.search.tcw}&searchbox=${pagination.search.searchbox}&page=${i}">${i}</a>
+								</li>
+							</c:when>
+						</c:choose>
 					</c:when>
 				</c:choose>
 			</c:forEach>
