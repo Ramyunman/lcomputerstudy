@@ -1,6 +1,8 @@
 package com.lcomputerstudy.example.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +42,7 @@ public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	UserService userservice;
+	UserService userservice;	//로직 구현
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -164,6 +168,17 @@ public class UserController {
 		
 		userservice.updateUser(user);
 		return "/user/update_result";
+	}
+	
+	@PostMapping("/user-addRoleAdmin")		//user 권한 추가
+	public ResponseEntity<?> addRoleAdmin(@RequestParam String username, Model model) {
+		User user = userservice.getUserByUsername(username);
+		Collection<GrantedAuthority> authorities = new ArrayList<>(user.getAuthorities());
+		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		user.setAuthorities(authorities);
+		userservice.
+		model.addAttribute("user", user);
+		return ResponseEntity.ok().build();	
 	}
 
 	
