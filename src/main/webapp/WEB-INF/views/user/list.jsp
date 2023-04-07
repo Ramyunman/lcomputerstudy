@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="org.springframework.security.core.authority.SimpleGrantedAuthority" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +55,11 @@
 			<th>No</th>
 			<th>ID</th>
 			<th>이름</th>
+			<c:set var="adminRole" value="ROLE_ADMIN"/>
+			<c:if test="${isAdmin}">
+			<th>관리자</th>
+			</c:if>
+		
 		</tr>
 		<c:forEach items="${userList}" var="user" varStatus="status">
 			<tr>
@@ -61,6 +67,13 @@
 				<td><a href="${pageContext.request.contextPath}/user-detail/${user.uIdx}">${(user.currentPage - 1) * user.pageSize + status.index + 1}</a></td>
 				<td>${user.username}</td>
 				<td>${user.uName}</td>
+				<c:set var="adminRole" value="ROLE_ADMIN"/>
+				<c:if test="${isAdmin}">
+					<td>
+						<button type="button" class="adminOn">ON</button>
+    					<button type="button" class="adminOff">OFF</button>
+    				</td>
+    			</c:if>
 			</tr>
 		</c:forEach>
 	</table>

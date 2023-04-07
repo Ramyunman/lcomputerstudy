@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -106,7 +107,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user-list")		//user list 추가
-	public String userList(Pagination pagination, Model model) {
+	public String userList(Pagination pagination, Model model, Authentication authentication) {
 		int totalUserCount = userservice.countUser();
 		
 		pagination.setAmount(totalUserCount);
@@ -122,6 +123,13 @@ public class UserController {
 
 		model.addAttribute("userList", userList);
 		model.addAttribute("pagination", pagination);
+		
+		if (authentication != null && authentication.getAuthorities()
+				.stream()
+		        .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
+		        model.addAttribute("isAdmin", true);
+		    }
+		
 		return "/user/list";
 	}
 	
