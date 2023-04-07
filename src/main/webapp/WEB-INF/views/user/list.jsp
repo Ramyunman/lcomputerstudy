@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User 목록</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
 	h1 {
@@ -124,5 +125,36 @@
 		</ul>
 	</div>
 
+<script>
+$(document).on('click','.adminOn',function() {
+	$.ajax({
+		method : 'POST',
+		url : '/user-addRoleAdmin',
+		data : { username : $(this).closest('tr').find('td:first').text() },
+		success : function(response) {
+			console.log('adminOn성공');
+		},
+		error : function(xhr, status, error) {
+			console.error(error);
+		}
+	});
+});
+
+$(document).on('click','.adminOff',function() {
+	$.ajax({
+		method : 'POST',
+		url : '/user-removeRoleAdmin',
+		data : { username : $(this).closest('tr').find('td:first').text() },
+		success : function(response) {
+			console.log('adminOff성공');
+		},
+		error : function(xhr, status, error) {
+			console.error(error);
+		}
+	});
+});
+
+
+</script>
 </body>
 </html>
