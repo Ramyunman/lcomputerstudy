@@ -64,7 +64,6 @@
 		</tr>
 		<c:forEach items="${userList}" var="user" varStatus="status">
 			<tr>
-			 	
 				<td><a href="${pageContext.request.contextPath}/user-detail/${user.uIdx}">${(user.currentPage - 1) * user.pageSize + status.index + 1}</a></td>
 				<td>${user.username}</td>
 				<td>${user.uName}</td>
@@ -127,10 +126,11 @@
 
 <script>
 $(document).on('click','.adminOn',function() {
+	let Username = $(this).closest('tr').find('td:nth-child(2)').text();
 	$.ajax({
 		method : 'POST',
 		url : '/user-addRoleAdmin',
-		data : { username : $(this).closest('tr').find('td:first').text() },
+		data : { username : Username },
 		success : function(response) {
 			console.log('adminOn성공');
 		},
@@ -141,10 +141,11 @@ $(document).on('click','.adminOn',function() {
 });
 
 $(document).on('click','.adminOff',function() {
+	let Username = $(this).closest('tr').find('td:nth-child(2)').text();
 	$.ajax({
 		method : 'POST',
 		url : '/user-removeRoleAdmin',
-		data : { username : $(this).closest('tr').find('td:first').text() },
+		data : { username : Username },
 		success : function(response) {
 			console.log('adminOff성공');
 		},

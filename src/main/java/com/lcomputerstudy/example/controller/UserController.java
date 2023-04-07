@@ -112,8 +112,9 @@ public class UserController {
 	
 	@RequestMapping("/user-list")		//user list 추가
 	public String userList(Pagination pagination, Model model, Authentication authentication) {
-		int totalUserCount = userservice.countUser();
+		authentication = SecurityContextHolder.getContext().getAuthentication();
 		
+		int totalUserCount = userservice.countUser();
 		pagination.setAmount(totalUserCount);
 		pagination.init();
 		
@@ -172,14 +173,34 @@ public class UserController {
 	
 	@PostMapping("/user-addRoleAdmin")		//user 권한 추가
 	public ResponseEntity<?> addRoleAdmin(@RequestParam String username, Model model) {
+		 // username에 해당하는 User 객체를 가져옵니다.
 		User user = userservice.getUserByUsername(username);
+		// User 객체에서 권한 리스트를 가져옵니다.
 		Collection<GrantedAuthority> authorities = new ArrayList<>(user.getAuthorities());
+		// "ROLE_ADMIN" 권한 추가
 		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		user.setAuthorities(authorities);
-		userservice.
+		userservice.addRoleAdmin(username);
+		// Model에 User 객체를 담아서 view에 전달
 		model.addAttribute("user", user);
+		// Http 상태코드 200 OK 반환
 		return ResponseEntity.ok().build();	
 	}
 
+	@PostMapping("/user-removeRoleAdmin")		//user 권한 추가
+	public ResponseEntity<?> removeRoleAdmin(@RequestParam String username, Model model) {
+		 // username에 해당하는 User 객체를 가져옵니다.
+		User user = userservice.getUserByUsername(username);
+		// User 객체에서 권한 리스트를 가져옵니다.
+		Collection<GrantedAuthority> authorities = new ArrayList<>(user.getAuthorities());
+		// "ROLE_ADMIN" 권한 삭제
+		authorities.remove(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		user.setAuthorities(authorities);
+		userservice.removeRoleAdmin(username);
+		// Model에 User 객체를 담아서 view에 전달
+		model.addAttribute("user", user);
+		// Http 상태코드 200 OK 반환
+		return ResponseEntity.ok().build();	
+	}
 	
 }

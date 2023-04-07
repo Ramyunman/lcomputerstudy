@@ -84,5 +84,17 @@ public class UserServiceImpl implements UserService {
 	public User getUserByUsername(String username) {
 		return userMapper.getUserByUsername(username);
 	}
+
+	@Override		//RoleAdmin 추가
+	public void addRoleAdmin(String username) {
+		userMapper.addRoleAdmin(username);
+		
+	}
+
+	@Override		//RoleAdmin 삭제
+	public void removeRoleAdmin(String username) {
+		userMapper.removeRoleAdmin(username);
+		
+	}
 	
 }
