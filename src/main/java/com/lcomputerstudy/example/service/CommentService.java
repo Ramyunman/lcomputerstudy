@@ -2,8 +2,11 @@ package com.lcomputerstudy.example.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.lcomputerstudy.example.domain.Comment;
 
+@Service
 public interface CommentService {
 
 	//댓글 생성

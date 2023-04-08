@@ -190,11 +190,13 @@ public class UserController {
 	@PostMapping("/user-removeRoleAdmin")		//user 권한 삭제
 	public ResponseEntity<?> removeRoleAdmin(@RequestParam String username, Model model) {
 		User user = userservice.getUserByUsername(username);
+
 		Collection<GrantedAuthority> authorities = new ArrayList<>(user.getAuthorities());
 		authorities.remove(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		user.setAuthorities(authorities);
 		userservice.removeRoleAdmin(username);
 		model.addAttribute("user", user);
+		
 		
 		return ResponseEntity.ok().build();	
 	}

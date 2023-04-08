@@ -1,9 +1,11 @@
 package com.lcomputerstudy.example.service;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.lcomputerstudy.example.domain.Pagination;
 import com.lcomputerstudy.example.domain.User;
+import com.lcomputerstudy.example.mapper.AuthMapper;
 import com.lcomputerstudy.example.mapper.UserMapper;
 
 @Service
@@ -22,10 +25,24 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserMapper userMapper;
 	
+	@Autowired
+	AuthMapper authMapper;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// 유저 정보 조회
 		User user = userMapper.readUser(username);
-		user.setAuthorities(getAuthorities(username));
+		if(user == null) {
+			throw new UsernameNotFoundException("User not found");
+		}
+		
+		// 유저 권한 조회
+		List<GrantedAuthority> authorities = authMapper.loadUserAuthorities(username)
+				.stream()
+				.map(authority -> new SimpleGrantedAuthority(authority.toString()))
+				.collect(Collectors.toList());
+				
+		user.setAuthorities(authorities);
 		return user;
 	}
 
@@ -87,17 +104,8 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getUserByUsername(username);
 	}
 	
-	@Override		//RoleAdmin 추가
-	public void addRoleAdmin(String username) {
-		userMapper.addRoleAdmin(username);
-		
-	}
 
-	@Override		//RoleAdmin 삭제
-	public void removeRoleAdmin(String username) {
-		userMapper.removeRoleAdmin(username);
-		
-	}
+
 
 	
 

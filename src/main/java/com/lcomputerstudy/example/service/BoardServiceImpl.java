@@ -15,7 +15,7 @@ import com.lcomputerstudy.example.domain.Search;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.mapper.BoardMapper;
 
-@Service("BoardServiceImpl")
+@Service
 public class BoardServiceImpl implements BoardService {
 	
 	@Autowired 

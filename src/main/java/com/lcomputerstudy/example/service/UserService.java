@@ -45,11 +45,7 @@ public interface UserService extends UserDetailsService {
 	//세션 ID 가져오기(user 객체 적용 가능)
 	public User getUserByUsername(String username);
 		
-	//RoleAdmin 추가
-	public void addRoleAdmin(String username);
+
 	
-	//RoleAdmin 삭제
-	public void removeRoleAdmin(String username);
-	
-	
+
 }

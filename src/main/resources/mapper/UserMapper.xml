@@ -30,8 +30,7 @@
 					u_isEnabled						as isEnabled
 		
 		FROM		lc_user
-		WHERE		1=1
-		AND			u_id = #{username}
+		WHERE		u_id = #{username}
 	</select>
 	
 	<!-- 회원 등록 -->
@@ -134,24 +133,16 @@
 	
 	<!-- getUserByUsername -->
 	<select id="getUserByUsername" parameterType="String" resultMap="userMap">
-		SELECT 		u.*, a.u_auth
+		SELECT 		u.*, GROUP_CONCAT(u_auth) AS u_auth
 		FROM		lc_user u
 		LEFT JOIN	lc_auth a ON u.u_id = a.u_id
 		WHERE		u.u_id = #{username}
+		GROUP BY 	u.u_id
 	</select>
 		
-	<!-- addRoleAdmin -->
-	<insert id="addRoleAdmin" parameterType="String">
-		INSERT INTO		lc_auth		(u_id, u_auth)
-		VALUES			(#{username}, 'ROLE_ADMIN')
-	</insert>
+
 	
-	<!-- removeRoleAdmin -->
-	<delete id="removeRoleAdmin" parameterType="String">
-		DELETE FROM		lc_auth
-		WHERE			u_id = #{username}
-		AND				u_auth = 'ROLE_ADMIN'
-	</delete>
+
 	
 	
 		
