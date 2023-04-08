@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -78,7 +79,10 @@ public class UserController {
 		user.setEnabled(true);
 		user.setAccountNonLocked(true);
 		user.setCredentialsNonExpired(true);
-		user.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
+		user.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN")
+				.stream()
+				.map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
+				.collect(Collectors.toList()));
 		
 		//유저 생성
 		userservice.createUser(user);
@@ -173,17 +177,13 @@ public class UserController {
 	
 	@PostMapping("/user-addRoleAdmin")		//user 권한 추가
 	public ResponseEntity<?> addRoleAdmin(@RequestParam String username, Model model) {
-		 // username에 해당하는 User 객체를 가져옵니다.
 		User user = userservice.getUserByUsername(username);
-		// User 객체에서 권한 리스트를 가져옵니다.
 		Collection<GrantedAuthority> authorities = new ArrayList<>(user.getAuthorities());
-		// "ROLE_ADMIN" 권한 추가
 		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		user.setAuthorities(authorities);
 		userservice.addRoleAdmin(username);
-		// Model에 User 객체를 담아서 view에 전달
 		model.addAttribute("user", user);
-		// Http 상태코드 200 OK 반환
+		
 		return ResponseEntity.ok().build();	
 	}
 
@@ -195,6 +195,7 @@ public class UserController {
 		user.setAuthorities(authorities);
 		userservice.removeRoleAdmin(username);
 		model.addAttribute("user", user);
+		
 		return ResponseEntity.ok().build();	
 	}
 	

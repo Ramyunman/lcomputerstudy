@@ -1,5 +1,6 @@
 package com.lcomputerstudy.example.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +26,6 @@ public class UserServiceImpl implements UserService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userMapper.readUser(username);
 		user.setAuthorities(getAuthorities(username));
-		
 		return user;
 	}
 
@@ -98,6 +98,8 @@ public class UserServiceImpl implements UserService {
 		userMapper.removeRoleAdmin(username);
 		
 	}
+
+	
 
 	
 	

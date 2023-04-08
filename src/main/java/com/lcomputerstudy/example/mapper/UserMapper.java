@@ -1,5 +1,6 @@
 package com.lcomputerstudy.example.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -50,5 +51,6 @@ public interface UserMapper {
 		
 	//RoleAdmin 삭제
 	public void removeRoleAdmin(String username);
+	
 
 }

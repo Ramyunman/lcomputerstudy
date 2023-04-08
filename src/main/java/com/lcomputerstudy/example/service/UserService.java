@@ -1,5 +1,6 @@
 package com.lcomputerstudy.example.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -49,4 +50,6 @@ public interface UserService extends UserDetailsService {
 	
 	//RoleAdmin 삭제
 	public void removeRoleAdmin(String username);
+	
+	
 }

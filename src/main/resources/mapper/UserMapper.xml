@@ -152,5 +152,7 @@
 		WHERE			u_id = #{username}
 		AND				u_auth = 'ROLE_ADMIN'
 	</delete>
+	
+	
 		
 </mapper>
