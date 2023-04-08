@@ -75,10 +75,8 @@
 	
 	<!-- 유저 리스트 불러오기 -->
 	<select id="selectUserList" parameterType="Pagination" resultMap="userMap">
-		SELECT 			u.*, GROUP_CONCAT(u_auth) AS u_auth
-		FROM 			lc_user u
-		LEFT JOIN 		lc_auth a ON u.u_id = a.u_id
-		GROUP BY 		u_id
+		SELECT 			*
+		FROM 			lc_user
 		ORDER BY		u_idx	DESC
 		LIMIT			#{pageNum}, #{perPage}
 	</select>
@@ -136,11 +134,12 @@
 	
 	<!-- getUserByUsername -->
 	<select id="getUserByUsername" parameterType="String" resultMap="userMap">
-		SELECT 		*
-		FROM		lc_user
-		WHERE		u_id = #{username}
+		SELECT 		u.*, a.u_auth
+		FROM		lc_user u
+		LEFT JOIN	lc_auth a ON u.u_id = a.u_id
+		WHERE		u.u_id = #{username}
 	</select>
-	
+		
 	<!-- addRoleAdmin -->
 	<insert id="addRoleAdmin" parameterType="String">
 		INSERT INTO		lc_auth		(u_id, u_auth)
