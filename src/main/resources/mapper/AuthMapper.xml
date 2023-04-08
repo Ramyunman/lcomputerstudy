@@ -3,7 +3,7 @@
 <mapper namespace="com.lcomputerstudy.example.mapper.AuthMapper">
 
 	<!-- User의 권한 불러오기 -->
-	<select id="loadUserAuthorities" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+	<select id="loadUserAuthorities" parameterType="String" resultType="com.lcomputerstudy.example.domain.User">
 		SELECT		u_auth
 		FROM		lc_auth
 		WHERE		u_id = #{username} 

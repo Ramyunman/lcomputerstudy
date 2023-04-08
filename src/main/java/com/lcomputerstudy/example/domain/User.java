@@ -98,6 +98,8 @@ public class User implements UserDetails {
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}
+	
+	// 계정이 가지고 있는 권한 리턴
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -113,21 +115,29 @@ public class User implements UserDetails {
 		// TODO Auto-generated method stub
 		return username;
 	}
+	
+	// 계정이 만료 되었는지를 리턴 true: 만료되지 않음
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return isAccountNonExpired;
 	}
+	
+	// 계정이 잠겨있는지를 리턴	
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
 		return isAccountNonLocked;
 	}
+	
+	// 패스워드가 만료되었는지를 리턴
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return isCredentialsNonExpired;
 	}
+	
+	// 계정이 사용가능한지를 리턴
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
