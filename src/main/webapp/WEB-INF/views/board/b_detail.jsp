@@ -63,6 +63,47 @@
 			<td>${board.bDateTime }</td>
 		</tr>
 		
+		<c:choose>
+			<!-- 1. 관리자이면서 작성자 -->
+			<c:when test="${user.authorities eq 'ROLE_ADMIN' and board.user.username eq sessionScope.username}">
+				<tr style="height:50px;">
+					<td style="border:none;">
+						<a href="${pageContext.request.contextPath}/before-board-update/${board.bIdx}" style="width:70%;font-weight:700;background-color:#818181;color:#fff;">수정</a>
+					</td>
+					<td style="border:none;">
+						<a href="${pageContext.request.contextPath}/board-delete/${board.bIdx}" style="width:70%;font-weight:700;background-color:red;color:#fff;">삭제</a>
+					</td>
+				</tr>
+			</c:when>
+			<!-- 2. 관리자이면서 작성자가 아닌 경우 -->
+			<c:when test="${user.authorities eq 'ROLE_ADMIN' and board.user.username ne sessionScope.username}">
+				<tr style="height:50px;">
+					<td style="border:none;">
+						<a href="${pageContext.request.contextPath}/board-delete/${board.bIdx}" style="width:70%;font-weight:700;background-color:red;color:#fff;">삭제</a>
+					</td>
+				</tr>
+			</c:when>
+			<!-- 3. 관리자가 아니고 작성자인 경우 -->
+			<c:when test="${user.authorities ne 'ROLE_ADMIN' and board.user.username eq sessionScope.username}">
+				<tr style="height:50px;">
+					<td style="border:none;">
+						<a href="${pageContext.request.contextPath}/before-board-update/${board.bIdx}" style="width:70%;font-weight:700;background-color:#818181;color:#fff;">수정</a>
+					</td>
+					<td style="border:none;">
+						<a href="${pageContext.request.contextPath}/board-delete/${board.bIdx}" style="width:70%;font-weight:700;background-color:red;color:#fff;">삭제</a>
+					</td>
+				</tr>
+			</c:when>
+			<!-- 4. 관리자가 아니고 작성자가 아닌 경우 -->
+			<c:otherwise>
+				<!-- 아무것도 표시하지 않음 -->
+			</c:otherwise>
+		</c:choose>
+		
+	
+	
+	
+	<!--  
 		<tr style="height:50px;">
 			<td style="border:none;">
 				<a href="${pageContext.request.contextPath}/before-board-update/${board.bIdx}" style="width:70%;font-weight:700;background-color:#818181;color:#fff;">수정</a>
@@ -71,7 +112,7 @@
 				<a href="${pageContext.request.contextPath}/board-delete/${board.bIdx}" style="width:70%;font-weight:700;background-color:red;color:#fff;">삭제</a>
 			</td>
 		</tr>
-		
+	-->
 	</table>
 	<a href="${pageContext.request.contextPath}/board-list">목록으로</a>
 	<a href="${pageContext.request.contextPath}/board-replyBeforeSignUp/${board.bIdx}">답글 등록</a>
