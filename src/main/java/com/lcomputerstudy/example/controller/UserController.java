@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.Pagination;
 import com.lcomputerstudy.example.domain.User;
+import com.lcomputerstudy.example.service.AuthService;
 import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.UserService;
 
@@ -44,6 +45,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userservice;	//로직 구현
+	
+	@Autowired
+	AuthService authservice;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -175,30 +179,18 @@ public class UserController {
 		return "/user/update_result";
 	}
 	
-	@PostMapping("/user-addRoleAdmin")		//user 권한 추가
-	public ResponseEntity<?> addRoleAdmin(@RequestParam String username, Model model) {
-		User user = userservice.getUserByUsername(username);
-		Collection<GrantedAuthority> authorities = new ArrayList<>(user.getAuthorities());
-		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		user.setAuthorities(authorities);
-		userservice.addRoleAdmin(username);
-		model.addAttribute("user", user);
+	@PostMapping("/user-addRoleAdmin")			//ROLE_ADMIN 추가
+	public String addRoleAdmin(@RequestParam String username) {
+		authservice.addRoleAdmin(username);
+		return "/user/u_list";
 		
-		return ResponseEntity.ok().build();	
 	}
 
-	@PostMapping("/user-removeRoleAdmin")		//user 권한 삭제
-	public ResponseEntity<?> removeRoleAdmin(@RequestParam String username, Model model) {
-		User user = userservice.getUserByUsername(username);
-
-		Collection<GrantedAuthority> authorities = new ArrayList<>(user.getAuthorities());
-		authorities.remove(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		user.setAuthorities(authorities);
-		userservice.removeRoleAdmin(username);
-		model.addAttribute("user", user);
+	@PostMapping("/user-removeRoleAdmin")		//ROLE_ADMIN 삭제
+	public String removeRoleAdmin(@RequestParam String username) {
+		authservice.removeRoleAdmin(username);
+		return "/user/u_list";
 		
-		
-		return ResponseEntity.ok().build();	
 	}
 	
 }
