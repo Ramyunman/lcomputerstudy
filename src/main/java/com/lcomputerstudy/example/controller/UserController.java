@@ -182,14 +182,14 @@ public class UserController {
 	@PostMapping("/user-addRoleAdmin")			//ROLE_ADMIN 추가
 	public String addRoleAdmin(@RequestParam String username) {
 		authservice.addRoleAdmin(username);
-		return "/user/u_list";
+		return "/user/list";
 		
 	}
 
 	@PostMapping("/user-removeRoleAdmin")		//ROLE_ADMIN 삭제
 	public String removeRoleAdmin(@RequestParam String username) {
 		authservice.removeRoleAdmin(username);
-		return "/user/u_list";
+		return "/user/list";
 		
 	}
 	

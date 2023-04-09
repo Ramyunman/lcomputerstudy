@@ -3,8 +3,9 @@
 <mapper namespace="com.lcomputerstudy.example.mapper.AuthMapper">
 
 	<!-- User의 권한 불러오기 -->
-	<select id="loadUserAuthorities" parameterType="String" resultType="com.lcomputerstudy.example.domain.User">
-		SELECT		u_auth
+	<select id="loadUserAuthorities" parameterType="String" resultType="Authority">
+		SELECT		u_id 	as username,
+					u_auth	as authority
 		FROM		lc_auth
 		WHERE		u_id = #{username} 
 	</select>

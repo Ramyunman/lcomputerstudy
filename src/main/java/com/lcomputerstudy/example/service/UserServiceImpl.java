@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 		// 유저 권한 조회
 		List<GrantedAuthority> authorities = authMapper.loadUserAuthorities(username)
 				.stream()
-				.map(authority -> new SimpleGrantedAuthority(authority.toString()))
+				.map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
 				.collect(Collectors.toList());
 				
 		user.setAuthorities(authorities);

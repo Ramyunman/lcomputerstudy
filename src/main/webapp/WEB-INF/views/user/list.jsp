@@ -56,6 +56,10 @@
 			<th>No</th>
 			<th>ID</th>
 			<th>이름</th>
+			<c:set var="adminRole" value="ROLE_ADMIN"/>
+			<c:if test="${isAdmin}">
+			<th>관리자</th>
+			</c:if>
 		</tr>
 		<c:forEach items="${userList}" var="user" varStatus="status">
 			<tr>
@@ -65,8 +69,8 @@
 				<c:set var="adminRole" value="ROLE_ADMIN"/>
 				<c:if test="${isAdmin}">
 					<td>
-						<button type="button" class="adminOn">관리자On</button>
-    					<button type="button" class="adminOff">관리자Off</button>
+						<button type="button" class="adminOn">ON</button>
+    					<button type="button" class="adminOff">OFF</button>
     				</td>
     			</c:if>
 			</tr>
