@@ -64,7 +64,7 @@
 		</tr>
 		
 		<c:choose>
-			<c:when test="${isAdmin and board.user.username eq sessionScope.loginUser.username}">
+			<c:when test="${loginUser.authorities.contains('ROLE_ADMIN') and board.user.username == user.username}">
 				<!-- 1. 관리자이면서 작성자 -->
 				<tr style="height:50px;">
 					<td style="border:none;">
@@ -75,7 +75,7 @@
 					</td>
 				</tr>
 			</c:when>
-			<c:when test="${isAdmin and board.user.username ne sessionScope.loginUser.username}">
+			<c:when test="${loginUser.authorities.contains('ROLE_ADMIN') and board.user.username != loginUser.username}">
 				<!-- 2. 관리자이면서 작성자가 아닌 경우 -->
 				<tr style="height:50px;">
 					<td style="border:none;">
@@ -83,7 +83,7 @@
 					</td>
 				</tr>
 			</c:when>
-			<c:when test="${board.user.username eq sessionScope.loginUser.username}">
+			<c:when test="${board.user.username == loginUser.username}">
 				<!-- 3. 관리자가 아니고 작성자인 경우 -->
 				<tr style="height:50px;">
 					<td style="border:none;">

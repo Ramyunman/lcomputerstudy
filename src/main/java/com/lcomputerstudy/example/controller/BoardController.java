@@ -95,11 +95,17 @@ public class BoardController {
 	@RequestMapping("/board-detail/{bIdx}")		
 	public String boardDetail(@PathVariable("bIdx") int bIdx, Model model) {
 		Board board = boardservice.showBoardDetail(bIdx);
-		User user = userservice.getUserByUsername(board.getUser().getUsername());	// 작성자 정보 가져오기
 		List<Comment> commentList = commentservice.selectCommentList(bIdx);
 		model.addAttribute("board", board);
 		model.addAttribute("commentList",commentList);
-		model.addAttribute("user",user);	// 작성자 정보 추가 ?
+		
+		// 현재 로그인한 사용자 정보를 가져와서 모델에 추가
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.isAuthenticated()) {
+			User loginUser = (User) auth.getPrincipal();
+			model.addAttribute("loginUser", loginUser);
+		}
+		
 		return "/board/b_detail";
 	}
 	
