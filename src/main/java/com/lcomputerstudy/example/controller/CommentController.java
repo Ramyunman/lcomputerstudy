@@ -58,7 +58,7 @@ public class CommentController {
 	
 	@RequestMapping("/comment-reply")
 	public String commentCreateReply(Comment comment, Model model) {
-		// 현재 로그인한 유저의 정보를 가져와서 board 객체에 추가
+		// 현재 로그인한 유저의 정보를 가져와서 comment 객체에 추가
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null && auth.isAuthenticated()) {
 			User loginUser = (User) auth.getPrincipal();
