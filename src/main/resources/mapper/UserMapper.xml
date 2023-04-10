@@ -7,6 +7,7 @@
     	<result property="username" column="u_id" />
     	<result property="password" column="u_password" />
     	<result property="uName" column="u_name" />
+    	<result property="uDateTime" column="u_datetime"/>
     	<result property="uTel" column="u_tel" />
     	<result property="uAge" column="u_age" />
 	</resultMap>
@@ -131,14 +132,40 @@
 		FROM 		lc_user
 	</select>
 	
+	<resultMap type="User" id="userMap2">
+		<id property="uIdx" column="u_idx" />
+    	<result property="username" column="u_id" />
+    	<result property="password" column="u_password" />
+    	<result property="uName" column="u_name" />
+    	<result property="uDateTime" column="u_datetime"/>
+    	<result property="uTel" column="u_tel" />
+    	<result property="uAge" column="u_age" />
+    	
+    	<collection property="authorities" ofType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+    		<result column="u_auth"/>    	
+    	</collection>
+	</resultMap>
+	
 	<!-- getUserByUsername -->
-	<select id="getUserByUsername" parameterType="String" resultMap="userMap">
-		SELECT 		u.*, GROUP_CONCAT(u_auth) AS u_auth
+	<select id="getUserByUsername" parameterType="String" resultMap="userMap2">
+		SELECT 		u.*, a.u_auth
 		FROM		lc_user u
 		LEFT JOIN	lc_auth a ON u.u_id = a.u_id
 		WHERE		u.u_id = #{username}
-		GROUP BY 	u.u_id
 	</select>
+	
+	<!-- addRoleAdmin -->
+	<insert id="addRoleAdmin" parameterType="User">
+		INSERT INTO		lc_auth		(u_id, u_auth)
+		VALUES			(#{username}, 'ROLE_ADMIN')
+	</insert>
+	
+	<!-- removeRoleAdmin -->
+	<delete id="removeRoleAdmin" parameterType="User">
+		DELETE FROM		lc_auth
+		WHERE			u_id = #{username}
+		AND				u_auth = 'ROLE_ADMIN'
+	</delete>
 		
 
 	

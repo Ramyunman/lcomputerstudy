@@ -49,6 +49,7 @@
     	<id property="uIdx" column="u_idx" />
     	<result property="username" column="u_id" />
     	<result property="password" column="u_password" />
+    	<result property="uDateTime" column="u_datetime"/>
     	<result property="uName" column="u_name" />
     	<result property="uTel" column="u_tel" />
     	<result property="uAge" column="u_age" />

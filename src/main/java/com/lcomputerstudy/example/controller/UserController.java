@@ -46,8 +46,8 @@ public class UserController {
 	@Autowired
 	UserService userservice;	//로직 구현
 	
-	@Autowired
-	AuthService authservice;
+//	@Autowired
+//	AuthService authservice;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -83,10 +83,7 @@ public class UserController {
 		user.setEnabled(true);
 		user.setAccountNonLocked(true);
 		user.setCredentialsNonExpired(true);
-		user.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN")
-				.stream()
-				.map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
-				.collect(Collectors.toList()));
+		user.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
 		
 		//유저 생성
 		userservice.createUser(user);
@@ -181,14 +178,16 @@ public class UserController {
 	
 	@PostMapping("/user-addRoleAdmin")			//ROLE_ADMIN 추가
 	public String addRoleAdmin(@RequestParam String username) {
-		authservice.addRoleAdmin(username);
+		User user = userservice.getUserByUsername(username);
+		userservice.addRoleAdmin(user);
 		return "/user/list";
 		
 	}
 
 	@PostMapping("/user-removeRoleAdmin")		//ROLE_ADMIN 삭제
 	public String removeRoleAdmin(@RequestParam String username) {
-		authservice.removeRoleAdmin(username);
+		User user = userservice.getUserByUsername(username);
+		userservice.removeRoleAdmin(user);
 		return "/user/list";
 		
 	}

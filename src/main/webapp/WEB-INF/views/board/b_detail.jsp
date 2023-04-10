@@ -64,8 +64,8 @@
 		</tr>
 		
 		<c:choose>
-			<!-- 1. 관리자이면서 작성자 -->
-			<c:when test="${user.authorities eq 'ROLE_ADMIN' and board.user.username eq sessionScope.username}">
+			<c:when test="${isAdmin and board.user.username eq sessionScope.loginUser.username}">
+				<!-- 1. 관리자이면서 작성자 -->
 				<tr style="height:50px;">
 					<td style="border:none;">
 						<a href="${pageContext.request.contextPath}/before-board-update/${board.bIdx}" style="width:70%;font-weight:700;background-color:#818181;color:#fff;">수정</a>
@@ -75,16 +75,16 @@
 					</td>
 				</tr>
 			</c:when>
-			<!-- 2. 관리자이면서 작성자가 아닌 경우 -->
-			<c:when test="${user.authorities eq 'ROLE_ADMIN' and board.user.username ne sessionScope.username}">
+			<c:when test="${isAdmin and board.user.username ne sessionScope.loginUser.username}">
+				<!-- 2. 관리자이면서 작성자가 아닌 경우 -->
 				<tr style="height:50px;">
 					<td style="border:none;">
 						<a href="${pageContext.request.contextPath}/board-delete/${board.bIdx}" style="width:70%;font-weight:700;background-color:red;color:#fff;">삭제</a>
 					</td>
 				</tr>
 			</c:when>
-			<!-- 3. 관리자가 아니고 작성자인 경우 -->
-			<c:when test="${user.authorities ne 'ROLE_ADMIN' and board.user.username eq sessionScope.username}">
+			<c:when test="${board.user.username eq sessionScope.loginUser.username}">
+				<!-- 3. 관리자가 아니고 작성자인 경우 -->
 				<tr style="height:50px;">
 					<td style="border:none;">
 						<a href="${pageContext.request.contextPath}/before-board-update/${board.bIdx}" style="width:70%;font-weight:700;background-color:#818181;color:#fff;">수정</a>
@@ -94,15 +94,11 @@
 					</td>
 				</tr>
 			</c:when>
-			<!-- 4. 관리자가 아니고 작성자가 아닌 경우 -->
 			<c:otherwise>
-				<!-- 아무것도 표시하지 않음 -->
+				<!-- 4. 관리자가 아니고 작성자가 아닌 경우 -->
 			</c:otherwise>
 		</c:choose>
 		
-	
-	
-	
 	<!--  
 		<tr style="height:50px;">
 			<td style="border:none;">

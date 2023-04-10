@@ -25,48 +25,35 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserMapper userMapper;
 	
-	@Autowired
-	AuthMapper authMapper;
+//	@Autowired
+//	AuthMapper authMapper;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// 유저 정보 조회
-		User user = userMapper.readUser(username);
-		if(user == null) {
-			throw new UsernameNotFoundException("User not found");
-		}
-		
-		// 유저 권한 조회
-		List<GrantedAuthority> authorities = authMapper.loadUserAuthorities(username)
-				.stream()
-				.map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
-				.collect(Collectors.toList());
-				
-		user.setAuthorities(authorities);
+		User user = userMapper.readUser(username);		
+		user.setAuthorities(getAuthorities(username));
 		return user;
 	}
-
-	@Override		// 유저 읽기
-	public User readUser(String username) {
-		return userMapper.readUser(username);
-	}
-
-	@Override		// 유저 가입
-	public void createUser(User user) {
-		userMapper.createUser(user);
-		
-	}
-
-	@Override
-	public void createAuthorities(User user) {
-		userMapper.createAuthority(user);
-		
-	}
-
+	
 	@Override
 	public Collection<GrantedAuthority> getAuthorities(String username) {
 		List<GrantedAuthority> authorities = userMapper.readAuthorities(username);
 		return authorities;
+	}
+
+	@Override		// 유저 가입
+	public void createUser(User user) {
+		userMapper.createUser(user);	
+	}
+	
+	@Override
+	public void createAuthorities(User user) {
+		userMapper.createAuthority(user);
+	}
+	
+	@Override		// 유저 읽기
+	public User readUser(String username) {
+		return userMapper.readUser(username);
 	}
 
 	@Override		// 유저 리스트 불러오기
@@ -102,6 +89,16 @@ public class UserServiceImpl implements UserService {
 	@Override		//세션 ID 가져오기(user 객체 적용 가능)
 	public User getUserByUsername(String username) {
 		return userMapper.getUserByUsername(username);
+	}
+
+	@Override		//ROLE_ADMIN 추가
+	public void addRoleAdmin(User user) {
+		userMapper.addRoleAdmin(user);
+	}
+
+	@Override		//ROLE_ADMIN 삭제
+	public void removeRoleAdmin(User user) {
+		userMapper.removeRoleAdmin(user);
 	}
 	
 
