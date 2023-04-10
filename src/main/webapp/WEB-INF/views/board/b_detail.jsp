@@ -64,7 +64,7 @@
 		</tr>
 		
 		<c:choose>
-			<c:when test="${loginUser.authorities.contains('ROLE_ADMIN') and board.user.username == user.username}">
+			<c:when test="${isAdmin and board.user.username == loginUser.username}">
 				<!-- 1. 관리자이면서 작성자 -->
 				<tr style="height:50px;">
 					<td style="border:none;">
@@ -75,7 +75,7 @@
 					</td>
 				</tr>
 			</c:when>
-			<c:when test="${loginUser.authorities.contains('ROLE_ADMIN') and board.user.username != loginUser.username}">
+			<c:when test="${isAdmin and board.user.username != loginUser.username}">
 				<!-- 2. 관리자이면서 작성자가 아닌 경우 -->
 				<tr style="height:50px;">
 					<td style="border:none;">
@@ -83,7 +83,7 @@
 					</td>
 				</tr>
 			</c:when>
-			<c:when test="${board.user.username == loginUser.username}">
+			<c:when test="${!isAdmin and board.user.username == loginUser.username}">
 				<!-- 3. 관리자가 아니고 작성자인 경우 -->
 				<tr style="height:50px;">
 					<td style="border:none;">
@@ -94,21 +94,11 @@
 					</td>
 				</tr>
 			</c:when>
-			<c:otherwise>
-				<!-- 4. 관리자가 아니고 작성자가 아닌 경우 -->
-			</c:otherwise>
+			<c:when test="${!isAdmin and board.user.username != loginUser.username}">
+				<!-- 4. 관리자가 아니고 작성자도 아닌 경우 -->
+			</c:when>
 		</c:choose>
 		
-	<!--  
-		<tr style="height:50px;">
-			<td style="border:none;">
-				<a href="${pageContext.request.contextPath}/before-board-update/${board.bIdx}" style="width:70%;font-weight:700;background-color:#818181;color:#fff;">수정</a>
-			</td>
-			<td style="border:none;">
-				<a href="${pageContext.request.contextPath}/board-delete/${board.bIdx}" style="width:70%;font-weight:700;background-color:red;color:#fff;">삭제</a>
-			</td>
-		</tr>
-	-->
 	</table>
 	<a href="${pageContext.request.contextPath}/board-list">목록으로</a>
 	<a href="${pageContext.request.contextPath}/board-replyBeforeSignUp/${board.bIdx}">답글 등록</a>
@@ -150,10 +140,30 @@
 				<td>${comment.cDateTime}</td>
 				<td>${comment.user.username}</td>				
 				<td>
-					<button type="button" class="btnComment">댓글</button>
-					<button type="button" class="btnComment-Update">수정</button>
-					<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>	
-				</td>				
+					<c:choose>
+						<c:when test="${isAdmin and comment.user.username == loginUser.username}">
+							<!-- 1. 관리자이면서 작성자 -->
+							<button type="button" class="btnComment">댓글</button>
+							<button type="button" class="btnComment-Update">수정</button>
+							<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>
+						</c:when>
+						<c:when test="${isAdmin and comment.user.username != loginUser.username}">
+							<!-- 2. 관리자이면서 작성자가 아님 -->
+							<button type="button" class="btnComment">댓글</button>
+							<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>
+						</c:when>
+						<c:when test="${!isAdmin and comment.user.username == loginUser.username}">
+							<!-- 3. 관리자가 아니면서 작성자 -->
+							<button type="button" class="btnComment">댓글</button>
+							<button type="button" class="btnComment-Update">수정</button>
+							<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>
+						</c:when>
+						<c:when test="${!isAdmin and comment.user.username != loginUser.username}">
+							<!-- 4. 관리자가 아니면서 작성자도 아님 -->
+							<button type="button" class="btnComment">댓글</button>
+						</c:when>
+					</c:choose>	
+				</td>							
 			</tr>
 					
 			<tr style="display: none;">		<!-- 대댓글 등록창 -->

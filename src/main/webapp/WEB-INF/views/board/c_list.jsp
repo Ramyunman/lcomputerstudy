@@ -30,10 +30,30 @@
 				<td>${comment.cDateTime}</td>
 				<td>${comment.user.username}</td>	
 				<td>
-					<button type="button" class="btnComment">댓글</button>
-					<button type="button" class="btnComment-Update">수정</button>
-					<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>	
-				</td>				
+					<c:choose>
+						<c:when test="${isAdmin and comment.user.username == loginUser.username}">
+							<!-- 1. 관리자이면서 작성자 -->
+							<button type="button" class="btnComment">댓글</button>
+							<button type="button" class="btnComment-Update">수정</button>
+							<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>
+						</c:when>
+						<c:when test="${isAdmin and comment.user.username != loginUser.username}">
+							<!-- 2. 관리자이면서 작성자가 아님 -->
+							<button type="button" class="btnComment">댓글</button>
+							<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>
+						</c:when>
+						<c:when test="${!isAdmin and comment.user.username == loginUser.username}">
+							<!-- 3. 관리자가 아니면서 작성자 -->
+							<button type="button" class="btnComment">댓글</button>
+							<button type="button" class="btnComment-Update">수정</button>
+							<button type="button" class="btnComment-Delete" cIdx="${comment.cIdx }">삭제</button>
+						</c:when>
+						<c:when test="${!isAdmin and comment.user.username != loginUser.username}">
+							<!-- 4. 관리자가 아니면서 작성자도 아님 -->
+							<button type="button" class="btnComment">댓글</button>
+						</c:when>
+					</c:choose>	
+				</td>					
 			</tr>
 			
 			<tr style="display: none;">			<!-- 대댓글 등록창 -->

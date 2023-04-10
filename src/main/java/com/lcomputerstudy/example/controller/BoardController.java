@@ -2,6 +2,7 @@ package com.lcomputerstudy.example.controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -104,6 +106,7 @@ public class BoardController {
 		if (auth != null && auth.isAuthenticated()) {
 			User loginUser = (User) auth.getPrincipal();
 			model.addAttribute("loginUser", loginUser);
+			model.addAttribute("isAdmin", loginUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		}
 		
 		return "/board/b_detail";

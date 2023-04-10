@@ -83,7 +83,7 @@ public class UserController {
 		user.setEnabled(true);
 		user.setAccountNonLocked(true);
 		user.setCredentialsNonExpired(true);
-		user.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
+		user.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER"));
 		
 		//유저 생성
 		userservice.createUser(user);
