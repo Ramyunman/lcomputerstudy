@@ -8,6 +8,8 @@
 			b_title,
 			b_content,
 			u_idx,
+			b_filename,
+			b_filepath,
 			b_group,
 			b_order,
 			b_depth
@@ -15,6 +17,8 @@
 			#{bTitle},
 			#{bContent},
 			#{user.uIdx},
+			#{bFileName},
+			#{bFilePath},
 			#{bGroup},
 			1,
 			0

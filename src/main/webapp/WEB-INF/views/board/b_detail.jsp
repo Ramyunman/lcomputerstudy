@@ -109,6 +109,10 @@
 			<button type="button" class="o_btnComment-register">등록</button>
 			<button type="button" class="o_btnComment-cancel">취소</button>
 		</div>
+		
+		<c:if test="${not empty board.bFileName}">
+  			<img src="http://localhost:8080/lcomputerstudy/upload/${board.bFileName}" alt="첨부파일">
+		</c:if>
 	
 	<h2> Comment 목록 </h2>
 	<table id="commentList">

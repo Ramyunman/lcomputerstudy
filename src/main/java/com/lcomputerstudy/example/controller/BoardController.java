@@ -1,5 +1,10 @@
 package com.lcomputerstudy.example.controller;
 
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -8,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -22,6 +28,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.Comment;
@@ -41,16 +49,16 @@ public class BoardController {
 	@Autowired 
 	UserService userservice;
 	
-	@Autowired
+	@Autowired 
 	CommentService commentservice;
-		
+	
 	@RequestMapping("/board-beforeSignUp")
 	public String beforeSignup() {
 		return "/board/b_signup";
 	}
 	
 	@RequestMapping("/board-signup")
-	public String createBoard(Board board) {
+	public String createBoard(Board board, @RequestParam("file") MultipartFile file, MultipartHttpServletRequest request) {		
 		// 현재 로그인한 유저의 정보를 가져와서 board 객체에 추가
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String username = authentication.getName();
@@ -58,11 +66,30 @@ public class BoardController {
 	    User user = userservice.getUserByUsername(username);
 		// Board 객체에 사용자의 User 객체를 설정함
 	    board.setUser(user);
+	    
+	    // 업로드된 파일이 있을 경우, Board 객체에 파일 정보를 추가함
+	    if(!file.isEmpty()) {
+	    	try {
+	    		// 파일 저장
+	    		byte[] bytes = file.getBytes();
+	    		String fileName = file.getOriginalFilename();	//파일 이름
+		    	String filePath = "/upload/" + fileName;		//파일 경로
+	    		String uploadPath = request.getServletContext().getRealPath("/upload/");
+	    		Path path = Paths.get(uploadPath + fileName);
+	    		Files.write(path, bytes);
+	    		
+	    		// Board 객체에 파일 정보 추가
+		    	board.setbFileName(fileName);
+		    	board.setbFilePath(filePath);
+		    	
+	    	} catch (IOException e) {
+	    		e.printStackTrace();
+	    	}
+	    }
+	    
 	    // 보드 생성
 		boardservice.createBoard(board);
-				
 		return "/board/b_signup_result";
-	
 	}
 			
 	@RequestMapping("/board-list")		//board list 추가
