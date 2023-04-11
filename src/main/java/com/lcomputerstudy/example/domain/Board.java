@@ -1,6 +1,7 @@
 package com.lcomputerstudy.example.domain;
 
 import java.util.Collection;
+
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
