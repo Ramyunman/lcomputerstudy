@@ -43,6 +43,8 @@
     	<result property="bContent" column="b_content" />
     	<result property="bViews" column="b_views" />
     	<result property="bDateTime" column="b_datetime" />
+    	<result property="bFileName" column="b_filename" />
+    	<result property="bFilePath" column="b_filepath" />
     	<result property="bGroup" column="b_group" />
     	<result property="bOrder" column="b_order" />
     	<result property="bDepth" column="b_depth" />

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.web.multipart.MultipartFile;
 
 public class Board {
 	private int bIdx;				// b_idx
