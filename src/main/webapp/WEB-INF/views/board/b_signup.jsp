@@ -20,7 +20,7 @@
 			<p> 제목 : <input type = "text" name="bTitle" placeholder="제목 입력"> </p>
 			<p> 내용 : </p>
 			<textarea name="bContent" rows="10" cols="50" placeholder="내용 입력"></textarea>  
-			<p> 파일 : <input type="file" name="bFileName" placeholder=" 파일이름 입력"> </p>	
+			<p> 파일 : <input type="file" name="uploadFile" placeholder=" 파일이름 입력"> </p>	
 		  
 			<p> <button type="submit">등록하기</button> </p>
 		</form>

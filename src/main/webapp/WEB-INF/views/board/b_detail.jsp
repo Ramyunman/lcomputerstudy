@@ -111,7 +111,7 @@
 		</div>
 		
 		<c:if test="${not empty board.bFileName}">
-  			<img src="http://localhost:8080/lcomputerstudy/upload/${board.bFileName}" alt="첨부파일">
+  			<img src="${pageContext.request.contextPath}/upload/${board.bFileName}">
 		</c:if>
 	
 	<h2> Comment 목록 </h2>

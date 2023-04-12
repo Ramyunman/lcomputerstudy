@@ -58,7 +58,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board-signup")
-	public String createBoard(Board board, @RequestParam("file") MultipartFile file, MultipartHttpServletRequest request) {		
+	public String createBoard(Board board, @RequestParam("uploadFile") MultipartFile file, MultipartHttpServletRequest request) {		
 		// 현재 로그인한 유저의 정보를 가져와서 board 객체에 추가
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String username = authentication.getName();
@@ -81,6 +81,7 @@ public class BoardController {
 	    		// Board 객체에 파일 정보 추가
 		    	board.setbFileName(fileName);
 		    	board.setbFilePath(filePath);
+		   
 		    	
 	    	} catch (IOException e) {
 	    		e.printStackTrace();
