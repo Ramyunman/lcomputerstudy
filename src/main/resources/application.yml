@@ -27,6 +27,8 @@ spring:
     url: jdbc:mariadb://127.0.0.1:3306/lockwoodmk2?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
+    hikari:
+      connection-timeout: 60000
   
         
   session:
